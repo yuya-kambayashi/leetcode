@@ -28,4 +28,52 @@ public class LC605Test {
 
         Assertions.assertEquals(expected, actual);
     }
+    @Test
+    void Case3() {
+
+        int n = 1;
+        int[]flowerbed = {0,0,0,1};
+
+        var actual = new LC605().canPlaceFlowers(flowerbed, n);
+
+        var expected = true;
+
+        Assertions.assertEquals(expected, actual);
+    }
+    @Test
+    void Case4() {
+
+        int n = 2;
+        int[]flowerbed = {0,0,0,1};
+
+        var actual = new LC605().canPlaceFlowers(flowerbed, n);
+
+        var expected = false;
+
+        Assertions.assertEquals(expected, actual);
+    }
+    @Test
+    void Case5() {
+
+        int n = 1;
+        int[]flowerbed = {1,0,0};
+
+        var actual = new LC605().canPlaceFlowers(flowerbed, n);
+
+        var expected = true;
+
+        Assertions.assertEquals(expected, actual);
+    }
+    @Test
+    void Case6() {
+
+        int n = 2;
+        int[]flowerbed = {1,0,0};
+
+        var actual = new LC605().canPlaceFlowers(flowerbed, n);
+
+        var expected = false;
+
+        Assertions.assertEquals(expected, actual);
+    }
 }
