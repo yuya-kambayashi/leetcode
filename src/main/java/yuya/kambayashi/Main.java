@@ -15,5 +15,7 @@ public class Main {
             // Ctrl+F8 を押すといつでも他のブレークポイントを追加できます。
             System.out.println("i = " + i);
         }
+
+        System.out.printf("test!");
     }
 }
