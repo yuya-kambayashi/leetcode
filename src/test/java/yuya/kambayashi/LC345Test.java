@@ -70,4 +70,37 @@ public class LC345Test {
 
         Assertions.assertEquals(expected, actual);
     }
+    @Test
+    void Case7() {
+
+        var s = "aiue";
+
+        var actual = new LC345().reverseVowels(s);
+
+        var expected = "euia";
+
+        Assertions.assertEquals(expected, actual);
+    }
+    @Test
+    void Case8() {
+
+        var s = "aibue";
+
+        var actual = new LC345().reverseVowels(s);
+
+        var expected = "eubia";
+
+        Assertions.assertEquals(expected, actual);
+    }
+    @Test
+    void Case9() {
+
+        var s = "abiue";
+
+        var actual = new LC345().reverseVowels(s);
+
+        var expected = "ebuia";
+
+        Assertions.assertEquals(expected, actual);
+    }
 }
