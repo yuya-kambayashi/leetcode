@@ -13,7 +13,14 @@ public class LC151Test {
     @Test
     void Case1() {
         doTest("the sky is blue", "blue is sky the");
+    }
+    @Test
+    void Case2() {
         doTest("  hello world  ", "world hello");
+    }
+
+    @Test
+    void Case3() {
         doTest("a good   example", "example good a");
     }
 }
