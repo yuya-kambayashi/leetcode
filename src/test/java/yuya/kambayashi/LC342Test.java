@@ -22,4 +22,10 @@ public class LC342Test {
     void Case3() {
         doTest(1, true);
     }
+    @Test
+    void Case4() {
+        doTest(0, false);
+        doTest(-1, false);
+    }
+
 }
