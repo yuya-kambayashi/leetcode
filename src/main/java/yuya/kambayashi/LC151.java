@@ -1,21 +1,19 @@
 package yuya.kambayashi;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
 public class LC151 {
     public String reverseWords(String s) {
 
-        String[] sa = s.split(" ");
+        s = s.trim();
 
-        StringBuilder sb = new StringBuilder();
+        List<String> words = Arrays.asList(s.split("\\s+"));
 
-        for(int i = sa.length - 1; i >= 0; i--) {
-            if (sa[i].equals(" ") || sa[i].equals("")){
-                continue;
-            }
-            sb.append(sa[i]);
+        Collections.reverse(words);
+        return String.join(" ", words );
 
-            sb.append(" ");
-        }
-
-        return sb.toString().trim();
     }
 }
