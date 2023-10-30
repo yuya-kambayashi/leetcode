@@ -1,8 +1,29 @@
 package yuya.kambayashi;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.List;
+
 public class LC443 {
     public int compress(char[] chars) {
 
-        return 1;
+        int i = 0, res = 0;
+
+        while (i < chars.length){
+            int groupLength = 1;
+
+            while(i + groupLength < chars.length && chars[i + groupLength] == chars[i]){
+                groupLength++;
+            }
+            chars[res++] = chars[i];
+            if (groupLength > 1){
+                for(char c : Integer.toString(groupLength).toCharArray()){
+                    chars[res++] = c;
+                }
+            }
+            i += groupLength;
+        }
+        return res;
     }
 }
