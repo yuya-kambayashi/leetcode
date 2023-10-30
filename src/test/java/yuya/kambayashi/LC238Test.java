@@ -8,7 +8,7 @@ public class LC238Test {
 
         var actual = new LC238().productExceptSelf(nums);
 
-        Assertions.assertEquals(expected, actual);
+        Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
