@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 public class LC443Test {
     void doTest(char[] nums, char[] expected) {
 
-        var actual = new LC443().compress(nums);
+        new LC443().compress(nums);
 
         Assertions.assertArrayEquals(expected, nums);
     }
