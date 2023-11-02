@@ -19,7 +19,7 @@ public class LC2265Test {
 
         TreeNode root = new TreeNode(1, left, right);
 
-        doTest(root, 5);
+        doTest(root, 4);
     }
     @Test
     void Case2() {
