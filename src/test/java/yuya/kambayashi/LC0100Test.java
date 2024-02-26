@@ -15,29 +15,28 @@ public class LC0100Test {
        
     public boolean isSameTree(TreeNode p, TreeNode q) {
         
+        if (p == null && q == null){
+            return true;
+        }
+        if (p == null || q == null){
+            return false;
+        }
+        
+        if (p.val != q.val){
+            return false;
+        }
+        
+        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
     }
     @Test
     void Case1() {
-        int[] nums = {2,3,6};
-        var actual = canTraverseAllPairs(nums);
+        
+        var p = new TreeNode(1, new TreeNode(2), new TreeNode(3));
+        var q = new TreeNode(1, new TreeNode(2), new TreeNode(3));
+        var actual = isSameTree(p, q);
         
         var expected = true;
         assertThat(actual).isEqualTo(expected);
     }
-    @Test
-    void Case2() {
-        int[] nums = {3,9,5};
-        var actual = canTraverseAllPairs(nums);
-        
-        var expected = false;
-        assertThat(actual).isEqualTo(expected);
-    }
-    @Test
-    void Case3() {
-        int[] nums = {4,3,12,8};
-        var actual = canTraverseAllPairs(nums);
-        
-        var expected = true;
-        assertThat(actual).isEqualTo(expected);
-    }
+
 }
