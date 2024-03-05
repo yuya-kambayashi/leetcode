@@ -4,6 +4,7 @@
  */
 package yuya.kambayashi;
 
+import java.util.Arrays;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 
@@ -14,8 +15,27 @@ import org.junit.jupiter.api.Test;
 public class LC0948Test {
        
     public int bagOfTokensScore(int[] tokens, int power) {
+        int low = 0;
+        int high = tokens.length - 1;
+        int score = 0;
+        Arrays.sort(tokens);
         
-        return 1;
+        while(low <= high){
+            if (power >= tokens[low]){
+                score += 1;
+                power -= tokens[low];
+                low += 1;
+            }
+            else if (low < high && score > 0){
+                score -= 1;
+                power += tokens[high];
+                high -= 1;
+            }
+            else{
+                return score;
+            }
+        }
+        return score;
     }
     @Test
     void Case1() {
@@ -49,6 +69,17 @@ public class LC0948Test {
         var actual = bagOfTokensScore(tokens, power);
         
         var expected = 2;
+        assertThat(actual).isEqualTo(expected);
+    }
+    @Test
+    void Case4() {
+        
+        int[] tokens = {25, 91};
+        int power = 99;
+        
+        var actual = bagOfTokensScore(tokens, power);
+        
+        var expected = 1;
         assertThat(actual).isEqualTo(expected);
     }
 }
