@@ -4,8 +4,10 @@
  */
 package yuya.kambayashi;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
@@ -16,6 +18,18 @@ import org.junit.jupiter.api.Test;
  */
 public class LC0141Test {
     public boolean hasCycle(ListNode head) {
+        
+        Set<ListNode> seen = new HashSet<>();
+        //List<ListNode> seen = new ArrayList<>();
+        
+        while(head != null){
+            if (seen.contains(head)){
+                return true;
+            }
+            
+            seen.add(head);
+            head = head.next;
+        }
                
         return false;
     }
@@ -35,6 +49,30 @@ public class LC0141Test {
         var actual = hasCycle(nodeA);
         
         var expected = true;
+        assertThat(actual).isEqualTo(expected);
+    }
+    @Test
+    void Case2() {
+        
+        ListNode nodeA = new ListNode(1);
+        ListNode nodeB = new ListNode(2);
+       
+        nodeB.next = nodeA;
+        nodeA.next = nodeB;
+        
+        var actual = hasCycle(nodeA);
+        
+        var expected = true;
+        assertThat(actual).isEqualTo(expected);
+    }
+    @Test
+    void Case3() {
+        
+        ListNode nodeA = new ListNode(1);
+        
+        var actual = hasCycle(nodeA);
+        
+        var expected = false;
         assertThat(actual).isEqualTo(expected);
     }
 }
