@@ -5,19 +5,21 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TemplateTest {
-    void doTest(String s, String t, boolean expected) {
-
-        var actual = new LC392().isSubsequence(s, t);
-
-        assertThat(actual).isEqualTo(expected);
+    
+    public boolean XXX() {
+        
+        return true;
     }
 
     @Test
     void Case1() {
-        doTest("abc", "ahbgdc", true);
+        
+        var actual = XXX();
+        
+        var expected = true;
+        
+        assertThat(actual).isEqualTo(expected);
     }
-    @Test
-    void Case2() {
-        doTest("axc", "ahbgdc", false);
-    }
+
+    
 }
