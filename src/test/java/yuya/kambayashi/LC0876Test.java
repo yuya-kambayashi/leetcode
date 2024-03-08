@@ -5,6 +5,8 @@
 package yuya.kambayashi;
 
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
@@ -17,10 +19,22 @@ public class LC0876Test {
      
     public ListNode middleNode(ListNode head) {
         
-        return null;
+        List<ListNode> nodes = new LinkedList<>();
+        
+        while(head != null){
+            nodes.add(head);
+            
+            head = head.next;
+        }
+        
+        return nodes.get(nodes.size()/ 2);
     }
     @Test
     void Case1() {
+        
+        ListNode a = new ListNode(1);
+        ListNode b = new ListNode(2, a);
+        
         
         ListNode head = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5)))));
         
@@ -28,5 +42,8 @@ public class LC0876Test {
         
         ListNode expected = new ListNode(3, new ListNode(4, new ListNode(5)));
         assertThat(actual).isEqualTo(expected);
+        
+        ListNode expected2 = new ListNode(2, new ListNode(4, new ListNode(5)));
+        assertThat(actual).isNotEqualTo(expected2);
     }
 }
