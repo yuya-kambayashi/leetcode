@@ -13,11 +13,29 @@ public class ListNode {
     ListNode next;
     
     ListNode(int x) {
-        val = x;
-        next = null;
+        this.val = x;
+        this.next = null;
     }
     ListNode(int x, ListNode next) {
-        val = x;
-        next = next;
+        this.val = x;
+        this.next = next;
+    }
+    
+    public boolean equals(Object obj){
+        
+        ListNode other = (ListNode)obj;
+        
+        if (this.val != other.val){
+            return false;
+        }
+        
+        if (this.next == null && other.next == null){
+            return true;
+        }
+        if (this.next == null || other.next == null){
+            return false;
+        }
+        
+        return this.next.equals(other.next);
     }
 }
