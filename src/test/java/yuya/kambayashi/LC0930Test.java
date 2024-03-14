@@ -4,6 +4,8 @@
  */
 package yuya.kambayashi;
 
+import java.util.HashMap;
+import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 
@@ -13,10 +15,27 @@ import org.junit.jupiter.api.Test;
  */
 public class LC0930Test {
     public int numSubarraysWithSum(int[] nums, int goal) {
-        
-        return 4;
-    }
+        int totalCount = 0;
+        int currentSum = 0;
+        // {prefix: number of occurrence}
+        Map<Integer, Integer> freq = new HashMap<>(); // To store the frequency of prefix sums
 
+        for (int num : nums) {
+            currentSum += num;
+            if (currentSum == goal){
+                totalCount++;
+            }
+
+            // Check if there is any prefix sum that can be subtracted from the current sum to get the desired goal
+            if (freq.containsKey(currentSum - goal)){
+                totalCount += freq.get(currentSum - goal);
+            }
+
+            freq.put(currentSum, freq.getOrDefault(currentSum, 0) + 1);
+        }
+
+        return totalCount;
+    }
     @Test
     void Case1() {
         
