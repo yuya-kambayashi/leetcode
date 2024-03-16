@@ -6,17 +6,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class TemplateTest {
     
-    public boolean XXX() {
+    public String minimizeStringValue(String s) {
         
-        return true;
+      
+        return "abs";
     }
 
     @Test
     void Case1() {
         
-        var actual = XXX();
+        String s = "???";
         
-        var expected = true;
+        var actual = minimizeStringValue(s);
+        
+        var expected = "abs";
         
         assertThat(actual).isEqualTo(expected);
     }
