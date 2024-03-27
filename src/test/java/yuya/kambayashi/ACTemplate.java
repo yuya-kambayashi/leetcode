@@ -16,19 +16,14 @@ import org.junit.jupiter.api.TestInstance;
  * @author kamba
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ACSample {
+public class ACTemplate {
     
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        // 整数の入力
-        int a = sc.nextInt();
-        // スペース区切りの整数の入力
-        int b = sc.nextInt();
-        int c = sc.nextInt();
-        // 文字列の入力
+        
         String s = sc.next();
-        // 出力
-        System.out.println((a+b+c) + " " + s);
+        
+        System.out.println();
     }
 	
     private StandardInputSnatcher  in = new StandardInputSnatcher();
@@ -48,22 +43,28 @@ public class ACSample {
     @Test
     public void Case1() {
         
-        in.inputln("1"); 
-        in.inputln("2");
-        in.inputln("3");
-        in.inputln("abc");
+        in.inputln("");
                 
-        ACSample.main(null);
+        ABC081A.main(null);
 
         var actual = out.readLine();
         
-        var expected = "6 abc"; 
+        var expected = "2"; 
         
-        assertThat(actual).isEqualTo(expected);
+        assertThat(actual).isEqualTo(expected); 
+    }
+    @Test
+    public void Case2() {
+        
+        in.inputln("");
+                
+        ABC081A.main(null);
 
+        var actual = out.readLine();
         
+        var expected = "0"; 
         
-        
+        assertThat(actual).isEqualTo(expected); 
     }
 }
 

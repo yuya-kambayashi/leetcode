@@ -16,19 +16,27 @@ import org.junit.jupiter.api.TestInstance;
  * @author kamba
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ACSample {
-    
+public class ABC086A {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        // 整数の入力
-        int a = sc.nextInt();
-        // スペース区切りの整数の入力
-        int b = sc.nextInt();
-        int c = sc.nextInt();
-        // 文字列の入力
-        String s = sc.next();
+        
+        String a = sc.next();
+        String b = sc.next();
+        
+        Integer ai = Integer.valueOf(a);
+        Integer bi = Integer.valueOf(b);
+        
+        Integer product = ai * bi;
+        
+        if (product % 2 == 1){
+            System.out.println("Odd");
+        }
+        else{
+            System.out.println("Even");
+        }
+        
+        
         // 出力
-        System.out.println((a+b+c) + " " + s);
     }
 	
     private StandardInputSnatcher  in = new StandardInputSnatcher();
@@ -48,24 +56,29 @@ public class ACSample {
     @Test
     public void Case1() {
         
-        in.inputln("1"); 
-        in.inputln("2");
-        in.inputln("3");
-        in.inputln("abc");
+        in.inputln("3"); 
+        in.inputln("4");
                 
-        ACSample.main(null);
+        ABC086A.main(null);
 
         var actual = out.readLine();
-        
-        var expected = "6 abc"; 
+        var expected = "Even"; 
         
         assertThat(actual).isEqualTo(expected);
+        
+    }
+    @Test
+    public void Case2() {
+        
+        in.inputln("3"); 
+        in.inputln("3");
+                
+        ABC086A.main(null);
 
+        var actual = out.readLine();
+        var expected = "Odd"; 
         
-        
+        assertThat(actual).isEqualTo(expected);
         
     }
 }
-
-//import java.util.*;
-//public class Main {
