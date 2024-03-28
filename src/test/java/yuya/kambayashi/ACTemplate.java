@@ -4,7 +4,7 @@
  */
 package yuya.kambayashi;
 
-import java.util.Scanner;
+import java.util.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -21,7 +21,11 @@ public class ACTemplate {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         
-        String s = sc.next();
+        final int n = sc.nextInt();
+        int[] da = new int[n];
+        for (int i = 0; i < n; i++) {
+            da[i] = sc.nextInt();
+        }
         
         System.out.println();
     }
@@ -49,7 +53,7 @@ public class ACTemplate {
 
         var actual = out.readLine();
         
-        var expected = "2"; 
+        var expected = ""; 
         
         assertThat(actual).isEqualTo(expected); 
     }
@@ -62,7 +66,7 @@ public class ACTemplate {
 
         var actual = out.readLine();
         
-        var expected = "0"; 
+        var expected = ""; 
         
         assertThat(actual).isEqualTo(expected); 
     }
