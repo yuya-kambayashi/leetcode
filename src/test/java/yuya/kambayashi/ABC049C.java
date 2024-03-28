@@ -8,7 +8,6 @@ import java.util.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
@@ -24,7 +23,20 @@ public class ABC049C {
 
         final String s = sc.next();
 
-        System.out.println();
+        String ret = s;
+        ret = ret.replaceAll("eraser", "");
+        ret = ret.replaceAll("erase", "");
+        ret = ret.replaceAll("dreamer", "");
+        ret = ret.replaceAll("dream", "");
+
+        String ans = "";
+        if (ret.isEmpty()) {
+            ans = "YES";
+        } else {
+            ans = "NO";
+        }
+
+        System.out.println(ans);
     }
 
     private StandardInputSnatcher in = new StandardInputSnatcher();
@@ -42,7 +54,7 @@ public class ABC049C {
         System.setOut(null);
     }
 
-    @Disabled
+    //@Disabled
     @Test
     public void Case1() {
 
@@ -57,7 +69,7 @@ public class ABC049C {
         assertThat(actual).isEqualTo(expected);
     }
 
-    @Disabled
+    //@Disabled
     @Test
     public void Case2() {
 
@@ -72,7 +84,7 @@ public class ABC049C {
         assertThat(actual).isEqualTo(expected);
     }
 
-    @Disabled
+    //@Disabled
     @Test
     public void Case3() {
 
