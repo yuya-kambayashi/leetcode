@@ -4,6 +4,8 @@
  */
 package yuya.kambayashi;
 
+import java.util.HashMap;
+import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +17,21 @@ public class LC2958 {
     
     public int maxSubarrayLength(int[] nums, int k) {
         
-        return 6;
+       int ans = 0, start = -1;
+       
+       Map<Integer, Integer> freq = new HashMap<>();
+       
+       for(int end = 0; end < nums.length; end++){
+           freq.put(nums[end], freq.getOrDefault(nums[end], 0) + 1);
+           
+           while(freq.get(nums[end]) > k){
+               start++;
+               freq.put(nums[start], freq.get(nums[start]) -1);
+           }
+           ans = Math.max(ans, end - start);
+       }
+        
+        return ans;
     }
 
     @Test

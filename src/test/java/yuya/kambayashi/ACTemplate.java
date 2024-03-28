@@ -8,6 +8,7 @@ import java.util.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
@@ -43,7 +44,7 @@ public class ACTemplate {
         System.setIn(null);
         System.setOut(null);
     }
-
+    @Disabled
     @Test
     public void Case1() {
         
@@ -57,8 +58,23 @@ public class ACTemplate {
         
         assertThat(actual).isEqualTo(expected); 
     }
+    @Disabled
     @Test
     public void Case2() {
+        
+        in.inputln("");
+                
+        ABC081A.main(null);
+
+        var actual = out.readLine();
+        
+        var expected = ""; 
+        
+        assertThat(actual).isEqualTo(expected); 
+    }
+    @Disabled
+    @Test
+    public void Case3() {
         
         in.inputln("");
                 

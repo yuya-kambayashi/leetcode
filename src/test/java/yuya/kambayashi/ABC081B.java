@@ -27,8 +27,26 @@ public class ABC081B {
             ai[i] = sc.nextInt();
         }
         
-        System.out.println();
+        int cnt = 0;
+        
+        while(areEven(ai)){
+            for(int i = 0; i < ai.length; i++){
+                ai[i] /= 2;
+            }
+            cnt++;
+        }
+        
+        System.out.println(cnt);
     }
+    public static boolean areEven(int[] ai){
+        for(int a : ai){
+            if (a % 2 == 1){
+                return false;
+            }
+        }
+        return true;
+    }
+
 	
     private StandardInputSnatcher  in = new StandardInputSnatcher();
     private StandardOutputSnatcher  out = new StandardOutputSnatcher ();
@@ -69,6 +87,20 @@ public class ABC081B {
         var actual = out.readLine();
         
         var expected = "0"; 
+        
+        assertThat(actual).isEqualTo(expected); 
+    }
+    @Test
+    public void Case3() {
+        
+        in.inputln("6");
+        in.inputln("382253568 723152896 37802240 379425024 404894720 471526144");
+                
+        ABC081B.main(null);
+
+        var actual = out.readLine();
+        
+        var expected = "8"; 
         
         assertThat(actual).isEqualTo(expected); 
     }

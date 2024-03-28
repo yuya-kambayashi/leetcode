@@ -16,42 +16,32 @@ import org.junit.jupiter.api.TestInstance;
  * @author kamba
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ABC083B {
+public class ABC087B {
     
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         
-        final int n = sc.nextInt();
-        final int a = sc.nextInt();
-        final int b = sc.nextInt();
+        final int A = sc.nextInt(); // 500
+        final int B= sc.nextInt();  // 100
+        final int C = sc.nextInt(); // 50
+        final int X = sc.nextInt(); // 合計
         
         int cnt = 0;
-        
-        for(int i = 1; i <= n; i++){
-            
-              int sum = find(i);
-              if (a <= sum && sum <= b){
-                  cnt += i;
-              }
-      
-        }
+        for(int i = 0; i <= A; i++){
+            for(int j = 0; j <= B; j++){
+                for(int k = 0; k <= C; k++){
+                    
+                    if (500*i + 100*j+50*k == X){
+                        cnt++;
+                    }
+                }
 
+            }
+        }
+       
         
+     
         System.out.println(cnt);
-    }
-    
-    static int find(int i){
-        int sum = 0;
-
-        while(i > 0){
-
-            int t = i % 10;
-            sum += t;
-
-            i /= 10;
-        }
-        
-        return sum;
     }
     public static boolean areEven(int[] ai){
         for(int a : ai){
@@ -80,22 +70,29 @@ public class ABC083B {
     @Test
     public void Case1() {
         
-        in.inputln("20 2 5");
+        in.inputln("2");
+        in.inputln("2");
+        in.inputln("2");
+        in.inputln("100");
                 
-        ABC083B.main(null);
+        ABC087B.main(null);
 
         var actual = out.readLine();
         
-        var expected = "84"; 
+        var expected = "2"; 
         
         assertThat(actual).isEqualTo(expected); 
     }
-    //@Test
+    @Test
     public void Case2() {
         
-        in.inputln("10 1 2");
+        in.inputln("5");
+        in.inputln("1");
+        in.inputln("0");
+        in.inputln("150");
+
                 
-        ABC083B.main(null);
+        ABC087B.main(null);
 
         var actual = out.readLine();
         
@@ -103,16 +100,19 @@ public class ABC083B {
         
         assertThat(actual).isEqualTo(expected); 
     }
-    //@Test
+    @Test
     public void Case3() {
         
-        in.inputln("100 4 16");
+        in.inputln("30");
+        in.inputln("40");
+        in.inputln("50");
+        in.inputln("6000");
                 
-        ABC083B.main(null);
+        ABC087B.main(null);
 
         var actual = out.readLine();
         
-        var expected = "4554"; 
+        var expected = "213"; 
         
         assertThat(actual).isEqualTo(expected); 
     }
