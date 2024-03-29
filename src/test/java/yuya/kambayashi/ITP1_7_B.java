@@ -19,17 +19,44 @@ import org.junit.jupiter.api.TestInstance;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ITP1_7_B {
 
+//import java.util.*;
+//public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final int n = sc.nextInt();
-        final int x = sc.nextInt();
+        int[] na = new int[10000];
+        int[] xa = new int[10000];
+        for (int i = 0; i < na.length; i++) {
 
-        for (int i = 0; i < n; i++) {
+            na[i] = sc.nextInt();
+            xa[i] = sc.nextInt();
 
+            if (na[i] == 0 && xa[i] == 0) {
+                break;
+            }
         }
 
-        System.out.println();
+        for (int p = 0; p < na.length; p++) {
+            final int n = na[p];
+            final int x = xa[p];
+
+            if (n == 0 && x == 0) {
+                return;
+            }
+
+            int ans = 0;
+            for (int i = 1; i <= n; i++) {
+                for (int j = i + 1; j <= n; j++) {
+                    for (int k = j + 1; k <= n; k++) {
+                        if (i + j + k == x) {
+                            ans++;
+                        }
+                    }
+                }
+            }
+            System.out.println(ans);
+        }
+        return;
     }
 
     private StandardInputSnatcher in = new StandardInputSnatcher();
@@ -58,23 +85,32 @@ public class ITP1_7_B {
 
         var actual = out.readLine();
 
-        var expected = "";
+        var expected = "2";
 
         assertThat(actual).isEqualTo(expected);
     }
 
-    @Disabled
+    //@Disabled
     @Test
     public void Case2() {
 
-        in.inputln("");
+        in.inputln("100 100");
+        in.inputln("100 200");
+        in.inputln("100 297");
+        in.inputln("0 0");
 
         ITP1_7_B.main(null);
 
         var actual = out.readLine();
+        var expected = "784";
+        assertThat(actual).isEqualTo(expected);
 
-        var expected = "";
+        actual = out.readLine();
+        expected = "833";
+        assertThat(actual).isEqualTo(expected);
 
+        actual = out.readLine();
+        expected = "1";
         assertThat(actual).isEqualTo(expected);
     }
 
@@ -93,6 +129,3 @@ public class ITP1_7_B {
         assertThat(actual).isEqualTo(expected);
     }
 }
-
-//import java.util.*;
-//public class Main {
