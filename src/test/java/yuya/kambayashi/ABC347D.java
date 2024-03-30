@@ -8,7 +8,6 @@ import java.util.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
@@ -17,24 +16,25 @@ import org.junit.jupiter.api.TestInstance;
  * @author kamba
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class XXX {
+public class ABC347D {
 //import java.util.*;
 //public class Main {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final int n = sc.nextInt();
-        int[] da = new int[n];
-        for (int i = 0; i < n; i++) {
-            da[i] = sc.nextInt();
-        }
+        final int a = sc.nextInt();
+        final int b = sc.nextInt();
+        final int c = sc.nextInt();
+        String bb = Integer.toBinaryString(b);
+        String cb = Integer.toBinaryString(c);
 
-        System.out.println();
+        System.out.println(set.size());
     }
 //}
 
     private StandardInputSnatcher in = new StandardInputSnatcher();
+
     private StandardOutputSnatcher out = new StandardOutputSnatcher();
 
     @BeforeAll
@@ -49,39 +49,48 @@ public class XXX {
         System.setOut(null);
     }
 
-    @Disabled
+    //@Disabled
     @Test
     public void Case1() {
 
-        in.inputln("");
-        var expected = "";
+        in.inputln("3 4 7");
 
-        XXX.main(null);
+        ABC347D.main(null);
+
         var actual = out.readLine();
+
+        var expected = "28 27";
+
         assertThat(actual).isEqualTo(expected);
     }
 
-    @Disabled
+    //@Disabled
     @Test
     public void Case2() {
 
-        in.inputln("");
-        var expected = "";
+        in.inputln("34 56 998244353");
 
-        XXX.main(null);
+        ABC347D.main(null);
+
         var actual = out.readLine();
+
+        var expected = "-1";
+
         assertThat(actual).isEqualTo(expected);
     }
 
-    @Disabled
+    // @Disabled
     @Test
     public void Case3() {
 
-        in.inputln("");
-        var expected = "";
+        in.inputln("39 47 530423800524412070");
 
-        XXX.main(null);
+        ABC347D.main(null);
+
         var actual = out.readLine();
+
+        var expected = "540431255696862041 10008854347644927";
+
         assertThat(actual).isEqualTo(expected);
     }
 }

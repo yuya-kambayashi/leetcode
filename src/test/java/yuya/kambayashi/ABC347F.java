@@ -17,7 +17,7 @@ import org.junit.jupiter.api.TestInstance;
  * @author kamba
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class XXX {
+public class ABC347F {
 //import java.util.*;
 //public class Main {
 
@@ -56,7 +56,7 @@ public class XXX {
         in.inputln("");
         var expected = "";
 
-        XXX.main(null);
+        ABC347F.main(null);
         var actual = out.readLine();
         assertThat(actual).isEqualTo(expected);
     }
@@ -68,7 +68,7 @@ public class XXX {
         in.inputln("");
         var expected = "";
 
-        XXX.main(null);
+        ABC347F.main(null);
         var actual = out.readLine();
         assertThat(actual).isEqualTo(expected);
     }
@@ -80,7 +80,7 @@ public class XXX {
         in.inputln("");
         var expected = "";
 
-        XXX.main(null);
+        ABC347F.main(null);
         var actual = out.readLine();
         assertThat(actual).isEqualTo(expected);
     }
