@@ -58,7 +58,7 @@ public class ABC347C {
             // タスクをチェック
             boolean all = true;
             for (long d : da) {
-                if (d <= hs || he <= d) {
+                if (d < hs || he < d) {
                     all = false;
                     break;
                 }

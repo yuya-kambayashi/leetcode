@@ -8,6 +8,7 @@ import java.util.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
 /**
@@ -15,7 +16,7 @@ import org.junit.jupiter.api.TestInstance;
  * @author kamba
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class XXX {
+public class ABC095C {
 
     private StandardInputSnatcher in = new StandardInputSnatcher();
     private StandardOutputSnatcher out = new StandardOutputSnatcher();
@@ -37,45 +38,52 @@ public class XXX {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final int n = sc.nextInt();
-        int[] da = new int[n];
-        for (int i = 0; i < n; i++) {
-            da[i] = sc.nextInt();
+        final int a = sc.nextInt();
+        final int b = sc.nextInt();
+        final int c = sc.nextInt();
+        final int x = sc.nextInt();
+        final int y = sc.nextInt();
+
+        int min = Integer.MAX_VALUE;
+        for (int i = 0; i < 100001; i++) {
+            int price = a * Math.max(x - i, 0) + b * Math.max(y - i, 0) + 2 * c * i;
+
+            min = Math.min(min, price);
         }
 
-        System.out.println();
+        System.out.println(min);
     }
 //}
 
-    // @Test
+    //@Test
     public void Case1() {
 
-        in.inputln("");
-        var expected = "";
+        in.inputln("1500 2000 1600 3 2");
+        var expected = "7900";
 
-        XXX.main(null);
-        var actual = out.readLine();
-        assertThat(actual).isEqualTo(expected);
-    }
-
-    //  @Test
-    public void Case2() {
-
-        in.inputln("");
-        var expected = "";
-
-        XXX.main(null);
+        ABC095C.main(null);
         var actual = out.readLine();
         assertThat(actual).isEqualTo(expected);
     }
 
     // @Test
+    public void Case2() {
+
+        in.inputln("1500 2000 1900 3 2");
+        var expected = "8500";
+
+        ABC095C.main(null);
+        var actual = out.readLine();
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
     public void Case3() {
 
-        in.inputln("");
-        var expected = "";
+        in.inputln("1500 2000 500 90000 100000");
+        var expected = "100000000";
 
-        XXX.main(null);
+        ABC095C.main(null);
         var actual = out.readLine();
         assertThat(actual).isEqualTo(expected);
     }

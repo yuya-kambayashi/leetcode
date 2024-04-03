@@ -8,6 +8,8 @@ import java.util.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
 /**
@@ -15,7 +17,35 @@ import org.junit.jupiter.api.TestInstance;
  * @author kamba
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class XXX {
+public class ABC106B {
+//import java.util.*;
+//public class Main {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        final int n = sc.nextInt();
+
+        int ans = 0;
+        for (int i = 1; i <= n; i++) {
+            if (i % 2 == 0) {
+                continue;
+            }
+            int cnt = 0;
+            for (int j = 1; j <= i; j++) {
+                if (i % j == 0) {
+                    cnt++;
+                }
+
+            }
+            if (cnt == 8) {
+                ans++;
+            }
+        }
+
+        System.out.println(ans);
+    }
+//}
 
     private StandardInputSnatcher in = new StandardInputSnatcher();
     private StandardOutputSnatcher out = new StandardOutputSnatcher();
@@ -31,51 +61,39 @@ public class XXX {
         System.setIn(null);
         System.setOut(null);
     }
-//import java.util.*;
-//public class Main {
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        final int n = sc.nextInt();
-        int[] da = new int[n];
-        for (int i = 0; i < n; i++) {
-            da[i] = sc.nextInt();
-        }
-
-        System.out.println();
-    }
-//}
-
-    // @Test
+    //@Disabled
+    @Test
     public void Case1() {
 
-        in.inputln("");
-        var expected = "";
+        in.inputln("105");
+        var expected = "1";
 
-        XXX.main(null);
+        ABC106B.main(null);
         var actual = out.readLine();
         assertThat(actual).isEqualTo(expected);
     }
 
-    //  @Test
+//    @Disabled
+    @Test
     public void Case2() {
 
-        in.inputln("");
-        var expected = "";
+        in.inputln("7");
+        var expected = "0";
 
-        XXX.main(null);
+        ABC106B.main(null);
         var actual = out.readLine();
         assertThat(actual).isEqualTo(expected);
     }
 
-    // @Test
+    @Disabled
+    @Test
     public void Case3() {
 
         in.inputln("");
         var expected = "";
 
-        XXX.main(null);
+        ABC106B.main(null);
         var actual = out.readLine();
         assertThat(actual).isEqualTo(expected);
     }
