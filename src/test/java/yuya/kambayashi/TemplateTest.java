@@ -14,9 +14,11 @@ public class TemplateTest {
     @Test
     void Case1() {
 
-        var actual = XXX();
-
+        //String s =
+        //int n = 
         var expected = true;
+
+        var actual = XXX();
 
         assertThat(actual).isEqualTo(expected);
     }
