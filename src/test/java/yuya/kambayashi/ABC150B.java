@@ -16,40 +16,7 @@ import org.junit.jupiter.api.TestInstance;
  * @author kamba
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ABC122B {
-//import java.util.*;
-//public class Main {
-
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        final String s = sc.next();
-
-        int len = 0;
-        int max = 0;
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-
-            if (isACGT(c)) {
-                len++;
-            } else {
-                max = Math.max(max, len);
-                len = 0;
-            }
-
-            if (i == s.length() - 1) {
-                max = Math.max(max, len);
-            }
-
-        }
-        System.out.println(max);
-
-    }
-
-    public static boolean isACGT(char c) {
-        return c == 'A' || c == 'C' || c == 'G' || c == 'T';
-    }
-//}
+public class ABC150B {
 
     private StandardInputSnatcher in = new StandardInputSnatcher();
     private StandardOutputSnatcher out = new StandardOutputSnatcher();
@@ -65,39 +32,63 @@ public class ABC122B {
         System.setIn(null);
         System.setOut(null);
     }
+//import java.util.*;
+//import java.util.stream.Collectors;
+//public class Main {
 
-    //@Disabled
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        final int n = sc.nextInt();
+        String s = sc.next();
+
+        int cnt = 0;
+        for (int i = 0; i < s.length() - 2; i++) {
+            if (s.charAt(i) != 'A') {
+                continue;
+            }
+            String ss = s.substring(i, i + 3);
+            if (ss.equals("ABC")) {
+                cnt++;
+            }
+        }
+
+        System.out.println(cnt);
+    }
+//}
+
     @Test
     public void Case1() {
 
-        in.inputln("ATCODER");
+        in.inputln("10");
+        in.inputln("ZABCDBABCQABC");
         var expected = "3";
 
-        ABC122B.main(null);
+        ABC150B.main(null);
         var actual = out.readLine();
         assertThat(actual).isEqualTo(expected);
     }
 
-    //@Disabled
     @Test
     public void Case2() {
 
-        in.inputln("HATAGAYA");
-        var expected = "5";
+        in.inputln("19");
+        in.inputln("THREEONEFOURONEFIVE");
+        var expected = "0";
 
-        ABC122B.main(null);
+        ABC150B.main(null);
         var actual = out.readLine();
         assertThat(actual).isEqualTo(expected);
     }
 
-    //@Disabled
     @Test
     public void Case3() {
 
-        in.inputln("SHINJUKU");
-        var expected = "0";
+        in.inputln("33");
+        in.inputln("ABCCABCBABCCABACBCBBABCBCBCBCABCB");
+        var expected = "5";
 
-        ABC122B.main(null);
+        ABC150B.main(null);
         var actual = out.readLine();
         assertThat(actual).isEqualTo(expected);
     }
