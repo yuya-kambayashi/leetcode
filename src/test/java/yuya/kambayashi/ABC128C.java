@@ -37,41 +37,59 @@ public class ABC128C {
 //public class Main {
 
     public static void main(String[] args) {
+
         Scanner sc = new Scanner(System.in);
-        int n = Integer.parseInt(sc.next());
-        int m = Integer.parseInt(sc.next());
-        int k[] = new int[m];
+        final int n = sc.nextInt();
+        final int m = sc.nextInt();
+
+        int[] kk = new int[m];
+        List<int[]> sss = new ArrayList<>();
         for (int i = 0; i < m; i++) {
-            StringBuilder s = new StringBuilder("0000000000".substring(0, n));
-            int x = Integer.parseInt(sc.next());
-            for (int j = 0; j < x; j++) {
-                int y = Integer.parseInt(sc.next());
-                s.replace(y - 1, y, "1");
+            kk[i] = sc.nextInt();
+
+            int[] t = new int[kk[i]];
+            for (int j = 0; j < kk[i]; j++) {
+                t[j] = sc.nextInt();
             }
-            k[i] = Integer.parseInt(s.toString(), 2);
+            sss.add(t);
         }
-        int p[] = new int[m];
+        int[] pp = new int[m];
         for (int i = 0; i < m; i++) {
-            p[i] = Integer.parseInt(sc.next());
+            pp[i] = sc.nextInt();
         }
         int ans = 0;
-        for (int i = 0; i < Math.pow(2, n); i++) {
-            int f = 1;
+
+        for (int i = 0; i < 1 << n; i++) {
+
+            boolean all = true;
+
             for (int j = 0; j < m; j++) {
-                String bin = Integer.toBinaryString(i & k[j]);
-                int c = 0;
-                for (int v = 0; v < bin.length(); v++) {
-                    if (bin.substring(v, v + 1).equals("1")) {
-                        c++;
+
+                // 電球のonになっているスイッチの数
+                int on = 0;
+
+                // 電球の点灯するあまり
+                int p = pp[j];
+
+                int[] ss = sss.get(j);
+
+                for (int k = 0; k < kk[j]; k++) {
+                    int s = ss[k];
+
+                    if ((1 & i >> (s - 1)) == 1) {
+                        on++;
                     }
                 }
-                if (c % 2 != p[j]) {
-                    f = 0;
+                if (on % 2 != p) {
+                    all = false;
                     break;
                 }
             }
-            ans += f;
+            if (all) {
+                ans++;
+            }
         }
+
         System.out.println(ans);
     }
 //}
