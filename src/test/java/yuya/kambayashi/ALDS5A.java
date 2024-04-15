@@ -51,15 +51,15 @@ public class ALDS5A {
         }
 
         Set<Integer> set = new HashSet<>();
-        for (int i = 0; i < 1 << n; i++) {
+        for (int bit = 0; bit < 1 << n; bit++) {
 
             int sum = 0;
-            for (int j = 0; j < n; j++) {
+            for (int i = 0; i < n; i++) {
 
-                if ((1 & i >> j) == 1) {
+                if ((bit & (1 << i)) == 1) {
 
                     // 点数
-                    int t = aa[j];
+                    int t = aa[i];
                     sum += t;
                 }
             }

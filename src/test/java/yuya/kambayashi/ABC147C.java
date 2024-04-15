@@ -55,11 +55,63 @@ public class ABC147C {
             xyss.add(xys);
         }
 
-        System.out.println();
+        int max = 0;
+
+        // 正直者のパターンを作り、ループを回す
+        for (int bit = 0; bit < 1 << n; bit++) {
+
+            int[] check = new int[n];
+            Arrays.fill(check, 0);
+
+            boolean ok = true;
+
+            for (int i = 0; i < n; i++) {
+
+                if ((bit & (1 << i)) >= 1) {
+                    check[i] = 1;
+                }
+            }
+
+            for (int i = 0; i < n; i++) {
+                // 不親切とみなしている人はチェックしない
+                if (check[i] == 0) {
+                    continue;
+                }
+                // 正直者の証言をチェック
+
+                var xys = xyss.get(i);
+
+                for (int[] xy : xys) {
+
+                    // 正直者と証言している場合に矛盾がないかどうか
+                    if (check[xy[0] - 1] != xy[1]) {
+
+                        ok = false;
+                        break;
+                    }
+                }
+                if (!ok) {
+                    break;
+                }
+            }
+
+            if (ok) {
+
+                int cnt = 0;
+                for (var c : check) {
+                    if (c == 1) {
+                        cnt++;
+                    }
+                }
+                max = Math.max(max, cnt);
+            }
+        }
+
+        System.out.println(max);
     }
 //}
 
-    // @Test
+    @Test
     public void Case1() {
 
         in.inputln("3");
@@ -95,11 +147,15 @@ public class ABC147C {
         assertThat(actual).isEqualTo(expected);
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
-        in.inputln("");
-        var expected = "";
+        in.inputln("2");
+        in.inputln("1");
+        in.inputln("2 0");
+        in.inputln("1");
+        in.inputln("1 0");
+        var expected = "1";
 
         ABC147C.main(null);
         var actual = out.readLine();
