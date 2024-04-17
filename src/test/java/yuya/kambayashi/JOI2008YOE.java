@@ -89,8 +89,6 @@ public class JOI2008YOE {
             if (!ok) {
                 continue;
             }
-            // 対象の列が行の中で同一の色である
-            int a = 0;
 
         }
 

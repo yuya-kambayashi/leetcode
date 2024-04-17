@@ -18,35 +18,6 @@ import org.junit.jupiter.api.TestInstance;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ABC085C {
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        final int n = sc.nextInt();
-        final int y = sc.nextInt();
-
-        for (int i = 0; i <= n; i++) {
-
-            for (int j = 0; j <= n - i; j++) {
-
-                int k = n - i - j;
-
-                if (10000 * i + 5000 * j + 1000 * k != y) {
-                    continue;
-                }
-                String ret = String.valueOf(i);
-                ret += " ";
-                ret += String.valueOf(j);
-                ret += " ";
-                ret += String.valueOf(k);
-                System.out.println(ret);
-                return;
-
-            }
-        }
-
-        System.out.println("-1 -1 -1");
-    }
-
     private StandardInputSnatcher in = new StandardInputSnatcher();
     private StandardOutputSnatcher out = new StandardOutputSnatcher();
 
@@ -61,6 +32,33 @@ public class ABC085C {
         System.setIn(null);
         System.setOut(null);
     }
+//import java.util.*;
+//import java.util.stream.Collectors;
+//public class Main {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        final int n = sc.nextInt();
+        final int y = sc.nextInt();
+
+        for (int i = 0; i <= n; i++) {
+            for (int j = 0; j <= n; j++) {
+                int k = n - i - j;
+                if (k < 0) {
+                    continue;
+                }
+                if (10_000 * i + 5_000 * j + 1_000 * k == y) {
+
+                    String ret = String.valueOf(i) + " " + String.valueOf(j) + " " + String.valueOf(k);
+                    System.out.println(ret);
+                    return;
+                }
+            }
+        }
+        System.out.println("-1 -1 -1");
+    }
+//}
 
     @Test
     public void Case1() {
