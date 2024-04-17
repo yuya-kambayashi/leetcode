@@ -60,19 +60,14 @@ public class ABC145C {
         for (int i = 0; i < arrays.size(); i++) {
 
             ArrayList<Integer> array = arrays.get(i);
-            double sumt = 0.0;
             for (int j = 1; j < array.size(); j++) {
-
-                Integer i0 = array.get(j - 1);
-                Integer i1 = array.get(j);
 
                 int[] za0 = zaa[array.get(j - 1).intValue()];
                 int[] za1 = zaa[array.get(j).intValue()];
 
                 double dist = Math.sqrt(Math.pow(za0[0] - za1[0], 2) + Math.pow(za0[1] - za1[1], 2));
-                sumt += dist;
+                sum += dist;
             }
-            sum += sumt;
             cnt++;
         }
 

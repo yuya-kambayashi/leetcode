@@ -52,29 +52,39 @@ public class ABC150C {
         for (int i = 0; i < n; i++) {
             qa[i] = sc.nextInt();
         }
-        List<Integer> pl = Arrays.stream(pa).boxed().collect(Collectors.toList());
-        List<Integer> ql = Arrays.stream(qa).boxed().collect(Collectors.toList());
 
-        int[] aa = new int[n];
+        int[] nn = new int[n];
         for (int i = 0; i < n; i++) {
-            aa[i] = i + 1;
+            nn[i] = i + 1;
         }
+        var perms = permutation(nn);
 
-        var arrays = permutation(aa);
+        int pi = 0;
+        int qi = 0;
+        for (int i = 0; i < perms.size(); i++) {
 
-        int posA = 0, posB = 0;
-        for (int i = 0; i < arrays.size(); i++) {
-            ArrayList<Integer> array = arrays.get(i);
+            var perm = perms.get(i);
 
-            if (array.equals(pl)) {
-                posA = i + 1;
+            boolean isP = true, isQ = true;
+
+            for (int j = 0; j < perm.size(); j++) {
+
+                if (pa[j] != perm.get(j)) {
+                    isP = false;
+                }
+                if (qa[j] != perm.get(j)) {
+                    isQ = false;
+                }
             }
-            if (array.equals(ql)) {
-                posB = i + 1;
+            if (isP) {
+                pi = i;
+            }
+            if (isQ) {
+                qi = i;
             }
         }
+        System.out.println(Math.abs(pi - qi));
 
-        System.out.println(Math.abs(posA - posB));
     }
 
     private static ArrayList<ArrayList<Integer>> permutation(int[] seed) {
