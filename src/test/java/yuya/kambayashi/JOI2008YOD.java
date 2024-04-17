@@ -40,47 +40,40 @@ public class JOI2008YOD {
         Scanner sc = new Scanner(System.in);
 
         final int m = sc.nextInt();
-        List<int[]> mmm = new ArrayList<int[]>();
+        int[][] mmm = new int[m][2];
         for (int i = 0; i < m; i++) {
-            int[] t = new int[2];
-
-            t[0] = sc.nextInt();
-            t[1] = sc.nextInt();
-            mmm.add(t);
+            mmm[i][0] = sc.nextInt();
+            mmm[i][1] = sc.nextInt();
         }
         final int n = sc.nextInt();
-        List<int[]> nnn = new ArrayList<int[]>();
+        int[][] nnn = new int[n][2];
         for (int i = 0; i < n; i++) {
-            int[] t = new int[2];
-
-            t[0] = sc.nextInt();
-            t[1] = sc.nextInt();
-            nnn.add(t);
+            nnn[i][0] = sc.nextInt();
+            nnn[i][1] = sc.nextInt();
         }
 
-        int[] baseXY = mmm.get(0);
+        int[] baseXY = mmm[0];
 
         for (int i = 0; i < n; i++) {
-            int[] xy = nnn.get(i);
+            int[] xy = nnn[i];
 
             int diffX = xy[0] - baseXY[0];
             int diffY = xy[1] - baseXY[1];
 
-            List<int[]> offsetNNN = new ArrayList<int[]>();
+            int[][] offsetNNN = new int[n][2];
 
             for (int j = 0; j < n; j++) {
-                int[] offset = {nnn.get(j)[0] - diffX, nnn.get(j)[1] - diffY};
-                offsetNNN.add(offset);
-
+                offsetNNN[j][0] = nnn[j][0] - diffX;
+                offsetNNN[j][1] = nnn[j][1] - diffY;
             }
 
             boolean allContains = true;
             for (int j = 0; j < m; j++) {
 
-                int[] mm = mmm.get(j);
+                int[] mm = mmm[j];
                 boolean contains = false;
                 for (int k = 0; j < n; j++) {
-                    int[] offset = offsetNNN.get(j);
+                    int[] offset = offsetNNN[j];
                     if (mm[0] == offset[0] && mm[1] == offset[1]) {
                         contains = true;
                         break;
