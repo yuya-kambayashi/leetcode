@@ -5,6 +5,7 @@
 package yuya.kambayashi;
 
 import java.util.*;
+import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -56,11 +57,12 @@ public class XXX {
                        
                     """;
 
-        var expected = "";
-
+        String expected = """
+                          
+                          """;
+        Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         XXX.main(null);
-        var actual = out.readLine();
-        assertThat(actual).isEqualTo(expected);
+        Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
     //  @Test
@@ -70,11 +72,12 @@ public class XXX {
                        
                     """;
 
-        var expected = "";
-
+        String expected = """
+                          
+                          """;
+        Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         XXX.main(null);
-        var actual = out.readLine();
-        assertThat(actual).isEqualTo(expected);
+        Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
     // @Test
@@ -84,11 +87,12 @@ public class XXX {
                        
                     """;
 
-        var expected = "";
-
+        String expected = """
+                          
+                          """;
+        Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         XXX.main(null);
-        var actual = out.readLine();
-        assertThat(actual).isEqualTo(expected);
+        Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 }
 
