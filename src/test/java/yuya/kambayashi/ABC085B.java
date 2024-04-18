@@ -19,6 +19,9 @@ import org.junit.jupiter.api.TestInstance;
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ABC085B {
+//import java.util.*;
+//import java.util.stream.Collectors;
+//public class Main {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -30,12 +33,14 @@ public class ABC085B {
         }
 
         Set<Integer> set = new HashSet<>();
-        for (int d : da) {
+        for (var d : da) {
             set.add(d);
         }
 
         System.out.println(set.size());
+
     }
+//}
 
     private StandardInputSnatcher in = new StandardInputSnatcher();
     private StandardOutputSnatcher out = new StandardOutputSnatcher();
