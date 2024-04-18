@@ -5,6 +5,7 @@
 package yuya.kambayashi;
 
 import java.util.*;
+import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -65,34 +66,55 @@ public class ABC137C {
 
     @Test
     public void Case1() {
-        in.inputln("3");
-        in.inputln("acornistnt");
-        in.inputln("peanutbomb");
-        in.inputln("constraint");
+
+        String input = """
+3
+                    acornistnt
+                    peanutbomb
+                    constraint
+                    """;
 
         var expected = "1";
 
+        Stream.of(input.split("\\n")).forEach(s -> in.inputln(s));
+
         ABC137C.main(null);
         var actual = out.readLine();
         assertThat(actual).isEqualTo(expected);
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
-        in.inputln("");
-        var expected = "";
+        String input = """
+                    5
+                    abaaaaaaaa
+                    oneplustwo
+                    aaaaaaaaba
+                    twoplusone
+                    aaaabaaaaa
+                    """;
 
+        var expected = "4";
+
+        Stream.of(input.split("\\n")).forEach(s -> in.inputln(s));
         ABC137C.main(null);
         var actual = out.readLine();
         assertThat(actual).isEqualTo(expected);
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
-        in.inputln("");
-        var expected = "";
+        String input = """
+2
+oneplustwo
+ninemodsix
+                    """;
+
+        var expected = "0";
+
+        Stream.of(input.split("\\n")).forEach(s -> in.inputln(s));
 
         ABC137C.main(null);
         var actual = out.readLine();

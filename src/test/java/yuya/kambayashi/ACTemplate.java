@@ -52,7 +52,10 @@ public class XXX {
     @Test
     public void Case1() {
 
-        in.inputln("");
+        String input = """
+                       
+                    """;
+
         var expected = "";
 
         XXX.main(null);
@@ -63,7 +66,10 @@ public class XXX {
     //  @Test
     public void Case2() {
 
-        in.inputln("");
+        String input = """
+                       
+                    """;
+
         var expected = "";
 
         XXX.main(null);
@@ -74,7 +80,10 @@ public class XXX {
     // @Test
     public void Case3() {
 
-        in.inputln("");
+        String input = """
+                       
+                    """;
+
         var expected = "";
 
         XXX.main(null);
