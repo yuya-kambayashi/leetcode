@@ -17,7 +17,7 @@ import org.junit.jupiter.api.TestInstance;
  * @author kamba
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ABC350D {
+public class ABC115D {
 
     private StandardInputSnatcher in = new StandardInputSnatcher();
     private StandardOutputSnatcher out = new StandardOutputSnatcher();
@@ -41,68 +41,53 @@ public class ABC350D {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
-        final int m = sc.nextInt();
+        final long x = sc.nextLong();
 
-        ArrayList<ArrayList<Integer>> al = new ArrayList<ArrayList<Integer>>();
-
-        for (int i = 0; i < n; i++) {
-            ArrayList<Integer> ar = new ArrayList<>();
-            al.add(ar);
-        }
-        for (int i = 0; i < m; i++) {
-            int a = sc.nextInt() - 1;
-            int b = sc.nextInt() - 1;
-
-            al.get(a).add(b);
-            al.get(b).add(a);
+        long[] la = new long[n + 1];
+        long[] sa = new long[n + 1];
+        la[0] = 1;
+        sa[0] = 1;
+        for (int i = 1; i <= n; i++) {
+            la[i] = la[i - 1] * 2 + 3;
+            sa[i] = sa[i - 1] * 2 + 1;
         }
 
-        int cnt = 0;
-
-        for (int i = 0; i < al.size(); i++) {
-
-            // iの友人
-            var ifriends = al.get(i);
-
-            // iの友人の友人のうち、まだ友達でない人を友人に追加する
-            for (int j = 0; j < ifriends.size(); j++) {
-                var ifriend = ifriends.get(j); // iの友人の友人
-                var iff = al.get(ifriend);
-
-                for (int iiff : iff) {
-                    if (i == iiff) {
-                        continue;
-                    }
-                    if (!ifriends.contains(iiff)) {
-                        // まだともだちでない人を地下
-                        ifriends.add(iiff);
-                        al.get(iiff).add(i);
-                        cnt++;
-                    }
-                }
-            }
-
-        }
-
-        System.out.println(cnt);
+        System.out.println(rec(n, x, la, sa));
     }
-//}
 
+    public static long rec(int n, long x, long[] la, long[] sa) {
+
+        if (n == 0) {
+            return 1;
+        }
+
+        if (x == 1) {
+            return 0;
+        } else if (x <= la[n - 1] + 1) {
+            return rec(n - 1, x - 1, la, sa);
+        } else if (x == la[n - 1] + 2) {
+            return sa[n - 1] + 1;
+        } else if (x <= la[n - 1] * 2 + 2) {
+            return rec(n - 1, x - la[n - 1] - 2, la, sa) + sa[n - 1] + 1;
+        } else {
+            return sa[n - 1] * 2 + 1;
+        }
+
+    }
+
+//}
     @Test
     public void Case1() {
 
         String input = """
-                       4 3
-                       1 2
-                       2 3
-                       1 4
+                       2 7
                     """;
 
         String expected = """
-                          3
+                          4
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC350D.main(null);
+        ABC115D.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
@@ -110,14 +95,14 @@ public class ABC350D {
     public void Case2() {
 
         String input = """
-                       3 0
+                       1 1
                     """;
 
         String expected = """
                           0
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC350D.main(null);
+        ABC115D.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
@@ -125,25 +110,18 @@ public class ABC350D {
     public void Case3() {
 
         String input = """
-                       10 8
-                       1 2
-                       2 3
-                       3 4
-                       4 5
-                       6 7
-                       7 8
-                       8 9
-                       9 10
+                       50 4321098765432109
                     """;
 
         String expected = """
-                          12
+                          2160549382716056
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC350D.main(null);
+        ABC115D.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 }
 
 //import java.util.*;
 //public class Main {
+
