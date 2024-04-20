@@ -18,51 +18,6 @@ import org.junit.jupiter.api.TestInstance;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ABC086C {
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        final int n = sc.nextInt();
-        int[][] naa = new int[n][3];
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < 3; j++) {
-                naa[i][j] = sc.nextInt();
-            }
-        }
-
-        int tb = 0, xb = 0, yb = 0;
-
-        for (int i = 0; i < n; i++) {
-            int[] na = naa[i];
-
-            int t = na[0];
-            int x = na[1];
-            int y = na[2];
-
-            int distance = Math.abs(x - xb) + Math.abs(y - yb);
-
-            int time = t - tb;
-
-            if (distance > time) {
-                System.out.println("No");
-                return;
-            } else if (distance < time) {
-
-                int rest = time % distance;
-
-                if (rest != 0) {
-                    System.out.println("No");
-                    return;
-                }
-            }
-
-            tb = t;
-            xb = x;
-            yb = y;
-        }
-
-        System.out.println("Yes");
-    }
-
     private StandardInputSnatcher in = new StandardInputSnatcher();
     private StandardOutputSnatcher out = new StandardOutputSnatcher();
 
@@ -78,7 +33,53 @@ public class ABC086C {
         System.setOut(null);
     }
 
-    ///@Disabled
+//import java.util.*;
+//public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        final int n = sc.nextInt();
+
+        int[] ta = new int[n];
+        int[] xa = new int[n];
+        int[] ya = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            ta[i] = sc.nextInt();
+            xa[i] = sc.nextInt();
+            ya[i] = sc.nextInt();
+        }
+        boolean ok = true;
+        int bt = 0, bx = 0, by = 0;
+        for (int i = 0; i < n; i++) {
+            int t = ta[i] - bt;
+
+            int x = Math.abs(xa[i] - bx);
+            int y = Math.abs(ya[i] - by);
+
+            if (t % 2 != (x + y) % 2) {
+                ok = false;
+                break;
+            }
+
+            if (t < x + y) {
+                ok = false;
+                break;
+            }
+            bt = t;
+            bx = x;
+            by = y;
+
+        }
+        if (ok) {
+            System.out.println("Yes");
+        } else {
+            System.out.println("No");
+
+        }
+    }
+//}
+
     @Test
     public void Case1() {
 
@@ -95,7 +96,6 @@ public class ABC086C {
         assertThat(actual).isEqualTo(expected);
     }
 
-    //@Disabled
     @Test
     public void Case2() {
 
@@ -111,7 +111,6 @@ public class ABC086C {
         assertThat(actual).isEqualTo(expected);
     }
 
-    //@Disabled
     @Test
     public void Case3() {
 
