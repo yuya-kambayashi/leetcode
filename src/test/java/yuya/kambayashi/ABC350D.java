@@ -59,29 +59,19 @@ public class ABC350D {
 
         int cnt = 0;
 
+        Map<Integer, ArrayList<Integer>> map = new HashMap<>();
+
         for (int i = 0; i < al.size(); i++) {
+            var friends = al.get(i);
 
-            // iの友人
-            var ifriends = al.get(i);
+            for (Map.Entry<Integer, ArrayList<Integer>> entry : map.entrySet()) {
 
-            // iの友人の友人のうち、まだ友達でない人を友人に追加する
-            for (int j = 0; j < ifriends.size(); j++) {
-                var ifriend = ifriends.get(j); // iの友人の友人
-                var iff = al.get(ifriend);
+                // 自分がどこかの友達に
+                if (entry.getValue().contains(i + 1)) {
 
-                for (int iiff : iff) {
-                    if (i == iiff) {
-                        continue;
-                    }
-                    if (!ifriends.contains(iiff)) {
-                        // まだともだちでない人を地下
-                        ifriends.add(iiff);
-                        al.get(iiff).add(i);
-                        cnt++;
-                    }
                 }
-            }
 
+            }
         }
 
         System.out.println(cnt);

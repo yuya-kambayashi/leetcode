@@ -46,32 +46,40 @@ public class ABC350C {
             aa.add(sc.nextInt());
         }
 
+        int[] pos = new int[aa.size()];
+
+        for (int i = 0; i < n; i++) {
+
+            pos[i] = aa.indexOf(i + 1);
+
+        }
+
         int cnt = 0;
         List<int[]> ans = new ArrayList<>();
-        for (int i = 1; i < aa.size(); i++) {
+        for (int i = 1; i < n; i++) {
 
             // すでにその値であれば何もしない
-            if (aa.indexOf(i) == i - 1) {
+            if (pos[i - 1] == i - 1) {
                 continue;
             }
 
             // どこにあるか
-            int indexOfTarget = aa.indexOf(i);
+            int indexOfTarget = pos[i - 1];
             // 置き換え対象
             int vt = aa.get(i - 1);
 
             cnt++;
-            //int[] tt = {i + i - 1, indexOfTarget + 1 + i - 1};
-            int[] tt = {i, indexOfTarget + i};
+            int[] tt = {i, indexOfTarget + 1};
             ans.add(tt);
 
-            aa.set(i - 1 + i - 1, i + i - 1);
-            aa.set(indexOfTarget + i - 1, vt + i - 1);
+            aa.set(i - 1, i);
+            aa.set(indexOfTarget, vt);
 
-            List<Integer> bb = new ArrayList<>(aa);
-            bb.remove(0);
+            pos[i - 1] = i;
+            pos[vt - 1] = indexOfTarget;
 
-            aa = new ArrayList<>(bb);
+            int ttt = 0;
+
         }
 
         if (cnt == 0) {
@@ -87,8 +95,8 @@ public class ABC350C {
         }
 
     }
-//}
 
+//}
     @Test
     public void Case1() {
 
@@ -107,7 +115,7 @@ public class ABC350C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
-    //@Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -123,7 +131,7 @@ public class ABC350C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
-    //@Test
+    @Test
     public void Case3() {
 
         String input = """
