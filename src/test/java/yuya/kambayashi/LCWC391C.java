@@ -76,7 +76,7 @@ public class LCWC391C {
     }
 
     @Test
-    void Case3() {
+    void Case4() {
 
         int[] nums = {1, 2, 3, 4, 5, 6};
         int k = 4;

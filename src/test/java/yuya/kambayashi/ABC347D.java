@@ -29,7 +29,7 @@ public class ABC347D {
         String bb = Integer.toBinaryString(b);
         String cb = Integer.toBinaryString(c);
 
-        System.out.println(set.size());
+        //System.out.println(set.size());
     }
 //}
 
