@@ -17,62 +17,6 @@ import org.junit.jupiter.api.TestInstance;
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ABC347C {
-//import java.util.*;
-//public class Main {
-
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        final int n = sc.nextInt();
-        final long a = sc.nextLong();
-        final long b = sc.nextLong();
-        long[] da = new long[n];
-        for (int i = 0; i < n; i++) {
-            da[i] = sc.nextLong();
-        }
-
-        for (int i = 0; i < da.length; i++) {
-            da[i] %= (a + b);
-        }
-
-        Set<Long> checkedHs = new HashSet<>();
-
-        for (long i = 0; i < (a + b); i++) {
-            // 休日
-            long hs = 1;
-            long he = a;
-
-            //休日をずらす
-            hs += i;
-            he += i;
-
-            hs %= (a + b);
-            he %= (a + b);
-
-            if (checkedHs.contains(hs)) {
-                continue;
-            } else {
-                checkedHs.add(hs);
-            }
-
-            // タスクをチェック
-            boolean all = true;
-            for (long d : da) {
-                if (d < hs || he < d) {
-                    all = false;
-                    break;
-                }
-            }
-            if (all) {
-                System.out.println("Yes");
-                return;
-            }
-
-        }
-
-        System.out.println("No");
-    }
-//}
 
     private StandardInputSnatcher in = new StandardInputSnatcher();
 
@@ -90,7 +34,33 @@ public class ABC347C {
         System.setOut(null);
     }
 
-    //@Disabled
+//import java.util.*;
+//public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        final int n = sc.nextInt();
+        final int a = sc.nextInt();
+        final int b = sc.nextInt();
+        int minv = a + b, maxv = 0, minv2 = a + b, maxv2 = 0;
+        for (int i = 0; i < n; i++) {
+
+            int d = sc.nextInt();
+            minv = Math.min(minv, d % (a + b));
+            maxv = Math.max(maxv, d % (a + b));
+            minv2 = Math.min(minv2, (d + a) % (a + b));
+            maxv2 = Math.max(maxv2, (d + a) % (a + b));
+        }
+
+        if (maxv - minv < a || maxv2 - minv2 < a) {
+            System.out.println("Yes");
+        } else {
+            System.out.println("No");
+        }
+
+    }
+//}
+
     @Test
     public void Case1() {
 
@@ -106,7 +76,6 @@ public class ABC347C {
         assertThat(actual).isEqualTo(expected);
     }
 
-    //@Disabled
     @Test
     public void Case2() {
 
@@ -122,7 +91,6 @@ public class ABC347C {
         assertThat(actual).isEqualTo(expected);
     }
 
-    //  @Disabled
     @Test
     public void Case3() {
 
@@ -135,7 +103,6 @@ public class ABC347C {
         assertThat(actual).isEqualTo(expected);
     }
 
-    //@Disabled
     @Test
     public void CaseD() {
 

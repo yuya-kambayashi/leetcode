@@ -40,38 +40,40 @@ public class ABC348C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
-        int[][] zaa = new int[n][2];
+
+        int[] aa = new int[n];
+        int[] cc = new int[n];
+
         for (int i = 0; i < n; i++) {
-            zaa[i][0] = sc.nextInt();
-            zaa[i][1] = sc.nextInt();
+            aa[i] = sc.nextInt();
+            cc[i] = sc.nextInt();
+
         }
 
-        Map<Integer, Integer> map = new HashMap<>();
-
+        Map<Integer, List<Integer>> map = new HashMap<>();
         for (int i = 0; i < n; i++) {
-            int[] za = zaa[i];
 
-            int k = za[1];
-            int v = za[0];
+            int c = cc[i];
 
-            if (map.containsKey(k)) {
-                if (map.get(k) > v) {
-                    map.put(k, v);
-                }
+            if (map.containsKey(c)) {
+                var l = map.get(c);
+                l.add(aa[i]);
             } else {
-                map.put(k, v);
+                List<Integer> l = new ArrayList<>();
+                l.add(aa[i]);
+                map.put(c, l);
             }
         }
 
-        int min = 0;
-
-        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-            if (min < entry.getValue()) {
-                min = entry.getValue();
-            }
+        int max = 0;
+        for (Map.Entry<Integer, List<Integer>> entry : map.entrySet()) {
+            var l = entry.getValue();
+            Collections.sort(l);
+            max = Math.max(max, l.get(0));
         }
 
-        System.out.println(min);
+        System.out.println(max);
+
     }
 //}
 
