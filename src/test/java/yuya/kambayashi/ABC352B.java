@@ -41,9 +41,34 @@ public class ABC352B {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final int n = sc.nextInt();
+        final String s = sc.next();
+        final String t = sc.next();
 
-        System.out.println();
+        int si = 0, ti = 0;
+
+        List<Integer> collectIndex = new ArrayList<>();
+
+        while (si < s.length()) {
+
+            if (s.charAt(si) == t.charAt(ti)) {
+                collectIndex.add(ti + 1);
+                si++;
+                ti++;
+            } else {
+                ti++;
+            }
+
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < collectIndex.size(); i++) {
+            sb.append(collectIndex.get(i));
+            if (i != collectIndex.size() - 1) {
+                sb.append(" ");
+            }
+        }
+
+        System.out.println(sb.toString());
     }
 //}
 
@@ -51,41 +76,44 @@ public class ABC352B {
     public void Case1() {
 
         String input = """
-                       
+                       abc
+                       axbxyc
                     """;
 
         String expected = """
-                          
+                          1 3 6
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC352B.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
-                       
+                       aaaa
+                       bbbbaaaa
                     """;
 
         String expected = """
-                          
+                          5 6 7 8
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC352B.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """
-                       
+                       atcoder
+                       atcoder
                     """;
 
         String expected = """
-                          
+                          1 2 3 4 5 6 7
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC352B.main(null);

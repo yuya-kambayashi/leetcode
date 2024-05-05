@@ -42,8 +42,18 @@ public class ABC352A {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
+        final int x = sc.nextInt();
+        final int y = sc.nextInt();
+        final int z = sc.nextInt();
 
-        System.out.println();
+        String ret = "No";
+        if (x < z && z < y) {
+            ret = "Yes";
+        } else if (y < z && z < x) {
+            ret = "Yes";
+        }
+
+        System.out.println(ret);
     }
 //}
 
@@ -51,41 +61,41 @@ public class ABC352A {
     public void Case1() {
 
         String input = """
-                       
+                       10 3 2 9
                     """;
 
         String expected = """
-                          
+                          No
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC352A.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
-                       
+                       10 3 2 9
                     """;
 
         String expected = """
-                          
+                          No
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC352A.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """
-                       
+                       100 23 67 45
                     """;
 
         String expected = """
-                          
+                          Yes
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC352A.main(null);
