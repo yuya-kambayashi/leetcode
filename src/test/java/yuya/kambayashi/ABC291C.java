@@ -17,7 +17,7 @@ import org.junit.jupiter.api.TestInstance;
  * @author kamba
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class XXX {
+public class ABC291C {
 
     private StandardInputSnatcher in = new StandardInputSnatcher();
     private StandardOutputSnatcher out = new StandardOutputSnatcher();
@@ -41,39 +41,93 @@ public class XXX {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final long n = sc.nextLong();
+        final int n = sc.nextInt();
+        final String s = sc.next();
 
-        System.out.println();
+        int d = 2 * (int) Math.pow(10, 5);
+
+        HashSet<Pair> pairs = new HashSet<>();
+
+        int x = 0, y = 0;
+        pairs.add(new Pair(x, y));
+
+        for (char c : s.toCharArray()) {
+
+            switch (c) {
+                case 'L':
+                    x--;
+                    break;
+                case 'R':
+                    x++;
+                    break;
+                case 'U':
+                    y++;
+                    break;
+                case 'D':
+                    y--;
+                    break;
+            }
+
+            Pair moved = new Pair(x, y);
+            if (pairs.contains(moved)) {
+                System.out.println("Yes");
+                return;
+            }
+            pairs.add(moved);
+        }
+
+        System.out.println("No");
     }
-//}
+
+    static class Pair {
+
+        int first, second;
+
+        Pair(int first, int second) {
+            this.first = first;
+            this.second = second;
+        }
+
+        public int hashCode() {
+            return 31 * first + second;
+        }
+
+        public boolean equals(Object obj) {
+            Pair other = (Pair) obj;
+
+            return this.first == other.first && this.second == other.second;
+        }
+    }
 
     @Test
     public void Case1() {
 
         String input = """
-                       
+                       5
+                       RLURU
                     """;
 
         String expected = """
-                          
+                          Yes
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        XXX.main(null);
+        ABC291C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
-                       
+                       20
+                       URDDLLUUURRRDDDDLLLL
                     """;
 
         String expected = """
-                          
+                          No
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        XXX.main(null);
+        ABC291C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
@@ -88,7 +142,7 @@ public class XXX {
                           
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        XXX.main(null);
+        ABC291C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 }
