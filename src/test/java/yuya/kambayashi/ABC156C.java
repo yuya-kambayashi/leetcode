@@ -17,7 +17,7 @@ import org.junit.jupiter.api.TestInstance;
  * @author kamba
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class XXX {
+public class ABC156C {
 
     private StandardInputSnatcher in = new StandardInputSnatcher();
     private StandardOutputSnatcher out = new StandardOutputSnatcher();
@@ -42,8 +42,23 @@ public class XXX {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
+        int[] xx = new int[n];
+        for (int i = 0; i < n; i++) {
+            xx[i] = sc.nextInt();
+        }
 
-        System.out.println();
+        long sum = 0;
+        for (int x : xx) {
+            sum += x;
+        }
+        int mid = (int) Math.round((double) sum / n);
+
+        long ans = 0;
+        for (int i = 0; i < n; i++) {
+            ans += Math.pow(xx[i] - mid, 2);
+        }
+
+        System.out.println(ans);
     }
 //}
 
@@ -51,29 +66,31 @@ public class XXX {
     public void Case1() {
 
         String input = """
-                       
+                       2
+                       1 4
                     """;
 
         String expected = """
-                          
+                          5
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        XXX.main(null);
+        ABC156C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
-                       
+                       7
+                       14 14 2 13 56 2 37
                     """;
 
         String expected = """
-                          
+                          2354
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        XXX.main(null);
+        ABC156C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
@@ -88,7 +105,7 @@ public class XXX {
                           
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        XXX.main(null);
+        ABC156C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 }
