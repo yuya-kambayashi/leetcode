@@ -17,7 +17,7 @@ import org.junit.jupiter.api.TestInstance;
  * @author kamba
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ABC140C {
+public class ABC355B {
 
     private StandardInputSnatcher in = new StandardInputSnatcher();
     private StandardOutputSnatcher out = new StandardOutputSnatcher();
@@ -42,19 +42,40 @@ public class ABC140C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
-        int[] bb = new int[n - 1];
-        for (int i = 0; i < n - 1; i++) {
+        final int m = sc.nextInt();
+
+        int[] aa = new int[n];
+        Set<Integer> setA = new HashSet<>();
+        int[] bb = new int[m];
+        int[] cc = new int[n + m];
+        for (int i = 0; i < n; i++) {
+            aa[i] = sc.nextInt();
+            cc[i] = aa[i];
+            setA.add(aa[i]);
+        }
+
+        for (int i = 0; i < m; i++) {
             bb[i] = sc.nextInt();
+            cc[i + n] = bb[i];
+        }
+        Arrays.sort(cc);
+
+        boolean inA = false;
+        for (int i = 0; i < n + m; i++) {
+            if (setA.contains(cc[i])) {
+                if (inA) {
+                    System.out.println("Yes");
+                    return;
+
+                } else {
+                    inA = true;
+                }
+            } else {
+                inA = false;
+            }
         }
 
-        int ans = 0;
-        ans += bb[0];
-        ans += bb[n - 2];
-        for (int i = 0; i < n - 2; i++) {
-            ans += Math.min(bb[i], bb[i + 1]);
-        }
-
-        System.out.println(ans);
+        System.out.println("No");
     }
 //}
 
@@ -62,15 +83,16 @@ public class ABC140C {
     public void Case1() {
 
         String input = """
-                       3
-                       2 5
+                       3 2
+                       3 2 5
+                       4 1
                     """;
 
         String expected = """
-                          9
+                          Yes
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC140C.main(null);
+        ABC355B.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
@@ -78,31 +100,33 @@ public class ABC140C {
     public void Case2() {
 
         String input = """
-                       2
-                       3
+                       3 2
+                       3 1 5
+                       4 2
                     """;
 
         String expected = """
-                          6
+                          No
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC140C.main(null);
+        ABC355B.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
-    @Test
+    //@Test
     public void Case3() {
 
         String input = """
-                       6
-                       0 153 10 10 23
+                       1 1
+                       1
+                       2
                     """;
 
         String expected = """
-                          53
+                          No
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC140C.main(null);
+        ABC355B.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 }
