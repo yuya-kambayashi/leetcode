@@ -44,18 +44,21 @@ public class ABC095C {
         final int x = sc.nextInt();
         final int y = sc.nextInt();
 
-        int min = Integer.MAX_VALUE;
-        for (int i = 0; i < 100001; i++) {
-            int price = a * Math.max(x - i, 0) + b * Math.max(y - i, 0) + 2 * c * i;
+        // 全部別々
+        long price1 = a * x + b * y;
 
-            min = Math.min(min, price);
-        }
+        // できるだけハーフを買って、残りは単独を買う
+        int min = Math.min(x, y);
+        long price2 = c * min * 2 + (x - min) * a + (y - min) * b;
 
-        System.out.println(min);
+        // 全部ハーフ
+        long price3 = c * Math.max(x, y) * 2;
+
+        System.out.println(Math.min(price1, Math.min(price2, price3)));
     }
 //}
 
-    //@Test
+    @Test
     public void Case1() {
 
         in.inputln("1500 2000 1600 3 2");
@@ -66,7 +69,7 @@ public class ABC095C {
         assertThat(actual).isEqualTo(expected);
     }
 
-    // @Test
+    @Test
     public void Case2() {
 
         in.inputln("1500 2000 1900 3 2");
