@@ -17,7 +17,7 @@ import org.junit.jupiter.api.TestInstance;
  * @author kamba
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ABC354D {
+public class ABC263C {
 
     private StandardInputSnatcher in = new StandardInputSnatcher();
     private StandardOutputSnatcher out = new StandardOutputSnatcher();
@@ -41,44 +41,49 @@ public class ABC354D {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final int a = sc.nextInt();
-        final int b = sc.nextInt();
-        final int c = sc.nextInt();
-        final int d = sc.nextInt();
+        final int n = sc.nextInt();
+        final int m = sc.nextInt();
 
-        // 左下
-        int modA = a % 4;
-        if (modA < 0) {
-            modA += 4;
-        }
-        int modB = b % 4;
-        if (modB < 0) {
-            modB += 4;
-        }
+        ArrayList<List<Integer>> list = new ArrayList<>();
 
-        int[] patternX = {1, 2, 3, 4};
-        int[] patternY1 = {1, 4};
-//        int[] patternY2 = {
-//            long sum = 0;
-        for (int row = a; row <= c; row++) {
+        for (int bit = 0; bit < 1 << m; bit++) {
 
-            for (int col = b; col < d; col++) {
-                int rowt = row % 4;
-                if (rowt < 0) {
-                    rowt += 4;
+            List<Integer> t = new ArrayList<>();
+            for (int i = 0; i < m; i++) {
+                if ((bit & (1 << i)) >= 1) {
+                    t.add(i + 1);
                 }
-                int colt = col % 4;
-                if (colt < 0) {
-                    colt += 4;
-                }
-
-                int aa = 0;
-
+            }
+            if (t.size() != n) {
+                continue;
             }
 
+            list.add(t);
         }
+        Collections.sort(list, new Comparator<List<Integer>>() {
+            @Override
+            public int compare(List<Integer> l1, List<Integer> l2) {
+                int i = 0;
+                while (i < l1.size()) {
+                    if (l1.get(i).equals(l2.get(i))) {
+                        i++;
+                        continue;
+                    }
 
-        System.out.println();
+                    return Integer.compare(l1.get(i), l2.get(i));
+                }
+                return 0;
+            }
+        });
+        for (var t : list) {
+            StringBuilder sb = new StringBuilder();
+            for (var a : t) {
+                sb.append(a);
+                sb.append(" ");
+            }
+            sb.deleteCharAt(sb.length() - 1);
+            System.out.println(sb.toString());
+        }
     }
 //}
 
@@ -86,29 +91,40 @@ public class ABC354D {
     public void Case1() {
 
         String input = """
-                       0 0 3 3
+                       2 3
                     """;
 
         String expected = """
-                          10
+                          1 2 
+1 3 
+2 3 
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC354D.main(null);
+        ABC263C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
-                      -1 -2 1 3
+                       3 5
                     """;
 
         String expected = """
-                          11
+                          1 2 3 
+1 2 4 
+1 2 5 
+1 3 4 
+1 3 5 
+1 4 5 
+2 3 4 
+2 3 5 
+2 4 5 
+3 4 5 
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC354D.main(null);
+        ABC263C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
@@ -116,14 +132,14 @@ public class ABC354D {
     public void Case3() {
 
         String input = """
-                       -1000000000 -1000000000 1000000000 1000000000
+                       
                     """;
 
         String expected = """
-                          4000000000000000000
+                          
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC354D.main(null);
+        ABC263C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 }

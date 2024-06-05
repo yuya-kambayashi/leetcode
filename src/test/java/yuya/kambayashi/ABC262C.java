@@ -17,7 +17,7 @@ import org.junit.jupiter.api.TestInstance;
  * @author kamba
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ABC354D {
+public class ABC262C {
 
     private StandardInputSnatcher in = new StandardInputSnatcher();
     private StandardOutputSnatcher out = new StandardOutputSnatcher();
@@ -41,74 +41,71 @@ public class ABC354D {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final int a = sc.nextInt();
-        final int b = sc.nextInt();
-        final int c = sc.nextInt();
-        final int d = sc.nextInt();
-
-        // 左下
-        int modA = a % 4;
-        if (modA < 0) {
-            modA += 4;
+        final int n = sc.nextInt();
+        int[] aa = new int[n];
+        for (int i = 0; i < n; i++) {
+            int a = sc.nextInt();
+            a--;
+            aa[i] = a;
         }
-        int modB = b % 4;
-        if (modB < 0) {
-            modB += 4;
-        }
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            int a = aa[i];
 
-        int[] patternX = {1, 2, 3, 4};
-        int[] patternY1 = {1, 4};
-//        int[] patternY2 = {
-//            long sum = 0;
-        for (int row = a; row <= c; row++) {
-
-            for (int col = b; col < d; col++) {
-                int rowt = row % 4;
-                if (rowt < 0) {
-                    rowt += 4;
+            if (a == i) {
+                for (int j = i + 1; j < n; j++) {
+                    if (aa[j] == j) {
+                        ans++;
+                    }
                 }
-                int colt = col % 4;
-                if (colt < 0) {
-                    colt += 4;
+            } else {
+                for (int j = i + 1; j < n; j++) {
+                    if (aa[j] == i && a == j) {
+                        ans++;
+                    }
                 }
-
-                int aa = 0;
-
             }
 
+            // 0 2 1 3
+            // 4 7 1 1 0 5 6 1 8 9
+            // (5,1), (8,2), (6,7)(6,9)(6,10)(7,9)(7,10)(9.10)
+            // (4,0)  (7,1)  (5,6) (5,8)(5,9)(6.8)(6,9)(8,9)
         }
 
-        System.out.println();
+        System.out.println(ans);
+
     }
 //}
 
-    @Test
+//@Test
     public void Case1() {
 
         String input = """
-                       0 0 3 3
+                       4
+1 3 2 4
                     """;
 
         String expected = """
-                          10
+                          2
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC354D.main(null);
+        ABC262C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
-                      -1 -2 1 3
+                       10
+5 8 2 2 1 6 7 2 9 10
                     """;
 
         String expected = """
-                          11
+                          8
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC354D.main(null);
+        ABC262C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
@@ -116,14 +113,14 @@ public class ABC354D {
     public void Case3() {
 
         String input = """
-                       -1000000000 -1000000000 1000000000 1000000000
+                       
                     """;
 
         String expected = """
-                          4000000000000000000
+                          
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC354D.main(null);
+        ABC262C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 }

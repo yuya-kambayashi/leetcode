@@ -17,7 +17,7 @@ import org.junit.jupiter.api.TestInstance;
  * @author kamba
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ABC354D {
+public class ABC269C {
 
     private StandardInputSnatcher in = new StandardInputSnatcher();
     private StandardOutputSnatcher out = new StandardOutputSnatcher();
@@ -41,44 +41,41 @@ public class ABC354D {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final int a = sc.nextInt();
-        final int b = sc.nextInt();
-        final int c = sc.nextInt();
-        final int d = sc.nextInt();
+        final long n = sc.nextLong();
 
-        // 左下
-        int modA = a % 4;
-        if (modA < 0) {
-            modA += 4;
-        }
-        int modB = b % 4;
-        if (modB < 0) {
-            modB += 4;
-        }
+        String s = Long.toBinaryString(n);
 
-        int[] patternX = {1, 2, 3, 4};
-        int[] patternY1 = {1, 4};
-//        int[] patternY2 = {
-//            long sum = 0;
-        for (int row = a; row <= c; row++) {
+        char[] cc = s.toCharArray();
 
-            for (int col = b; col < d; col++) {
-                int rowt = row % 4;
-                if (rowt < 0) {
-                    rowt += 4;
-                }
-                int colt = col % 4;
-                if (colt < 0) {
-                    colt += 4;
-                }
-
-                int aa = 0;
-
+        List<Integer> is = new ArrayList<>();
+        for (int i = 0; i < cc.length; i++) {
+            if (cc[i] == '1') {
+                is.add(i);
             }
-
         }
 
-        System.out.println();
+        List<Long> ans = new ArrayList<>();
+
+        for (long bit = 0; bit < 1 << is.size(); bit++) {
+            char[] tt = new char[cc.length];
+            Arrays.fill(tt, '0');
+            for (int i = 0; i < is.size(); i++) {
+                if ((bit & (1 << i)) >= 1) {
+                    tt[is.get(i)] = '1';
+                }
+            }
+            String t = String.valueOf(tt);
+
+            Long t2 = Long.parseLong(t, 2);
+
+            ans.add(t2);
+        }
+        Collections.sort(ans);
+
+        for (var a : ans) {
+            System.out.println(a);
+        }
+
     }
 //}
 
@@ -86,44 +83,58 @@ public class ABC354D {
     public void Case1() {
 
         String input = """
-                       0 0 3 3
+                       11
                     """;
 
         String expected = """
-                          10
+                          0
+1
+2
+3
+8
+9
+10
+11
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC354D.main(null);
+        ABC269C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
-                      -1 -2 1 3
+                       0
                     """;
 
         String expected = """
-                          11
+                          0
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC354D.main(null);
+        ABC269C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """
-                       -1000000000 -1000000000 1000000000 1000000000
+                       576461302059761664
                     """;
 
         String expected = """
-                          4000000000000000000
+                          0
+524288
+549755813888
+549756338176
+576460752303423488
+576460752303947776
+576461302059237376
+576461302059761664
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC354D.main(null);
+        ABC269C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 }

@@ -17,7 +17,7 @@ import org.junit.jupiter.api.TestInstance;
  * @author kamba
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ABC354D {
+public class ABC276C {
 
     private StandardInputSnatcher in = new StandardInputSnatcher();
     private StandardOutputSnatcher out = new StandardOutputSnatcher();
@@ -41,89 +41,94 @@ public class ABC354D {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final int a = sc.nextInt();
-        final int b = sc.nextInt();
-        final int c = sc.nextInt();
-        final int d = sc.nextInt();
-
-        // 左下
-        int modA = a % 4;
-        if (modA < 0) {
-            modA += 4;
-        }
-        int modB = b % 4;
-        if (modB < 0) {
-            modB += 4;
+        final int n = sc.nextInt();
+        int[] pp = new int[n];
+        for (int i = 0; i < n; i++) {
+            pp[i] = sc.nextInt();
         }
 
-        int[] patternX = {1, 2, 3, 4};
-        int[] patternY1 = {1, 4};
-//        int[] patternY2 = {
-//            long sum = 0;
-        for (int row = a; row <= c; row++) {
-
-            for (int col = b; col < d; col++) {
-                int rowt = row % 4;
-                if (rowt < 0) {
-                    rowt += 4;
-                }
-                int colt = col % 4;
-                if (colt < 0) {
-                    colt += 4;
-                }
-
-                int aa = 0;
-
-            }
-
+        int j = n - 2;
+        while (j >= 0 && pp[j] < pp[j + 1]) {
+            j--;
         }
 
-        System.out.println();
+        int k = n - 1;
+        while (pp[j] < pp[k]) {
+            k--;
+        }
+
+        int temp = pp[j];
+        pp[j] = pp[k];
+        pp[k] = temp;
+
+        reverse(pp, j + 1, n - 1);
+
+        StringBuilder sb = new StringBuilder();
+        for (int p : pp) {
+            sb.append(p);
+            sb.append(" ");
+        }
+        sb.deleteCharAt(sb.length() - 1);
+
+        System.out.println(sb.toString());
+
     }
-//}
 
-    @Test
+    public static void reverse(int[] array, int start, int end) {
+        while (start < end) {
+            int t = array[start];
+            array[start] = array[end];
+            array[end] = t;
+            start++;
+            end--;
+        }
+    }
+
+//}
+    //@Test
     public void Case1() {
 
         String input = """
-                       0 0 3 3
+                       3
+3 1 2
                     """;
 
         String expected = """
-                          10
+                          2 3 1
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC354D.main(null);
+        ABC276C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
-                      -1 -2 1 3
+                       10
+9 8 6 5 10 3 1 2 4 7
                     """;
 
         String expected = """
-                          11
+                          9 8 6 5 10 2 7 4 3 1
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC354D.main(null);
+        ABC276C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
-    // @Test
+    //@Test
     public void Case3() {
 
         String input = """
-                       -1000000000 -1000000000 1000000000 1000000000
+                       
                     """;
 
         String expected = """
-                          4000000000000000000
+                          
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC354D.main(null);
+        ABC276C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 }
