@@ -17,7 +17,7 @@ import org.junit.jupiter.api.TestInstance;
  * @author kamba
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ABC210C {
+public class ABC315C {
 
     private StandardInputSnatcher in = new StandardInputSnatcher();
     private StandardOutputSnatcher out = new StandardOutputSnatcher();
@@ -42,46 +42,67 @@ public class ABC210C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
-        final int k = sc.nextInt();
-        int[] cc = new int[n];
+        int[] ff = new int[n];
+        int[] ss = new int[n];
+        List<Pair> pairs = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            cc[i] = sc.nextInt();
+            ff[i] = sc.nextInt();
+            ss[i] = sc.nextInt();
+            pairs.add(new Pair(ff[i], ss[i]));
         }
+        Collections.sort(pairs, Comparator.comparingInt(Pair::getS));
 
-        Map<Integer, Integer> map = new HashMap<>();
-
-        for (int i = 0; i < k; i++) {
-            map.put(cc[i], map.getOrDefault(cc[i], 0) + 1);
-        }
-
-        int ans = map.size();
-
-        for (int i = k; i < n; i++) {
-            map.put(cc[i], map.getOrDefault(cc[i], 0) + 1);
-            map.put(cc[i - k], map.get(cc[i - k]) - 1);
-            if (map.get(cc[i - k]) == 0) {
-                map.remove(cc[i - k]);
+        // 同じ味のmax
+        int max1 = 0;
+        int maxf = pairs.get(pairs.size() - 1).f;
+        for (int i = pairs.size() - 2; i >= 0; i--) {
+            if (pairs.get(i).f == maxf) {
+                max1 = pairs.get(pairs.size() - 1).s + pairs.get(i).s / 2;
+                break;
             }
-            ans = Math.max(ans, map.size());
         }
-        System.out.println(ans);
-
+        // 違う味のmax
+        int max2 = 0;
+        for (int i = pairs.size() - 2; i >= 0; i--) {
+            if (pairs.get(i).f != maxf) {
+                max2 = pairs.get(pairs.size() - 1).s + pairs.get(i).s;
+                break;
+            }
+        }
+        System.out.println(Math.max(max1, max2));
     }
 
+    static class Pair {
+
+        int f, s;
+
+        public Pair(int f, int s) {
+            this.f = f;
+            this.s = s;
+        }
+
+        public int getS() {
+            return s;
+        }
+    }
 //}
+
     @Test
     public void Case1() {
 
         String input = """
-                       7 3
-1 2 1 2 3 3 1
+                       4
+1 4
+2 10
+2 8
+3 6
                     """;
 
         String expected = """
-                          3
+                          16
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC210C.main(null);
+        ABC315C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
@@ -89,31 +110,33 @@ public class ABC210C {
     public void Case2() {
 
         String input = """
-                       5 5
-4 4 4 4 4
+                       4
+4 10
+3 2
+2 4
+4 12
                     """;
 
         String expected = """
-                          1
+                          17
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC210C.main(null);
+        ABC315C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
-    @Test
+    // @Test
     public void Case3() {
 
         String input = """
-                       10 6
-304621362 506696497 304621362 506696497 834022578 304621362 414720753 304621362 304621362 414720753
+                       
                     """;
 
         String expected = """
-                          4
+                          
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC210C.main(null);
+        ABC315C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 }

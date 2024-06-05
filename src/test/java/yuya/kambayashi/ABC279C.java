@@ -17,7 +17,7 @@ import org.junit.jupiter.api.TestInstance;
  * @author kamba
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ABC210C {
+public class ABC279C {
 
     private StandardInputSnatcher in = new StandardInputSnatcher();
     private StandardOutputSnatcher out = new StandardOutputSnatcher();
@@ -41,79 +41,113 @@ public class ABC210C {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final int n = sc.nextInt();
-        final int k = sc.nextInt();
-        int[] cc = new int[n];
-        for (int i = 0; i < n; i++) {
-            cc[i] = sc.nextInt();
+        final int height = sc.nextInt();
+        final int width = sc.nextInt();
+        List<String> ss = new ArrayList<>();
+        List<String> tt = new ArrayList<>();
+        for (int i = 0; i < height; i++) {
+            ss.add(sc.next());
+        }
+        for (int i = 0; i < height; i++) {
+            tt.add(sc.next());
         }
 
-        Map<Integer, Integer> map = new HashMap<>();
-
-        for (int i = 0; i < k; i++) {
-            map.put(cc[i], map.getOrDefault(cc[i], 0) + 1);
-        }
-
-        int ans = map.size();
-
-        for (int i = k; i < n; i++) {
-            map.put(cc[i], map.getOrDefault(cc[i], 0) + 1);
-            map.put(cc[i - k], map.get(cc[i - k]) - 1);
-            if (map.get(cc[i - k]) == 0) {
-                map.remove(cc[i - k]);
+        Map<String, Integer> ss2 = new HashMap<>();
+        for (int i = 0; i < width; i++) {
+            StringBuilder sb = new StringBuilder();
+            for (int j = 0; j < height; j++) {
+                sb.append(ss.get(j).charAt(i));
             }
-            ans = Math.max(ans, map.size());
+            String t = sb.toString();
+            ss2.put(t, ss2.getOrDefault(t, 0) + 1);
         }
-        System.out.println(ans);
+        Map<String, Integer> tt2 = new HashMap<>();
+        for (int i = 0; i < width; i++) {
+            StringBuilder sb = new StringBuilder();
+            for (int j = 0; j < height; j++) {
+                sb.append(tt.get(j).charAt(i));
+            }
+            String t = sb.toString();
+            tt2.put(t, tt2.getOrDefault(t, 0) + 1);
+        }
 
+        String ret = "Yes";
+//            if (ss2.size() == tt2.size()) {
+//                for (var k : ss2.keySet()) {
+//                    if (!ss2.get(k).equals(tt2.get(k))) {
+//                        ret = "No";
+//                        break;
+//                    }
+//                }
+//            } else {
+//                ret = "No";
+//            }
+        if (!tt2.equals(ss2)) {
+            ret = "No";
+        }
+
+        System.out.println(ret);
     }
-
 //}
+
     @Test
     public void Case1() {
 
         String input = """
-                       7 3
-1 2 1 2 3 3 1
+                       3 4
+##.#
+##..
+#...
+.###
+..##
+...#
                     """;
 
         String expected = """
-                          3
+                          Yes
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC210C.main(null);
+        ABC279C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
-    @Test
+    //  @Test
     public void Case2() {
 
         String input = """
-                       5 5
-4 4 4 4 4
+                       3 3
+#.#
+.#.
+#.#
+##.
+##.
+.#.
                     """;
 
         String expected = """
-                          1
+                          No
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC210C.main(null);
+        ABC279C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
-    @Test
+    // @Test
     public void Case3() {
 
         String input = """
-                       10 6
-304621362 506696497 304621362 506696497 834022578 304621362 414720753 304621362 304621362 414720753
+                       2 1
+#
+.
+#
+.
                     """;
 
         String expected = """
-                          4
+                          Yes
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC210C.main(null);
+        ABC279C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 }

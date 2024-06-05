@@ -17,7 +17,7 @@ import org.junit.jupiter.api.TestInstance;
  * @author kamba
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ABC210C {
+public class ABC194C {
 
     private StandardInputSnatcher in = new StandardInputSnatcher();
     private StandardOutputSnatcher out = new StandardOutputSnatcher();
@@ -42,46 +42,42 @@ public class ABC210C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
-        final int k = sc.nextInt();
-        int[] cc = new int[n];
+        int[] aa = new int[n];
         for (int i = 0; i < n; i++) {
-            cc[i] = sc.nextInt();
+            aa[i] = sc.nextInt();
         }
 
-        Map<Integer, Integer> map = new HashMap<>();
+        long ans = 0;
+        for (int i = 0; i < n; i++) {
+            int a = aa[i];
 
-        for (int i = 0; i < k; i++) {
-            map.put(cc[i], map.getOrDefault(cc[i], 0) + 1);
-        }
+            ans += a * a;
 
-        int ans = map.size();
-
-        for (int i = k; i < n; i++) {
-            map.put(cc[i], map.getOrDefault(cc[i], 0) + 1);
-            map.put(cc[i - k], map.get(cc[i - k]) - 1);
-            if (map.get(cc[i - k]) == 0) {
-                map.remove(cc[i - k]);
+            for (int j = 0; j < n; j++) {
+                if (i == j) {
+                    continue;
+                }
+                ans -= a * aa[j] * 2;
             }
-            ans = Math.max(ans, map.size());
         }
+
         System.out.println(ans);
-
     }
-
 //}
+
     @Test
     public void Case1() {
 
         String input = """
-                       7 3
-1 2 1 2 3 3 1
+                       3
+2 8 4
                     """;
 
         String expected = """
-                          3
+                          56
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC210C.main(null);
+        ABC194C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
@@ -89,31 +85,30 @@ public class ABC210C {
     public void Case2() {
 
         String input = """
-                       5 5
-4 4 4 4 4
+                       5
+-5 8 9 -4 -3
                     """;
 
         String expected = """
-                          1
+                          950
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC210C.main(null);
+        ABC194C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
-    @Test
+    // @Test
     public void Case3() {
 
         String input = """
-                       10 6
-304621362 506696497 304621362 506696497 834022578 304621362 414720753 304621362 304621362 414720753
+                       
                     """;
 
         String expected = """
-                          4
+                          
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC210C.main(null);
+        ABC194C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 }

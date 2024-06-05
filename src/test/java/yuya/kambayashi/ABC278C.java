@@ -17,7 +17,7 @@ import org.junit.jupiter.api.TestInstance;
  * @author kamba
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ABC210C {
+public class ABC278C {
 
     private StandardInputSnatcher in = new StandardInputSnatcher();
     private StandardOutputSnatcher out = new StandardOutputSnatcher();
@@ -42,78 +42,150 @@ public class ABC210C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
-        final int k = sc.nextInt();
-        int[] cc = new int[n];
-        for (int i = 0; i < n; i++) {
-            cc[i] = sc.nextInt();
-        }
-
-        Map<Integer, Integer> map = new HashMap<>();
-
-        for (int i = 0; i < k; i++) {
-            map.put(cc[i], map.getOrDefault(cc[i], 0) + 1);
-        }
-
-        int ans = map.size();
-
-        for (int i = k; i < n; i++) {
-            map.put(cc[i], map.getOrDefault(cc[i], 0) + 1);
-            map.put(cc[i - k], map.get(cc[i - k]) - 1);
-            if (map.get(cc[i - k]) == 0) {
-                map.remove(cc[i - k]);
+        final int q = sc.nextInt();
+        Set<Pair> pairs = new HashSet<>();
+        for (int i = 0; i < q; i++) {
+            int t = sc.nextInt();
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            if (t == 1) {
+                pairs.add(new Pair(a, b));
+            } else if (t == 2) {
+                pairs.remove(new Pair(a, b));
+            } else if (t == 3) {
+                if (pairs.contains(new Pair(a, b)) && pairs.contains(new Pair(b, a))) {
+                    System.out.println("Yes");
+                } else {
+                    System.out.println("No");
+                }
             }
-            ans = Math.max(ans, map.size());
         }
-        System.out.println(ans);
-
     }
 
+    static class Pair {
+
+        int a, b;
+
+        Pair(int a, int b) {
+            this.a = a;
+            this.b = b;
+        }
+
+        public int hashCode() {
+            return 31 * a + b;
+        }
+
+        public boolean equals(Object obj) {
+            Pair other = (Pair) obj;
+
+            return this.a == other.a && this.b == other.b;
+        }
+    }
 //}
+
     @Test
     public void Case1() {
 
         String input = """
-                       7 3
-1 2 1 2 3 3 1
+                       3 9
+1 1 2
+3 1 2
+1 2 1
+3 1 2
+1 2 3
+1 3 2
+3 1 3
+2 1 2
+3 1 2
                     """;
 
         String expected = """
-                          3
+                          No
+Yes
+No
+No
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC210C.main(null);
+        ABC278C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
-    @Test
+    //  @Test
     public void Case2() {
 
         String input = """
-                       5 5
-4 4 4 4 4
+                       2 8
+1 1 2
+1 2 1
+3 1 2
+1 1 2
+1 1 2
+1 1 2
+2 1 2
+3 1 2
                     """;
 
         String expected = """
-                          1
+                          Yes
+No
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC210C.main(null);
+        ABC278C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
-    @Test
+    // @Test
     public void Case3() {
 
         String input = """
-                       10 6
-304621362 506696497 304621362 506696497 834022578 304621362 414720753 304621362 304621362 414720753
+                       10 30
+3 1 6
+3 5 4
+1 6 1
+3 1 7
+3 8 4
+1 1 6
+2 4 3
+1 6 5
+1 5 6
+1 1 8
+1 8 1
+2 3 10
+1 7 6
+3 5 6
+1 6 7
+3 6 7
+1 9 5
+3 8 6
+3 3 8
+2 6 9
+1 7 1
+3 10 8
+2 9 2
+1 10 9
+2 6 10
+2 6 8
+3 1 6
+3 1 8
+2 8 5
+1 9 10
                     """;
 
         String expected = """
-                          4
+                          No
+No
+No
+No
+Yes
+Yes
+No
+No
+No
+Yes
+Yes
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC210C.main(null);
+        ABC278C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 }
