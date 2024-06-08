@@ -17,7 +17,7 @@ import org.junit.jupiter.api.TestInstance;
  * @author kamba
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ABC331C {
+public class ABC223C {
 
     private StandardInputSnatcher in = new StandardInputSnatcher();
     private StandardOutputSnatcher out = new StandardOutputSnatcher();
@@ -42,23 +42,38 @@ public class ABC331C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
-        int[] aa = new int[n];
-        TreeMap<Integer, Integer> map = new TreeMap<>(Collections.reverseOrder());
-        Map<Integer, Long> map2 = new HashMap<>();
+        double[] aa = new double[n];
+        double[] bb = new double[n];
         for (int i = 0; i < n; i++) {
-            aa[i] = sc.nextInt();
-            map.put(aa[i], map.getOrDefault(aa[i], 0) + 1);
+            aa[i] = (double) sc.nextInt();
+            bb[i] = (double) sc.nextInt();
         }
-        long g = 0;
-        for (int k : map.keySet()) {
-            map2.put(k, g);
-            g += (long) k * map.get(k);
+        double[] cc = new double[n];
+        for (int i = 0; i < n; i++) {
+            cc[i] = aa[i] / bb[i];
         }
-        for (int i : aa) {
-            long re = map2.get(i);
-            System.out.print(re);
-            System.out.print(" ");
+        double sum = 0;
+        for (var c : cc) {
+            sum += c;
         }
+        double time = sum / 2;
+
+        double len = 0;
+        double t = 0;
+        int index = 0;
+        while (true) {
+            if (t + cc[index] <= time) {
+                len += aa[index];
+                t += cc[index];
+                index++;
+            } else {
+                break;
+            }
+        }
+        double rest = time - t;
+        len += rest * bb[index];
+
+        System.out.println(len);
     }
 //}
 
@@ -66,15 +81,17 @@ public class ABC331C {
     public void Case1() {
 
         String input = """
-                       5
-1 4 1 4 2
+                       3
+1 1
+2 1
+3 1
                     """;
 
         String expected = """
-                          10 0 10 0 8
+                          3.000000000000000
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC331C.main(null);
+        ABC223C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
@@ -82,15 +99,17 @@ public class ABC331C {
     public void Case2() {
 
         String input = """
-                       10
-31 42 59 26 53 58 97 93 23 54
+                       3
+1 3
+2 2
+3 1
                     """;
 
         String expected = """
-                          456 414 190 487 361 249 0 97 513 307
+                          3.833333333333333
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC331C.main(null);
+        ABC223C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
@@ -98,15 +117,19 @@ public class ABC331C {
     public void Case3() {
 
         String input = """
-                       50
-1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+                       5
+3 9
+1 2
+4 6
+1 5
+5 3
                     """;
 
         String expected = """
-                          0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                          8.916666666666668
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC331C.main(null);
-        Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s ->      
+        ABC223C.main(null);
+        Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 }
