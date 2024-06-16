@@ -126,7 +126,7 @@ public class PAST202005E {
                           """;
         Stream.of(input.split("\\n")).forEach(s -> in.inputln(s));
         PAST202005E.main(null);
-        Stream.of(expected.split("\\n")).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
+        Stream.of(expected.split("\\n")).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
 
     }
 
@@ -193,7 +193,7 @@ public class PAST202005E {
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         PAST202005E.main(null);
 
-        Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
+        Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
     // @Test
