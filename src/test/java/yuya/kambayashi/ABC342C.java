@@ -42,34 +42,56 @@ public class ABC342C {
 
         final int n = sc.nextInt();
         String s = sc.next();
-
-        Map<Character, Character> dic = new HashMap<>();
-        for (char c = 'a'; c <= 'z'; c++) {
-            dic.put(c, c);
-        }
-
         final int q = sc.nextInt();
+        char[] cc = new char[q];
+        char[] dd = new char[q];
         for (int i = 0; i < q; i++) {
-            char c = sc.next().charAt(0);
-            char d = sc.next().charAt(0);
-            for (char ch = 'a'; ch <= 'z'; ch++) {
-                if (dic.get(ch) == c) {
-                    dic.put(ch, d);
+            cc[i] = sc.next().charAt(0);
+            dd[i] = sc.next().charAt(0);
+        }
+        Map<Character, Character> map = new TreeMap<>();
+        for (int i = 0; i < q; i++) {
+            char c = cc[i];
+            char d = dd[i];
+
+            // cが値のエントリーがあれば、その値をdに上書きする
+            if (map.containsValue(c)) {
+
+                for (var entry : map.entrySet()) {
+
+                    if (entry.getValue() == c) {
+                        map.put(entry.getKey(), d);
+                    }
                 }
+                if (!map.containsKey(c)) {
+                    map.put(c, d);
+                }
+
+            } else if (map.containsKey((c))) {
+
+            } else {
+
+                map.put(c, d);
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        for (char c : s.toCharArray()) {
+            if (map.containsKey(c)) {
+                sb.append(map.get(c));
+            } else {
+                sb.append(c);
             }
         }
 
-        StringBuilder sb = new StringBuilder();
-        for (char c : s.toCharArray()) {
-            sb.append(dic.get(c));
-        }
-
         System.out.println(sb.toString());
-
     }
 //}
+    // rtcodea
+    // recodea
+    // recovea
+    // recover
 
-    //@Test
+    @Test
     public void Case1() {
 
         String input = """
@@ -90,7 +112,7 @@ public class ABC342C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //@Test
+    @Test
     public void Case2() {
 
         String input = """

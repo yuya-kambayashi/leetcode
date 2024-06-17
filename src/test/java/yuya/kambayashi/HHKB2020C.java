@@ -57,7 +57,6 @@ public class HHKB2020C {
             int p = pp[i];
 
             list.remove(Integer.valueOf(p));
-            System.out.println(list.(0));
         }
     }
 //}

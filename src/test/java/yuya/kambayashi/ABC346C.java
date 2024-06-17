@@ -43,34 +43,23 @@ public class ABC346C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
-        final int k = sc.nextInt();
+        final long k = sc.nextInt();
 
-        Set<Integer> set = new HashSet<>();
+        long sum = k * (k + 1) / 2;
+        Set<Long> set = new HashSet<>();
         for (int i = 0; i < n; i++) {
-            set.add(sc.nextInt());
-
+            set.add(sc.nextLong());
         }
-        BigInteger bk = new BigInteger(String.valueOf(k));
-        BigInteger bk2 = new BigInteger(String.valueOf(1));
-        bk2 = bk2.add(bk);
-
-        BigInteger b2 = new BigInteger("2");
-
-        BigInteger ansb = (bk.multiply(bk2)).divide(b2);
-
-        long ans = k * (k + 1) / 2;
-        for (int a : set) {
-            if (1 <= a && a <= k) {
-                ansb = ansb.subtract(new BigInteger(String.valueOf(a)));
+        for (var s : set) {
+            if (s <= k) {
+                sum -= s;
             }
         }
-
-        System.out.println(ansb.longValue());
-
+        System.out.println(sum);
     }
 //}
 
-    // @Test
+    @Test
     public void Case1() {
 
         String input = """
@@ -86,7 +75,7 @@ public class ABC346C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //@Test
+    @Test
     public void Case2() {
 
         String input = """

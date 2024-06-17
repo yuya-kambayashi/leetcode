@@ -41,34 +41,42 @@ public class ABC343C {
         Scanner sc = new Scanner(System.in);
 
         final long n = sc.nextLong();
+        long cn = (long) Math.ceil(Math.cbrt(n));
+        long rn = (long) Math.ceil(Math.sqrt(n));
 
-        List<Long> list = new ArrayList<>();
-
-        for (int i = 1; i < Math.pow(10, 6); i++) {
-
-            // 三乗が立法数かどうか
-            long t = (long) Math.pow(i, 3);
-
-            if (t > n) {
-                break;
-            }
+        long ans = 0;
+        for (long i = 1; i <= cn; i++) {
+            long t = i * i * i;
 
             String s = String.valueOf(t);
+            int left = 0, right = s.length() - 1;
 
-            StringBuilder sb = new StringBuilder(s);
-            sb.reverse();
-
-            if (s.equals(sb.toString())) {
-                list.add(t);
+            boolean ok = true;
+            while (left < right) {
+                if (s.charAt(left) != s.charAt(right)) {
+                    ok = false;
+                    break;
+                }
+                left++;
+                right--;
             }
-
+            if (!ok) {
+                continue;
+            }
+            if (t <= n) {
+                ans = t;
+            } else {
+                int b = 0;
+                break;
+            }
         }
 
-        System.out.println(list.get(list.size() - 1));
+        System.out.println(ans);
+
     }
 //}
 
-    @Test
+    //@Test
     public void Case1() {
 
         String input = """
@@ -83,7 +91,7 @@ public class ABC343C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    @Test
+    // @Test
     public void Case2() {
 
         String input = """

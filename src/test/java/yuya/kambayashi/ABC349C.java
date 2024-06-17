@@ -5,6 +5,7 @@
 package yuya.kambayashi;
 
 import java.util.*;
+import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -32,8 +33,9 @@ public class ABC349C {
         System.setIn(null);
         System.setOut(null);
     }
+//import java.math.*;
 //import java.util.*;
-//import java.util.stream.Collectors;
+//import java.util.stream.*;
 //public class Main {
 
     public static void main(String[] args) {
@@ -42,41 +44,72 @@ public class ABC349C {
         String s = sc.next().toUpperCase();
         final String t = sc.next();
 
-        char t1 = t.charAt(0);
-        char t2 = t.charAt(1);
-        char t3 = t.charAt(2);
+        if (t.charAt(2) == 'X') {
 
-        int i1 = s.indexOf(t1);
-        if (i1 == -1) {
-            System.out.println("No");
-            return;
-        }
-        s = s.substring(i1 + 1);
+            List<Integer> i0 = new ArrayList<>();
+            List<Integer> i1 = new ArrayList<>();
 
-        int i2 = s.indexOf(t2);
-        if (i2 == -1) {
-            System.out.println("No");
-            return;
-        }
-        s = s.substring(i2 + 1);
-
-        if (t3 == 'X') {
-            System.out.println("Yes");
-            return;
-        } else {
-            int i3 = s.indexOf(t3);
-            if (i3 == -1) {
+            for (int i = 0; i < s.length(); i++) {
+                char c = s.charAt(i);
+                if (c == t.charAt(0)) {
+                    i0.add(i);
+                }
+                if (c == t.charAt(1)) {
+                    i1.add(i);
+                }
+            }
+            if (i0.isEmpty() || i1.isEmpty()) {
                 System.out.println("No");
-                return;
             } else {
-                System.out.println("Yes");
 
+                int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
+
+                for (var i : i0) {
+                    min = Math.min(min, i);
+                }
+                for (var i : i1) {
+                    max = Math.max(max, i);
+                }
+
+                if (min < max) {
+                    System.out.println("Yes");
+
+                } else {
+                    System.out.println("No");
+                }
+            }
+        } else {
+            List<Integer> i1 = new ArrayList<>();
+            int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
+
+            for (int i = 0; i < s.length(); i++) {
+                char c = s.charAt(i);
+                if (c == t.charAt(0)) {
+                    min = Math.min(min, i);
+                }
+                if (c == t.charAt(1)) {
+                    i1.add(i);
+                }
+                if (c == t.charAt(2)) {
+                    max = Math.max(max, i);
+                }
+            }
+            if (min == Integer.MAX_VALUE || i1.isEmpty() || max == Integer.MIN_VALUE) {
+                System.out.println("No");
+            } else {
+
+                for (var i : i1) {
+                    if (min < i && i < max) {
+                        System.out.println("Yes");
+                        return;
+                    }
+                }
+                System.out.println("No");
             }
         }
-
     }
-
 //}
+
     @Test
     public void Case1() {
 
@@ -90,7 +123,6 @@ public class ABC349C {
     }
 
     @Test
-
     public void Case2() {
 
         in.inputln("losangeles");

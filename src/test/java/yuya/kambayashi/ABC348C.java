@@ -47,33 +47,28 @@ public class ABC348C {
         for (int i = 0; i < n; i++) {
             aa[i] = sc.nextInt();
             cc[i] = sc.nextInt();
-
         }
 
-        Map<Integer, List<Integer>> map = new HashMap<>();
+        Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < n; i++) {
 
-            int c = cc[i];
+            int color = cc[i];
+            int taste = aa[i];
 
-            if (map.containsKey(c)) {
-                var l = map.get(c);
-                l.add(aa[i]);
+            if (map.containsKey(color)) {
+
+                int min = Math.min(taste, map.get(color));
+                map.put(color, min);
             } else {
-                List<Integer> l = new ArrayList<>();
-                l.add(aa[i]);
-                map.put(c, l);
+                map.put(color, taste);
             }
         }
 
         int max = 0;
-        for (Map.Entry<Integer, List<Integer>> entry : map.entrySet()) {
-            var l = entry.getValue();
-            Collections.sort(l);
-            max = Math.max(max, l.get(0));
+        for (var v : map.values()) {
+            max = Math.max(max, v);
         }
-
         System.out.println(max);
-
     }
 //}
 
@@ -112,7 +107,7 @@ public class ABC348C {
         assertThat(actual).isEqualTo(expected);
     }
 
-    // @Test
+    //@Test
     public void Case3() {
 
         in.inputln("");

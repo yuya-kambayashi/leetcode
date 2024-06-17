@@ -41,36 +41,42 @@ public class ABC345C {
         Scanner sc = new Scanner(System.in);
 
         final String s = sc.next();
+        final int n = s.length();
 
-        Map<Character, Long> m = new HashMap<>();
-        boolean same = false;
-        long n = s.length();
+        boolean hasSame = false;
 
-        for (int i = 0; i < n; i++) {
-            char c = s.charAt(i);
-            m.put(c, m.getOrDefault(c, 0L) + 1);
-            if (m.get(c) > 1) {
-                same = true;
+        Map<Character, Long> map = new HashMap<>();
+        for (char c : s.toCharArray()) {
+            map.put(c, map.getOrDefault(c, 0L) + 1L);
+
+            if (map.get(c) > 1) {
+                hasSame = true;
             }
         }
 
-        long sum = (n * (n - 1)) / 2;
-        long cnt = 0;
-        for (Map.Entry<Character, Long> entry : m.entrySet()) {
-            long val = entry.getValue();
-            cnt += (val * (val - 1) / 2);
+        // 
+        long ways = n * (n - 1) / 2;
+
+        long dup = 0;
+        for (var v : map.values()) {
+            if (v == 1) {
+                continue;
+            }
+            // 重複する組み合わせは除く
+            dup += (v * (v - 1) / 2);
         }
 
-        if (same) {
-            System.out.println(sum - cnt + 1);
+        if (hasSame) {
+            System.out.println(ways - dup + 1);
+
         } else {
-            System.out.println(sum);
+
+            System.out.println(ways);
         }
-
     }
-
 //}
-    //@Test
+
+    @Test
     public void Case1() {
 
         String input = """

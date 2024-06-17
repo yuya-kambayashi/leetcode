@@ -41,63 +41,41 @@ public class ABC350C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
-        List<Integer> aa = new ArrayList<>();
-        for (int i = 0; i < n; i++) {
-            aa.add(sc.nextInt());
+        int[] aa = new int[n + 1];
+        int[] bb = new int[n + 1];
+        for (int i = 1; i <= n; i++) {
+            int a = sc.nextInt();
+            aa[i] = a;
+            bb[a] = i;
         }
 
-        int[] pos = new int[aa.size()];
+        // aa:3 4 1 2 5
+        // bb:2 3 0 1 4
+        // aa:3 1 2
+        // bb:2 3 1
+        List<String> ans = new ArrayList<>();
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 1; i <= n - 1; i++) {
+            if (aa[i] != i) {
 
-            pos[i] = aa.indexOf(i + 1);
+                int j = bb[i];
 
-        }
+                aa[j] = aa[i];
+                bb[aa[i]] = j;
 
-        int cnt = 0;
-        List<int[]> ans = new ArrayList<>();
-        for (int i = 1; i < n; i++) {
-
-            // すでにその値であれば何もしない
-            if (pos[i - 1] == i - 1) {
-                continue;
-            }
-
-            // どこにあるか
-            int indexOfTarget = pos[i - 1];
-            // 置き換え対象
-            int vt = aa.get(i - 1);
-
-            cnt++;
-            int[] tt = {i, indexOfTarget + 1};
-            ans.add(tt);
-
-            aa.set(i - 1, i);
-            aa.set(indexOfTarget, vt);
-
-            pos[i - 1] = i;
-            pos[vt - 1] = indexOfTarget;
-
-            int ttt = 0;
-
-        }
-
-        if (cnt == 0) {
-            System.out.println(0);
-        } else {
-            System.out.println(cnt);
-            for (var a : ans) {
-                String t = a[0] + " " + a[1];
-                System.out.println(t);
+                String t = String.valueOf(i) + " " + String.valueOf(j);
+                ans.add(t);
 
             }
-
         }
-
+        System.out.println(ans.size());
+        for (var a : ans) {
+            System.out.println(a);
+        }
     }
-
 //}
-    @Test
+
+    // @Test
     public void Case1() {
 
         String input = """
@@ -115,7 +93,7 @@ public class ABC350C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    @Test
+    // @Test
     public void Case2() {
 
         String input = """

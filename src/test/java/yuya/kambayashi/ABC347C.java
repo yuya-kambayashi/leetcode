@@ -42,22 +42,23 @@ public class ABC347C {
         final int n = sc.nextInt();
         final int a = sc.nextInt();
         final int b = sc.nextInt();
-        int minv = a + b, maxv = 0, minv2 = a + b, maxv2 = 0;
+
+        int week = a + b;
+        List<Integer> dd = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-
-            int d = sc.nextInt();
-            minv = Math.min(minv, d % (a + b));
-            maxv = Math.max(maxv, d % (a + b));
-            minv2 = Math.min(minv2, (d + a) % (a + b));
-            maxv2 = Math.max(maxv2, (d + a) % (a + b));
+            dd.add(sc.nextInt() % week);
+        }
+        Collections.sort(dd);
+        for (int i = 0; i < n; i++) {
+            dd.add(dd.get(i) + week);
         }
 
-        if (maxv - minv < a || maxv2 - minv2 < a) {
-            System.out.println("Yes");
-        } else {
-            System.out.println("No");
+        for (int i = 0; i < n; i++) {
+            int left = dd.get(i);
+            int right = dd.get(i + n - 1);
+            if (right - left + 1 <= a) {
+            }
         }
-
     }
 //}
 

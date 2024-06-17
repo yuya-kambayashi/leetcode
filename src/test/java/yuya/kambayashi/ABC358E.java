@@ -104,7 +104,6 @@ public class ABC358E {
             }
 
             ans += cnt;
-            ans += cntUp2;
 
             int a = 0;
         }

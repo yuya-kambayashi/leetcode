@@ -59,34 +59,27 @@ public class ABC344C {
         }
 
         final int q = sc.nextInt();
-        int[] xx = new int[q];
-        for (int i = 0; i < q; i++) {
-            xx[i] = sc.nextInt();
-        }
-
         Set<Integer> set = new HashSet<>();
-
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                for (int k = 0; k < l; k++) {
-                    set.add(aa[i] + bb[j] + cc[k]);
+        for (var a : aa) {
+            for (var b : bb) {
+                for (var c : cc) {
+                    set.add(a + b + c);
                 }
             }
         }
+
         for (int i = 0; i < q; i++) {
+            int x = sc.nextInt();
 
-            if (set.contains(xx[i])) {
-
-                System.out.println("Yes");
-            } else {
-                System.out.println("No");
-
+            String ret = "No";
+            if (set.contains(x)) {
+                ret = "Yes";
             }
+            System.out.println(ret);
         }
-
     }
-
 //}
+
     @Test
     public void Case1() {
 
@@ -111,8 +104,8 @@ public class ABC344C {
         ABC344C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
-
     //  @Test
+
     public void Case2() {
 
         String input = """
