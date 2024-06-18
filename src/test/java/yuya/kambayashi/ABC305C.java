@@ -53,33 +53,49 @@ public class ABC305C {
                 col++;
             }
         }
-
-        int colMin = Integer.MAX_VALUE, colMax = Integer.MIN_VALUE, rowMin = Integer.MAX_VALUE, rowMax = Integer.MIN_VALUE;
-
+        int maxRow = 0;
+        Map<Integer, Integer> cookiesOfRow = new HashMap<>();
         for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
+            char[] cc = grid[i];
 
-                if (grid[i][j] == '#') {
-                    colMin = Math.min(colMin, j);
-                    colMax = Math.max(colMax, j);
-                    rowMin = Math.min(rowMin, i);
-                    rowMax = Math.max(rowMax, i);
+            int cnt = 0;
+            for (char c : cc) {
+                if (c == '#') {
+                    cnt++;
                 }
+            }
+            cookiesOfRow.put(i + 1, cnt);
+            maxRow = Math.max(maxRow, cnt);
+        }
+        int maxCol = 0;
+        Map<Integer, Integer> cookiesOfCol = new HashMap<>();
+        for (int i = 0; i < width; i++) {
 
+            int cnt = 0;
+            for (int j = 0; j < height; j++) {
+                if (grid[j][i] == '#') {
+                    cnt++;
+                }
+            }
+            cookiesOfCol.put(i + 1, cnt);
+            maxCol = Math.max(maxCol, cnt);
+        }
+
+        int targetRow = 0, targetCol = 0;
+        for (var entry : cookiesOfRow.entrySet()) {
+            if (entry.getValue() == maxRow - 1) {
+                targetRow = entry.getKey();
+            }
+        }
+        for (var entry : cookiesOfCol.entrySet()) {
+            if (entry.getValue() == maxCol - 1) {
+                targetCol = entry.getKey();
             }
         }
 
-        for (int i = rowMin; i <= rowMax; i++) {
-            for (int j = colMin; j <= colMax; j++) {
-
-                if (grid[i][j] == '.') {
-
-                    System.out.println(String.valueOf(i + 1) + " " + String.valueOf(j + 1));
-                    return;
-                }
-            }
-        }
-
+        System.out.print(targetRow);
+        System.out.print(" ");
+        System.out.print(targetCol);
     }
 //}
 

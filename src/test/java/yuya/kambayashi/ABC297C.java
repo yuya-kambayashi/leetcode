@@ -51,21 +51,19 @@ public class ABC297C {
             }
         }
         for (int i = 0; i < height; i++) {
+
             for (int j = 0; j < width - 1; j++) {
                 if (grid[i][j] == 'T' && grid[i][j + 1] == 'T') {
                     grid[i][j] = 'P';
                     grid[i][j + 1] = 'C';
-
+                    j++;
                 }
             }
         }
-
         for (int i = 0; i < height; i++) {
-            StringBuilder sb = new StringBuilder();
-            for (int j = 0; j < width; j++) {
-                sb.append(grid[i][j]);
-            }
-            System.out.println(sb.toString());
+
+            String s = String.valueOf(grid[i]);
+            System.out.println(s);
         }
     }
 //}

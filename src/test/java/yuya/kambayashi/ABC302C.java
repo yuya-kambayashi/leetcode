@@ -57,33 +57,41 @@ public class ABC302C {
 
         for (var perm : perms) {
 
-            boolean ok = true;
-            String before = ss[perm.get(0)];
-            for (int i = 1; i < n; i++) {
-                int diff = 0;
-                String cur = ss[perm.get(i)];
-
-                for (int j = 0; j < m; j++) {
-                    if (before.charAt(j) != cur.charAt(j)) {
-                        diff++;
-                    }
-                }
-                if (diff != 1) {
-                    ok = false;
-                    break;
-                }
-                before = cur;
-                diff = 0;
+            List<String> tt = new ArrayList<>();
+            for (var p : perm) {
+                tt.add(ss[p]);
             }
-            if (ok) {
+            if (areAlmostEqual(tt)) {
                 System.out.println("Yes");
                 return;
-
             }
+        }
+        System.out.println("No");
+    }
 
+    private static boolean areAlmostEqual(List<String> ss) {
+
+        for (int i = 0; i < ss.size() - 1; i++) {
+
+            if (!areAlmostEqual(ss.get(i), ss.get(i + 1))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static boolean areAlmostEqual(String s, String t) {
+        if (s.length() != t.length()) {
+            return false;
         }
 
-        System.out.println("No");
+        int sameCnt = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == t.charAt(i)) {
+                sameCnt++;
+            }
+        }
+        return sameCnt == s.length() - 1;
     }
 
     private static ArrayList<ArrayList<Integer>> permutation(int[] seed) {

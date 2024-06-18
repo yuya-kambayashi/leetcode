@@ -49,11 +49,9 @@ public class ABC295C {
         }
 
         long ans = 0;
-
-        for (int v : map.values()) {
+        for (var v : map.values()) {
             ans += v / 2;
         }
-
         System.out.println(ans);
     }
 //}
