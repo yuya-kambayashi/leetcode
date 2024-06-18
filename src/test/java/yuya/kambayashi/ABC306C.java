@@ -43,61 +43,48 @@ public class ABC306C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
-        int[] aa = new int[n * 3];
-        for (int i = 0; i < n * 3; i++) {
+        int n3 = 3 * n;
+        int[] aa = new int[n3];
+        for (int i = 0; i < n3; i++) {
             aa[i] = sc.nextInt();
         }
-
         Map<Integer, List<Integer>> map = new HashMap<>();
-        for (int i = 1; i <= n; i++) {
 
-            for (int j = 0; j < n * 3; j++) {
-                if (aa[j] == i) {
-                    if (map.containsKey(i)) {
-
-                        var list = map.get(i);
-                        list.add(j + 1);
-                        map.put(i, list);
-
-                    } else {
-                        List<Integer> list = new ArrayList<>();
-                        list.add(j + 1);
-                        map.put(i, list);
-                    }
-                }
+        for (int i = 0; i < n3; i++) {
+            int a = aa[i];
+            if (map.containsKey(a)) {
+                map.get(a).add(i + 1);
+            } else {
+                List<Integer> list = new ArrayList<>();
+                list.add(i + 1);
+                map.put(a, list);
             }
         }
-
-        List<Integer> midList = new ArrayList<>();
-        for (var i : map.values()) {
-            midList.add(i.get(1));
+        List<Pair> pairs = new ArrayList<>();
+        for (var entry : map.entrySet()) {
+            pairs.add(new Pair(entry.getKey(), entry.getValue().get(1)));
         }
-        Collections.sort(midList);
+        Collections.sort(pairs, Comparator.comparingInt(Pair::getF));
 
-        int[] ans = new int[n];
-
-        for (Map.Entry<Integer, List<Integer>> entry : map.entrySet()) {
-
-            int t = entry.getValue().get(1);
-            for (int i = 0; i < n; i++) {
-                if (midList.get(i).intValue() == t) {
-                    ans[i] = entry.getKey();
-                    break;
-                }
-            }
-
+        for (var pair : pairs) {
+            System.out.print(pair.index);
+            System.out.print(" ");
         }
 
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < n; i++) {
-            sb.append(ans[i]);
-            if (i != n - 1) {
-                sb.append(" ");
-            }
+    }
+
+    static class Pair {
+
+        int index, f;
+
+        Pair(int index, int f) {
+            this.index = index;
+            this.f = f;
         }
 
-        System.out.println(sb.toString());
-
+        public int getF() {
+            return f;
+        }
     }
 //}
 

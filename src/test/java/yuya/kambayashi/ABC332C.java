@@ -46,44 +46,42 @@ public class ABC332C {
         final int m = sc.nextInt();
         final String s = sc.next();
 
-        int mujiOK = m, mujiNG = 0, logoOK = 0, logoNG = 0;
+        int mujiRest = m, mujiUsed = 0;
+        int logoRest = 0, logoUsed = 0, logoBought = 0;
+        for (char c : s.toCharArray()) {
 
-        for (int i = 0; i < n; i++) {
-            char c = s.charAt(i);
+            if (c == '0') {
+                // 選択
+                mujiRest = m;
+                mujiUsed = 0;
 
-            switch (c) {
-                case '0' -> {
-                    mujiOK += mujiNG;
-                    mujiNG = 0;
-                    logoOK += logoNG;
-                    logoNG = 0;
+                logoRest = logoBought;
+                logoUsed = 0;
+
+            } else if (c == '1') {
+
+                if (mujiRest > 0) {
+                    mujiRest--;
+                    mujiUsed++;
+                } else if (logoRest > 0) {
+                    logoRest--;
+                    logoUsed++;
+                } else {
+                    logoBought++;
+                    logoUsed++;
                 }
-                case '1' -> {
-                    if (mujiOK > 0) {
-                        mujiOK--;
-                        mujiNG++;
-                    } else if (logoOK > 0) {
-                        logoOK--;
-                        logoNG++;
-                    } else {
-                        logoNG++;
-                    }
 
-                }
-                case '2' -> {
-                    if (logoOK > 0) {
-                        logoOK--;
-                        logoNG++;
-                    } else {
-                        logoNG++;
-                    }
-
+            } else if (c == '2') {
+                if (logoRest > 0) {
+                    logoRest--;
+                    logoUsed++;
+                } else {
+                    logoBought++;
+                    logoUsed++;
                 }
             }
-
         }
-
-        System.out.println(logoOK + logoNG);
+        System.out.println(logoBought);
     }
 //}
 

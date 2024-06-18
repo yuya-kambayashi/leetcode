@@ -36,34 +36,41 @@ public class ABC333C {
 //https://qiita.com/hyouchun/items/2385b686d133329be6fe
 //import java.math.*;
 //import java.util.*;
-//import java.util.stream.*
+//import java.util.stream.*;
 //public class Main {
 
-    public static long repunit(int length) {
-        return Long.parseLong("1".repeat(length));
-    }
-
     public static void main(String[] args) {
-        Set<Long> repunit3Set = new HashSet<>();
-        for (int i = 1; i <= 12; i++) {
-            for (int j = 1; j <= 12; j++) {
-                for (int k = 1; k <= 12; k++) {
-                    long value = repunit(i) + repunit(j) + repunit(k);
-                    repunit3Set.add(value);
+        Scanner sc = new Scanner(System.in);
+
+        final int n = sc.nextInt();
+
+        int max = 13;
+
+        Set<Long> set = new HashSet<>();
+
+        for (int i = 1; i < max; i++) {
+            for (int j = 1; j < max; j++) {
+                for (int k = 1; k < max; k++) {
+                    set.add(repunit(i) + repunit(j) + repunit(k));
                 }
             }
         }
+        List<Long> list = new ArrayList<>(set);
+        Collections.sort(list);
 
-        Scanner scanner = new Scanner(System.in);
-        int N = scanner.nextInt();
-        scanner.close();
-
-        Long[] repunit3Array = repunit3Set.toArray(new Long[0]);
-        Arrays.sort(repunit3Array);
-        System.out.println(repunit3Array[N - 1]);
+        System.out.println(list.get(n - 1));
     }
 
+    static long repunit(int cnt) {
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < cnt; i++) {
+            sb.append(1);
+        }
+        return Long.parseLong(sb.toString());
+    }
 //}
+
     @Test
     public void Case1() {
 
@@ -79,7 +86,7 @@ public class ABC333C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -94,7 +101,7 @@ public class ABC333C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """

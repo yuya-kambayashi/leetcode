@@ -18,16 +18,16 @@ import org.junit.jupiter.api.TestInstance;
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ABC322C {
-    
+
     private StandardInputSnatcher in = new StandardInputSnatcher();
     private StandardOutputSnatcher out = new StandardOutputSnatcher();
-    
+
     @BeforeAll
     public void beforeAll() {
         System.setIn(in);
         System.setOut(out);
     }
-    
+
     @AfterAll
     public void afterAll() {
         System.setIn(null);
@@ -40,46 +40,42 @@ public class ABC322C {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        
+
         final int n = sc.nextInt();
         final int m = sc.nextInt();
-        
-        boolean[] fire = new boolean[n];
-        Arrays.fill(fire, false);
+        int[] aa = new int[n];
+        boolean[] bb = new boolean[n];
+
         for (int i = 0; i < m; i++) {
-            int t = sc.nextInt();
-            t--;
-            fire[t] = true;
+            int a = sc.nextInt();
+            aa[i] = a;
+
+            bb[a - 1] = true;
         }
-        
-        int fireIndex = 0;
-        
-        List<Integer> ans = new ArrayList<>();
-        
+
+        int[] cc = new int[n];
+        cc[n - 1] = 0;
         for (int i = n - 1; i >= 0; i--) {
-            if (fire[i]) {
-                fireIndex = i;
-                ans.add(0);
+            if (bb[i]) {
+                cc[i] = 0;
             } else {
-                ans.add(fireIndex - i);
+                cc[i] = cc[i + 1] + 1;
             }
         }
-        
-        Collections.reverse(ans);
-        for (int a : ans) {
-            System.out.println(a);
+        for (var c : cc) {
+            System.out.println(c);
         }
     }
 //}
 
     @Test
     public void Case1() {
-        
+
         String input = """
                        3 2
                        2 3
                     """;
-        
+
         String expected = """
                           1
                           0
@@ -89,15 +85,15 @@ public class ABC322C {
         ABC322C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
-    
+
     @Test
     public void Case2() {
-        
+
         String input = """
                        8 5
                        1 3 4 7 8
                     """;
-        
+
         String expected = """
                           0
                           1
@@ -112,14 +108,14 @@ public class ABC322C {
         ABC322C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
-
     // @Test
+
     public void Case3() {
-        
+
         String input = """
                        
                     """;
-        
+
         String expected = """
                           
                           """;
