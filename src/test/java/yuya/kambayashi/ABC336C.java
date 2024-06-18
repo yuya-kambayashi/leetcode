@@ -43,19 +43,13 @@ public class ABC336C {
         long n = sc.nextLong();
         n--;
 
-        List<Integer> a = new ArrayList<>();
-        while (n > 0) {
-            a.add((int) (n % 5));
-            n /= 5;
-        }
-        if (a.isEmpty()) {
-            a.add(0);
-        }
-        Collections.reverse(a);
-        for (int t : a) {
-            System.out.print(t * 2);
-        }
-        System.out.println();
+        // Ｎ番目の整数を5進数で表す
+        String t = Long.toString(n, 5);
+
+        Long t2 = Long.parseLong(t);
+        t2 *= 2;
+
+        System.out.println(t2);
 
     }
 //}

@@ -44,40 +44,37 @@ public class ABC337C {
 
         final int n = sc.nextInt();
 
+        int[] aa = new int[n + 1];
         int[] bb = new int[n + 1];
-        for (int i = 0; i < n; i++) {
-            int t = sc.nextInt();
 
-            if (t == -1) {
-                bb[0] = i;
-            } else {
-                bb[t] = i;
+        for (int i = 1; i < n + 1; i++) {
+            int a = sc.nextInt();
+            aa[i] = a;
+
+            if (a == -1) {
+                a = 0;
             }
+            bb[a] = i;
+        }
+        List<Integer> ans = new ArrayList<>();
+        ans.add(bb[0]);
+
+        int before = bb[0];
+        for (int i = 1; i < n; i++) {
+            int t = bb[before];
+            ans.add(bb[before]);
+            before = t;
         }
 
-        int target = 0;
-
-        List<Integer> order = new ArrayList<>();
-
-        while (order.size() < n) {
-
-            int a = bb[target];
-
-            order.add(a + 1);
-
-            target = a + 1;
-
-            int aaa = 0;
-
+        // 3 5 4 1 2 6
+        for (var a : ans) {
+            System.out.print(a);
+            System.out.print(" ");
         }
-
-        String result = order.stream().map(Object::toString).collect(Collectors.joining(" "));
-
-        System.out.println(result);
     }
 //}
 
-    //@Test
+    @Test
     public void Case1() {
 
         String input = """
@@ -93,7 +90,7 @@ public class ABC337C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //@Test
+    @Test
     public void Case2() {
 
         String input = """

@@ -47,15 +47,15 @@ public class ABC339C {
             aa[i] = sc.nextInt();
         }
 
-        long min = 0;
-        long sum = 0;
-
+        long t = 0;
         for (int i = 0; i < n; i++) {
-            sum += aa[i];
-            min = Math.min(min, sum);
-        }
+            t += aa[i];
 
-        System.out.println(sum - min);
+            if (t < 0) {
+                t = 0;
+            }
+        }
+        System.out.println(t);
     }
 //}
 
