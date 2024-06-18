@@ -40,29 +40,26 @@ public class ABC285C {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-
+        // BB
+        // z  26
+        // AA 27
+        // AB 28
+        // AZ 27 + 26 = 54
+        // BA 55(27*2+1)
+        // BZ 55 + 26 = 81
+        // CA 82(27*3+1)
         final String s = sc.next();
         final long n = s.length();
 
-        int index = 0;
-        int digit = s.length();
-
+        long digit = n;
         long ans = 0;
+        for (char c : s.toCharArray()) {
+            int d = c - 'A';
 
-        while (index < n) {
-            char c = s.charAt(index);
-
-            int v = c - 'A' + 1;
-
-            long base = (long) Math.pow(26, digit - 1);
-
-            long value = v * base;
-            ans += value;
-            index++;
+            long p = (long) Math.pow(26, digit - 1) * (d + 1);
+            ans += p;
             digit--;
-
         }
-
         System.out.println(ans);
     }
 //}

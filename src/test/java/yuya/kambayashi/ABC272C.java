@@ -42,46 +42,44 @@ public class ABC272C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
-
-        List<Integer> odds = new ArrayList<>();
-        List<Integer> evens = new ArrayList<>();
-
+        int[] aa = new int[n];
         for (int i = 0; i < n; i++) {
-            int a = sc.nextInt();
+            aa[i] = sc.nextInt();
+        }
 
-            if (a % 2 == 1) {
-                odds.add(a);
+        // 2 要素の和として表せる値の中に偶数が存在するか
+        // 奇数＋奇数
+        // 偶数＋偶数
+        Arrays.sort(aa);
+        long maxEven = 0, maxOdd = 0;
+        int even = 0, odd = 0;
+        for (int i = n - 1; i >= 0; i--) {
+            if (aa[i] % 2 == 0) {
+
+                if (even < 2) {
+                    maxEven += aa[i];
+                    even++;
+                }
             } else {
-                evens.add(a);
+
+                if (odd < 2) {
+                    maxOdd += aa[i];
+                    odd++;
+                }
+            }
+            if (even == 2 && odd == 2) {
+                break;
             }
         }
-
-        boolean ok = false;
-        if (evens.size() >= 2) {
-            ok = true;
-        } else if (odds.size() >= 2) {
-            ok = true;
-        }
-
-        if (!ok) {
+        if (even != 2 && odd != 2) {
             System.out.println(-1);
-            return;
+        } else if (even != 2) {
+            System.out.println(maxOdd);
+        } else if (odd != 2) {
+            System.out.println(maxEven);
+        } else {
+            System.out.println(Math.max(maxEven, maxOdd));
         }
-
-        long oddMax = 0;
-        if (odds.size() >= 2) {
-            Collections.sort(odds);
-            oddMax += odds.get(odds.size() - 1);
-            oddMax += odds.get(odds.size() - 2);
-        }
-        long evenMax = 0;
-        if (evens.size() >= 2) {
-            Collections.sort(evens);
-            evenMax += evens.get(evens.size() - 1);
-            evenMax += evens.get(evens.size() - 2);
-        }
-
-        System.out.println(Math.max(oddMax, evenMax));
     }
 //}
 

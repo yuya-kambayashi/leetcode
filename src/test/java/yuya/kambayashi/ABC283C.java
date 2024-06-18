@@ -43,15 +43,23 @@ public class ABC283C {
 
         final String s = sc.next();
 
-        int cnt00 = 0;
-        for (int i = 0; i < s.length() - 1; i++) {
-            if (s.charAt(i) == '0' && s.charAt(i + 1) == '0') {
-                cnt00++;
-                i++;
+        long ans = 0;
+        for (int i = 0; i < s.length(); i++) {
+
+            if (i == s.length() - 1) {
+                ans++;
+            } else {
+
+                if (s.charAt(i) == '0' && s.charAt(i + 1) == '0') {
+                    ans++;
+                    i++;
+                } else {
+                    ans++;
+                }
             }
         }
 
-        System.out.println(s.length() - cnt00);
+        System.out.println(ans);
     }
 //}
 
