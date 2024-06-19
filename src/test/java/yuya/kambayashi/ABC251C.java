@@ -42,40 +42,41 @@ public class ABC251C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
-        Map<String, Integer> map = new LinkedHashMap<>();
-        String[] ss = new String[n];
+        Map<String, Pair> map = new LinkedHashMap<>();
         for (int i = 0; i < n; i++) {
             String s = sc.next();
             int t = sc.nextInt();
-            ss[i] = s;
+
             if (!map.containsKey(s)) {
-                map.put(s, t);
+                map.put(s, new Pair(i, t));
             }
         }
-        int max = Integer.MIN_VALUE;
-        String ans = "";
-        for (Map.Entry<String, Integer> entry : map.entrySet()) {
-            int v = entry.getValue();
-
-            if (max < v) {
-                max = v;
-                ans = entry.getKey();
+        List<Pair> pairs = new ArrayList<>(map.values());
+        Collections.sort(pairs, new Comparator<Pair>() {
+            @Override
+            public int compare(Pair p1, Pair p2) {
+                if (p1.t == p2.t) {
+                    return Integer.compare(p1.i, p2.i);
+                }
+                return Integer.compare(p2.t, p1.t);
             }
+        });
+        System.out.println(pairs.get(0).i + 1);
+    }
+
+    static class Pair {
+
+        int i, t;
+
+        Pair(int i, int t) {
+            this.i = i;
+            this.t = t;
         }
 
-        int ret = 0;
-        for (int i = 0; i < n; i++) {
-            if (ss[i].equals(ans)) {
-                ret = i + 1;
-                break;
-            }
-        }
-
-        System.out.println(ret);
     }
 //}
 
-    //@Test
+    @Test
     public void Case1() {
 
         String input = """

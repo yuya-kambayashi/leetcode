@@ -37,11 +37,12 @@ public class ABC265C {
 //import java.util.*;
 //import java.util.stream.*;
 //public class Main {
-    static int row;
-    static int col;
+    static int row, col;
     static char[][] grid;
-    static String ret;
-    static boolean visited[][];
+    static boolean[][] visited;
+
+    static int lastRow = -1;
+    static int lastCol = -1;
 
     public static void main(String[] args) {
 
@@ -51,59 +52,59 @@ public class ABC265C {
         col = sc.nextInt();
         grid = new char[row][col];
         visited = new boolean[row][col];
+
         for (int i = 0; i < row; i++) {
             String s = sc.next();
+
             for (int j = 0; j < col; j++) {
                 grid[i][j] = s.charAt(j);
             }
         }
-        row--;
-        col--;
-
         move(0, 0);
 
-        System.out.println(ret);
+        if (lastRow == -1 && lastCol == -1) {
+            System.out.print(-1);
+        } else {
+            System.out.print(lastRow);
+            System.out.print(" ");
+            System.out.print(lastCol);
+        }
     }
 
-    public static void move(int r, int c) {
+    static void move(int r, int c) {
 
+        if (r < 0 || row <= r) {
+            return;
+        }
+        if (c < 0 || col <= c) {
+            return;
+        }
         if (visited[r][c]) {
-            ret = "-1";
+            lastRow = -1;
+            lastCol = -1;
             return;
         }
 
-        char ch = grid[r][c];
+        lastRow = r + 1;
+        lastCol = c + 1;
+
         visited[r][c] = true;
-        if (ch == 'U') {
-            if (r == 0) {
-                ret = String.valueOf(r + 1) + " " + String.valueOf(c + 1);
-                return;
-            } else {
+
+        switch (grid[r][c]) {
+            case 'U':
                 move(r - 1, c);
-            }
-        } else if (ch == 'D') {
-            if (r == row) {
-                ret = String.valueOf(r + 1) + " " + String.valueOf(c + 1);
-                return;
-            } else {
+                break;
+            case 'D':
                 move(r + 1, c);
-            }
-        }
-        if (ch == 'L') {
-            if (c == 0) {
-                ret = String.valueOf(r + 1) + " " + String.valueOf(c + 1);
-                return;
-            } else {
+                break;
+
+            case 'L':
                 move(r, c - 1);
-            }
-        }
-        if (ch == 'R') {
-            if (c == col) {
-                ret = String.valueOf(r + 1) + " " + String.valueOf(c + 1);
-                return;
-            } else {
+                break;
+
+            case 'R':
                 move(r, c + 1);
-            }
+                break;
         }
     }
 //}

@@ -42,19 +42,21 @@ public class ABC261C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
+
         Map<String, Integer> map = new HashMap<>();
         for (int i = 0; i < n; i++) {
             String s = sc.next();
+
             if (map.containsKey(s)) {
                 int v = map.get(s);
                 System.out.println(s + "(" + String.valueOf(v) + ")");
-                v++;
-                map.put(s, v);
+                map.put(s, v + 1);
             } else {
-                map.put(s, 1);
                 System.out.println(s);
+                map.put(s, 1);
             }
         }
+
     }
 //}
 
