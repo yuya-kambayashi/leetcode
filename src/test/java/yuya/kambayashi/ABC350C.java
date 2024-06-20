@@ -49,24 +49,23 @@ public class ABC350C {
             bb[a] = i;
         }
 
-        // aa:3 4 1 2 5
-        // bb:2 3 0 1 4
-        // aa:3 1 2
-        // bb:2 3 1
         List<String> ans = new ArrayList<>();
 
-        for (int i = 1; i <= n - 1; i++) {
-            if (aa[i] != i) {
-
-                int j = bb[i];
-
-                aa[j] = aa[i];
-                bb[aa[i]] = j;
-
-                String t = String.valueOf(i) + " " + String.valueOf(j);
-                ans.add(t);
-
+        for (int i = 1; i <= n; i++) {
+            if (aa[i] == i) {
+                continue;
             }
+
+            int otherValue = aa[i];
+            int thisIndex = bb[i];
+
+            aa[thisIndex] = aa[i];
+            aa[i] = i;
+
+            bb[otherValue] = thisIndex;
+            bb[i] = i;
+
+            ans.add(String.valueOf(i) + " " + String.valueOf(thisIndex));
         }
         System.out.println(ans.size());
         for (var a : ans) {
@@ -75,7 +74,7 @@ public class ABC350C {
     }
 //}
 
-    // @Test
+    @Test
     public void Case1() {
 
         String input = """
@@ -93,7 +92,7 @@ public class ABC350C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case2() {
 
         String input = """

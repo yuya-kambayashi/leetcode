@@ -37,114 +37,54 @@ public class ABC335C {
 //import java.util.*;
 //public class Main {
 
-    static class Pair {
-
-        int first, second;
-
-        Pair(int first, int second) {
-            this.first = first;
-            this.second = second;
-        }
-    }
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
         final int q = sc.nextInt();
 
-        List<Pair> pairs = new ArrayList<>();
-
-        for (int i = 1; i <= n; i++) {
-            Pair p = new Pair(i, 0);
-
-            pairs.add(p);
+        List<Coord> cc = new ArrayList<>();
+        for (int i = n; i >= 1; i--) {
+            cc.add(new Coord(i, 0));
         }
 
-        StringBuilder sb = new StringBuilder();
-
         for (int i = 0; i < q; i++) {
-            String query = sc.next();
+            int t = sc.nextInt();
+            if (t == 1) {
+                Coord head = new Coord(cc.get(cc.size() - 1).x, cc.get(cc.size() - 1).y);
 
-            if (query.equals("1")) {
-
-                String next = sc.next();
-                sb.append(next);
-
-            } else if (query.equals("2")) {
-
-                List<Pair> newPairs = new ArrayList<>();
-
-                for (int j = 0; j < n; j++) {
-                    Pair p = pairs.get(j);
-
-                    // 移動クエリの更新
-                    if (j > 0 && sb.length() > 0) {
-                        Pair before = pairs.get(j - 1);
-
-                        // 移動量
-                        int v = sb.length();
-
-                        // x方向
-                        int ddx = before.first - p.first;
-                        if (ddx > 0) {
-                            for (int k = 0; k < ddx; k++) {
-                                sb.insert(0, "R");
-                            }
-                        } else if (ddx < 0) {
-                            for (int k = 0; k < -ddx; k++) {
-                                sb.insert(0, "L");
-                            }
-                        }
-
-                        // y方向
-                        int ddy = before.second - p.second;
-                        if (ddy > 0) {
-                            for (int k = 0; k < ddy; k++) {
-                                sb.insert(0, "U");
-                            }
-                        } else if (ddy < 0) {
-                            for (int k = 0; k < -ddy; k++) {
-                                sb.insert(0, "D");
-                            }
-                        }
-                        for (int k = 0; k < v; k++) {
-                            sb.deleteCharAt(sb.length() - 1);
-                        }
-                    }
-
-                    // 実際の移動
-                    // 移動する
-                    int dx = 0, dy = 0;
-                    for (char c : sb.toString().toCharArray()) {
-                        switch (c) {
-                            case 'R':
-                                dx++;
-                                break;
-                            case 'L':
-                                dx--;
-                                break;
-                            case 'U':
-                                dy++;
-                                break;
-                            case 'D':
-                                dy--;
-                                break;
-                        }
-                    }
-                    Pair newPair = new Pair(p.first + dx, p.second + dy);
-                    newPairs.add(newPair);
+                char c = sc.next().charAt(0);
+                switch (c) {
+                    case 'R':
+                        head.x++;
+                        break;
+                    case 'L':
+                        head.x--;
+                        break;
+                    case 'U':
+                        head.y++;
+                        break;
+                    case 'D':
+                        head.y--;
+                        break;
                 }
+                cc.add(head);
+            } else {
+                int p = sc.nextInt();
+                int len = cc.size() - 1;
 
-                pairs = new ArrayList<>(newPairs);
-
-                Pair target = pairs.get(sc.nextInt() - 1);
-
-                System.out.println(String.valueOf(target.first) + " " + String.valueOf(target.second));
-
-                sb.setLength(0);
-
+                System.out.println(String.valueOf(cc.get(len - p + 1).x) + " " + String.valueOf(cc.get(len - p + 1).y));
             }
+        }
+    }
+
+    static class Coord {
+
+        int x, y;
+
+        Coord(int x, int y) {
+            this.x = x;
+            this.y = y;
         }
     }
 //}
@@ -176,8 +116,8 @@ public class ABC335C {
         ABC335C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
-
     //  @Test
+
     public void Case2() {
 
         String input = """
