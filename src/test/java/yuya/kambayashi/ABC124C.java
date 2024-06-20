@@ -42,37 +42,48 @@ public class ABC124C {
         Scanner sc = new Scanner(System.in);
 
         final String s = sc.next();
-        int n = s.length();
-        char[] cc = s.toCharArray();
+        final int n = s.length();
 
-        char[] startB = new char[n];
-        char[] startW = new char[n];
-
+        int cntb = 0, cntw = 0;
+        // 黒始まり
+        String tb = getTilesStartWithBlack(n);
         for (int i = 0; i < n; i++) {
+            if (s.charAt(i) != tb.charAt(i)) {
+                cntb++;
+            }
+        }
 
+        String tw = getTilesStartWithWhite(n);
+        for (int i = 0; i < n; i++) {
+            if (s.charAt(i) != tw.charAt(i)) {
+                cntw++;
+            }
+        }
+        System.out.println(Math.min(cntb, cntw));
+    }
+
+    static String getTilesStartWithBlack(int length) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < length; i++) {
             if (i % 2 == 0) {
-                startB[i] = '0';
-                startW[i] = '1';
+                sb.append(1);
             } else {
-                startB[i] = '1';
-                startW[i] = '0';
+                sb.append(0);
             }
         }
+        return sb.toString();
+    }
 
-        int cntB = 0, cntW = 0;
-        for (int i = 0; i < n; i++) {
-            // 白にするためにひっくり返す
-            if (startB[i] != cc[i]) {
-                cntB++;
-            }
-            // 
-            if (startW[i] != cc[i]) {
-                cntW++;
+    static String getTilesStartWithWhite(int length) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            if (i % 2 == 0) {
+                sb.append(0);
+            } else {
+                sb.append(1);
             }
         }
-
-        System.out.println(Math.min(cntB, cntW));
-
+        return sb.toString();
     }
 //}
 

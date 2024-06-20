@@ -47,14 +47,13 @@ public class ABC153C {
         for (int i = 0; i < n; i++) {
             hh[i] = sc.nextInt();
         }
-
         Arrays.sort(hh);
-        long ans = 0;
+        long sum = 0L;
         for (int i = 0; i < n - k; i++) {
-            ans += hh[i];
+            sum += hh[i];
         }
+        System.out.println(sum);
 
-        System.out.println(ans);
     }
 //}
 

@@ -43,21 +43,22 @@ public class ABC180C {
 
         final long n = sc.nextLong();
 
-        Set<Long> ans = new HashSet<>();
-        //for (long i = 1; i * i <= Math.sqrt(n); i++) {
+        Set<Long> set = new HashSet<>();
+
         for (long i = 1; i * i <= n; i++) {
             if (n % i == 0) {
-                ans.add(i);
-                ans.add(n / i);
+                set.add(i);
+                set.add(n / i);
             }
         }
-        List<Long> aa = new ArrayList<>(ans);
-        Collections.sort(aa);
 
-        for (var a : aa) {
-            System.out.println(a);
+        List<Long> list = new ArrayList<>(set);
+
+        Collections.sort(list);
+
+        for (var l : list) {
+            System.out.println(l);
         }
-
     }
 //}
 

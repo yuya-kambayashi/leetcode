@@ -44,23 +44,22 @@ public class ABC176C {
         final int n = sc.nextInt();
 
         int[] aa = new int[n];
+
         for (int i = 0; i < n; i++) {
             aa[i] = sc.nextInt();
         }
 
-        long ans = 0;
+        long sum = 0;
         int before = aa[0];
         for (int i = 1; i < n; i++) {
+            if (aa[i] < before) {
+                sum += before - aa[i];
 
-            int a = aa[i];
-            if (before > a) {
-                ans += Math.abs(before - a);
-            } else if (before < a) {
-                before = a;
+            } else {
+                before = aa[i];
             }
         }
-
-        System.out.println(ans);
+        System.out.println(sum);
     }
 //}
 

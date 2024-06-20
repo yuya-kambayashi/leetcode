@@ -44,21 +44,16 @@ public class ABC143C {
         final int n = sc.nextInt();
         final String s = sc.next();
 
-        if (n == 1) {
-            System.out.println(1);
-            return;
-        }
-        char c = s.charAt(0);
-
-        int ans = 1;
-        for (int i = 1; i < n; i++) {
-            if (s.charAt(i) != c) {
-                ans++;
-                c = s.charAt(i);
+        char before = s.charAt(0);
+        int cnt = 1;
+        for (int i = 0; i < n; i++) {
+            char c = s.charAt(i);
+            if (before != c) {
+                cnt++;
+                before = c;
             }
         }
-
-        System.out.println(ans);
+        System.out.println(cnt);
     }
 //}
 

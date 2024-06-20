@@ -43,37 +43,26 @@ public class ABC170C {
 
         final int x = sc.nextInt();
         final int n = sc.nextInt();
-        int[] pp = new int[n];
+        Set<Integer> pp = new HashSet<>();
         for (int i = 0; i < n; i++) {
-            pp[i] = sc.nextInt();
+            pp.add(sc.nextInt());
         }
-
-        int[] exist = new int[101];
-        Arrays.fill(exist, 0);
-        for (int i = 0; i < n; i++) {
-            exist[pp[i]]++;
-        }
-
         int min = Integer.MAX_VALUE;
-        int ans = Integer.MAX_VALUE;
-        for (int i = -1; i < 102; i++) {
-            if (0 <= i && i < 101) {
-                if (exist[i] == 1) {
-
-                    continue;
-                }
+        int index = Integer.MAX_VALUE;
+        for (int i = -200; i < 200; i++) {
+            if (pp.contains(i)) {
+                continue;
             }
-            if (Math.abs(x - i) < min) {
-                ans = i;
-                min = Math.abs(x - i);
+            if (min > Math.abs(i - x)) {
+                min = Math.abs(i - x);
+                index = i;
             }
         }
-
-        System.out.println(ans);
+        System.out.println(index);
     }
     //}
 
-    //@Test
+    @Test
     public void Case1() {
 
         String input = """
@@ -89,7 +78,7 @@ public class ABC170C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //@Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -105,7 +94,7 @@ public class ABC170C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //@Test
+    @Test
     public void Case3() {
 
         String input = """

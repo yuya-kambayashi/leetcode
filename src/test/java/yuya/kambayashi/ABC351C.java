@@ -42,30 +42,39 @@ public class ABC351C {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
 
-        Stack<Integer> A = new Stack<>();
+        int[] aa = new int[n];
         for (int i = 0; i < n; i++) {
-            int a = sc.nextInt();
-            A.push(a);
-            while (true) {
-                if (A.size() <= 1) {
-                    break;
-                }
-                int back1 = A.peek();
-                int back2 = A.get(A.size() - 2);
+            aa[i] = sc.nextInt();
+        }
 
-                if (back1 != back2) {
+        List<Long> bb = new ArrayList<>();
+
+        for (int i = 0; i < n; i++) {
+            bb.add((long) aa[i]);
+
+            while (true) {
+                if (bb.size() == 1) {
                     break;
                 }
-                if (back1 == back2) {
-                    A.pop();
-                    A.pop();
-                    A.push(back1 + 1);
+
+                int m = (int) bb.size() - 1;
+
+                long b1 = bb.get(m - 1);
+                long b2 = bb.get(m);
+
+                if (b1 != b2) {
+                    break;
+                } else {
+                    bb.remove(m);
+                    bb.remove(m - 1);
+                    bb.add(b1 + 1);
                 }
             }
         }
-        System.out.println(A.size());
+        System.out.println(bb.size());
+
     }
-    //}
+//}
 
     @Test
     public void Case1() {

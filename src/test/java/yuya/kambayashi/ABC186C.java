@@ -42,25 +42,17 @@ public class ABC186C {
 
         final int n = sc.nextInt();
 
-        int cnt = 0;
+        Set<Integer> set = new HashSet<>();
+
         for (int i = 1; i <= n; i++) {
-            boolean ok = true;
+            if (String.valueOf(i).indexOf("7") == -1) {
 
-            String s = String.valueOf(i);
-            if (s.contains("7")) {
-                ok = false;
-            }
-
-            String t = Integer.toOctalString(i);
-            if (t.contains("7")) {
-                ok = false;
-            }
-            if (ok) {
-                cnt++;
+                if (Integer.toOctalString(i).indexOf("7") == -1) {
+                    set.add(i);
+                }
             }
         }
-
-        System.out.println(cnt);
+        System.out.println(set.size());
     }
 //}
 

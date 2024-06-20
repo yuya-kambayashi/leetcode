@@ -42,12 +42,12 @@ public class ABC164C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
-        HashSet<String> set = new HashSet<>();
+        Set<String> set = new HashSet<>();
         for (int i = 0; i < n; i++) {
             set.add(sc.next());
         }
-
         System.out.println(set.size());
+
     }
 //}
 

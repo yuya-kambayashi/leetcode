@@ -43,7 +43,7 @@ public class ABC159C {
 
         final int l = sc.nextInt();
 
-        System.out.println(Math.pow(l, 3) / 27);
+        System.out.println(Math.pow((double) l / 3, 3));
     }
 //}
 
