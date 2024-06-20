@@ -43,17 +43,17 @@ public class ABC247C {
 
         final int n = sc.nextInt();
 
-        System.out.println(gets(n));
+        System.out.println(getS(n));
     }
 
-    public static String gets(int n) {
-        if (n == 1) {
+    static String getS(int i) {
+        if (i == 1) {
             return "1";
         }
 
-        //String t = gets(n - 1);
-        return gets(n - 1) + " " + String.valueOf(n) + " " + gets(n - 1);
+        String s = getS(i - 1);
 
+        return s + " " + String.valueOf(i) + " " + s;
     }
 //}
 

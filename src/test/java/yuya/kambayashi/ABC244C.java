@@ -17,7 +17,7 @@ import org.junit.jupiter.api.TestInstance;
  * @author kamba
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class XXX {
+public class ABC244C {
 
     private StandardInputSnatcher in = new StandardInputSnatcher();
     private StandardOutputSnatcher out = new StandardOutputSnatcher();
@@ -48,11 +48,11 @@ public class XXX {
             for (int i = 1; i <= 2 * n + 1; i++) {
                 if (!used[i]) {
                     System.out.println(i);
+                    System.out.flush();
                     used[i] = true;
                     break;
                 }
             }
-
             int res = sc.nextInt();
             if (res == 0) {
                 break;

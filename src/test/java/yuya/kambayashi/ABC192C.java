@@ -41,48 +41,63 @@ public class ABC192C {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        int n = sc.nextInt();
+        final int n = sc.nextInt();
         final int k = sc.nextInt();
 
-        int cnt = 0;
-        while (cnt < k) {
-            if (n < 10) {
-                System.out.println(0);
+        int t = n;
 
-                return;
+        for (int i = 0; i < k; i++) {
+
+            if (t == 0) {
+                break;
             }
 
-            String t = String.valueOf(n);
-            Integer[] nn = new Integer[t.length()];
-            int i = 0;
-            for (char c : t.toCharArray()) {
-                nn[i] = c - '0';
-                i++;
-            }
+            t = getG1(t) - getG2(t);
 
-            Arrays.sort(nn, Collections.reverseOrder());
-            StringBuilder sb = new StringBuilder();
-            for (var r : nn) {
-                sb.append(r);
-            }
-            int g1 = Integer.parseInt(sb.toString());
+        }
+        System.out.println(t);
 
-            Arrays.sort(nn);
-            sb.setLength(0);
-            for (var r : nn) {
-                sb.append(r);
-            }
-            int g2 = Integer.parseInt(sb.toString());
+    }
 
-            n = g1 - g2;
-            cnt++;
+    static int getG2(int x) {
+
+        String s = String.valueOf(x);
+        int[] xx = new int[s.length()];
+        for (int i = 0; i < s.length(); i++) {
+            xx[i] = s.charAt(i) - '0';
+        }
+        Arrays.sort(xx);
+        StringBuilder sb = new StringBuilder();
+        for (var t : xx) {
+            if (t == 0) {
+                continue;
+            }
+            sb.append(t);
         }
 
-        System.out.println(n);
+        return Integer.parseInt(sb.toString());
+
+    }
+
+    static int getG1(int x) {
+        String s = String.valueOf(x);
+        int[] xx = new int[s.length()];
+        for (int i = 0; i < s.length(); i++) {
+            xx[i] = s.charAt(i) - '0';
+        }
+        Arrays.sort(xx);
+        StringBuilder sb = new StringBuilder();
+        for (var t : xx) {
+            sb.append(t);
+        }
+        sb.reverse();
+
+        return Integer.parseInt(sb.toString());
+
     }
 //}
 
-    @Test
+    //@Test
     public void Case1() {
 
         String input = """

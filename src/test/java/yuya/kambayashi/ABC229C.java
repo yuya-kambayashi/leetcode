@@ -43,56 +43,47 @@ public class ABC229C {
 
         final int n = sc.nextInt();
         int w = sc.nextInt();
-        long[] aa = new long[n];
-        long[] bb = new long[n];
-        for (int i = 0; i < n; i++) {
-            aa[i] = sc.nextLong();
-            bb[i] = sc.nextLong();
-        }
         List<Pair> pairs = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            Pair p = new Pair(aa[i], bb[i]);
-            pairs.add(p);
+            pairs.add(new Pair(sc.nextLong(), sc.nextLong()));
         }
-        Collections.sort(pairs, Comparator.comparingLong(Pair::getFirst));
+        Collections.sort(pairs, Comparator.comparingLong(Pair::getTaste));
 
-        long at = 0;
-        int index = n - 1;
-        while (index >= 0 && w > 0) {
-            Pair p = pairs.get(index);
-            long a = p.first;
-            long b = p.second;
+        long tasteSum = 0;
+        long weightRest = w;
+        for (int i = n - 1; i >= 0; i--) {
 
-            // 全部使う
-            if (b < w) {
-                at += a * b;
-                w -= b;
-            } // 一部使う
-            else if (b >= w) {
-                at += a * w;
-                w = 0;
+            Pair p = pairs.get(i);
+
+            if (weightRest <= p.weight) {
+
+                tasteSum += p.taste * weightRest;
+                weightRest = 0;
+                break;
+            } else {
+                tasteSum += p.taste * p.weight;
+                weightRest -= p.weight;
             }
-            index--;
-        }
-        System.out.println(at);
 
+        }
+        System.out.println(tasteSum);
     }
 
     static class Pair {
 
-        long first, second;
+        long taste, weight;
 
-        Pair(long first, long second) {
-            this.first = first;
-            this.second = second;
+        Pair(long a, long b) {
+            this.taste = a;
+            this.weight = b;
         }
 
-        public long getFirst() {
-            return first;
+        long getTaste() {
+            return taste;
         }
     }
-
 //}
+
     //@Test
     public void Case1() {
 

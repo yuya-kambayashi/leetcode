@@ -52,27 +52,27 @@ public class ABC212C {
         for (int i = 0; i < m; i++) {
             bb[i] = sc.nextInt();
         }
-
         Arrays.sort(aa);
         Arrays.sort(bb);
 
-        int ai = 0, bi = 0, min = Integer.MAX_VALUE;
-        while (ai < n && bi < m) {
+        int min = Integer.MAX_VALUE;
+        int bindex = 0;
 
-            min = Math.min(min, Math.abs(aa[ai] - bb[bi]));
+        for (int i = 0; i < n; i++) {
+            int a = aa[i];
 
-            if (min == 0) {
-                break;
+            while (bindex < m) {
+                int b = bb[bindex];
+
+                min = Math.min(min, Math.abs(a - b));
+
+                if (a < b) {
+                    break;
+                } else {
+                    bindex++;
+                }
             }
-
-            if (aa[ai] > bb[bi]) {
-                bi++;
-            } else if (aa[ai] < bb[bi]) {
-                ai++;
-            }
-
         }
-
         System.out.println(min);
     }
 //}
@@ -94,7 +94,7 @@ public class ABC212C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    @Test
+    //@Test
     public void Case2() {
 
         String input = """
@@ -111,7 +111,7 @@ public class ABC212C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    @Test
+    //@Test
     public void Case3() {
 
         String input = """

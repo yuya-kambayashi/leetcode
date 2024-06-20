@@ -43,25 +43,25 @@ public class ABC220C {
 
         final int n = sc.nextInt();
         int[] aa = new int[n];
-        long sum1 = 0;
+        long sum = 0;
         for (int i = 0; i < n; i++) {
             aa[i] = sc.nextInt();
-            sum1 += aa[i];
+            sum += aa[i];
         }
-        final long x = sc.nextLong();
+        long x = sc.nextLong();
 
-        long d = x / sum1;
+        long k = x / sum;
+        long kk = x % sum;
+        long t = 0;
+        int i = 0;
+        for (i = 0; i < n; i++) {
+            t += aa[i];
 
-        long sum = d * sum1;
-        int index = 0;
-        while (sum <= x) {
-            sum += aa[index];
-            index++;
+            if (t > kk) {
+                break;
+            }
         }
-
-        long ans = d * aa.length + index;
-
-        System.out.println(ans);
+        System.out.println(k * n + i + 1);
     }
 //}
 

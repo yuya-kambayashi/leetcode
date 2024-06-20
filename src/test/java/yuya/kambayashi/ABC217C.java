@@ -42,29 +42,22 @@ public class ABC217C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
-        int[] pp = new int[n];
-        for (int i = 0; i < n; i++) {
+        int[] pp = new int[n + 1];
+        int[] bb = new int[n + 1];
+        for (int i = 1; i < n + 1; i++) {
+
             pp[i] = sc.nextInt();
+            bb[pp[i]] = i;
         }
 
-        int[] qq = new int[n];
-        for (int i = 0; i < n; i++) {
-            int p = pp[i];
-            p--;
-            qq[p] = i + 1;
+        for (int i = 1; i < n + 1; i++) {
 
+            System.out.print(bb[i]);
+            System.out.print(" ");
         }
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < n; i++) {
-            sb.append(qq[i]);
-            if (i != n - 1) {
-                sb.append(" ");
-            }
-        }
-        System.out.println(sb.toString());
     }
-
 //}
+
     @Test
     public void Case1() {
 

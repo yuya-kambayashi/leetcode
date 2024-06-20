@@ -44,25 +44,20 @@ public class ABC236C {
         final int n = sc.nextInt();
         final int m = sc.nextInt();
 
-        String[] ss = new String[n];
+        List<String> list = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            ss[i] = sc.next();
+            list.add(sc.next());
         }
-        Set<String> tt = new HashSet<>();
+        Set<String> set = new HashSet<>();
         for (int i = 0; i < m; i++) {
-            tt.add(sc.next());
+            set.add(sc.next());
         }
-
-        for (int i = 0; i < n; i++) {
-            String s = ss[i];
-            String ans = "";
-            if (tt.contains(s)) {
-                ans = "Yes";
-            } else {
-                ans = "No";
+        for (var l : list) {
+            String ret = "No";
+            if (set.contains(l)) {
+                ret = "Yes";
             }
-            System.out.println(ans);
-
+            System.out.println(ret);
         }
     }
 //}
