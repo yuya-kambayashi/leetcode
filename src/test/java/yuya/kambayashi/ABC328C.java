@@ -44,26 +44,21 @@ public class ABC328C {
         final int n = sc.nextInt();
         final int q = sc.nextInt();
         final String s = sc.next();
-        char[] cc = new char[300001];
-        int[] ii = new int[300000];
-        int[] bb = new int[300000];
 
-        for (int i = 1; i <= n; i++) {
-            cc[i] = s.charAt(i - 1);
-        }
-        for (int i = 1; i <= n - 1; i++) {
-            if (cc[i] == cc[i + 1]) {
-                ii[i] = 1;
+        int[] cc = new int[n];
+        int t = 0;
+        for (int i = 1; i < n; i++) {
+            cc[i] = t;
+            if (s.charAt(i - 1) == s.charAt(i)) {
+                cc[i]++;
+                t++;
             }
         }
-        for (int i = 1; i <= n - 1; i++) {
-            bb[i] = bb[i - 1] + ii[i];
-        }
-
         for (int i = 0; i < q; i++) {
             int l = sc.nextInt();
             int r = sc.nextInt();
-            System.out.println(bb[r - 1] - bb[l - 1]);
+
+            System.out.println(cc[r - 1] - cc[l - 1]);
         }
     }
 //}

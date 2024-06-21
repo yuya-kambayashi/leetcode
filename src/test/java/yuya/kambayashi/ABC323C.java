@@ -47,50 +47,90 @@ public class ABC323C {
         for (int i = 0; i < m; i++) {
             aa[i] = sc.nextInt();
         }
-
         String[] ss = new String[n];
         for (int i = 0; i < n; i++) {
             ss[i] = sc.next();
         }
+
+        // 問題リストの作成
+        List<Problem> pp = new ArrayList<>();
+        for (int i = 0; i < m; i++) {
+            int a = aa[i];
+
+            List<Integer> solver = new ArrayList<>();
+
+            for (int j = 0; j < n; j++) {
+                String s = ss[j];
+
+                if (s.charAt(i) == 'o') {
+                    solver.add(j + 1);
+                }
+            }
+            pp.add(new Problem(a, solver));
+        }
+
         int[] points = new int[n];
         for (int i = 0; i < n; i++) {
             String s = ss[i];
+
             for (int j = 0; j < m; j++) {
                 if (s.charAt(j) == 'o') {
                     points[i] += aa[j];
                 }
             }
+            // ボーナス点
             points[i] += i + 1;
+
         }
 
-        int max = 0;
-        for (int p : points) {
-            max = Math.max(max, p);
-        }
+        Collections.sort(pp, Comparator.comparingInt(Problem::getPoint));
 
-        //Arrays.sort(aa);
-        List<Integer> ans = new ArrayList<>();
         for (int i = 0; i < n; i++) {
             int point = points[i];
-            if (point == max) {
-                ans.add(0);
-            } else {
-                int cnt = 0;
-                int index = ss[i].length() - 1;
-                while (point < max && index >= 0) {
-                    if (ss[i].charAt(index) == 'x') {
-                        point += aa[index];
-                        cnt++;
-                    }
-                    index--;
+
+            int otherMax = 0;
+            for (int j = 0; j < n; j++) {
+                if (i != j) {
+                    otherMax = Math.max(otherMax, points[j]);
                 }
-                ans.add(cnt);
             }
+
+            int pindex = pp.size() - 1;
+            int cnt = 0;
+            while (true) {
+                if (point > otherMax) {
+                    break;
+                }
+                var p = pp.get(pindex);
+
+                if (!p.solver.contains(i + 1)) {
+
+                    // ボーナス点
+                    if (point == 0) {
+                        point += i + 1;
+                    }
+                    point += p.point;
+                    cnt++;
+
+                }
+                pindex--;
+            }
+            System.out.println(cnt);
+        }
+    }
+
+    static class Problem {
+
+        int point;
+        List<Integer> solver;
+
+        Problem(int point, List<Integer> solver) {
+            this.point = point;
+            this.solver = solver;
         }
 
-        for (int i : ans) {
-
-            System.out.println(i);
+        int getPoint() {
+            return point;
         }
     }
 //}
@@ -164,6 +204,44 @@ public class ABC323C {
                           3
                           2
                           0
+                          """;
+        Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
+        ABC323C.main(null);
+        Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
+    }
+
+    @Test
+    public void Case4() {
+
+        String input = """
+                       2 1
+                       500
+                       x
+                       x
+                    """;
+
+        String expected = """
+                          1
+                          1
+                          """;
+        Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
+        ABC323C.main(null);
+        Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
+    }
+
+    @Test
+    public void Case5() {
+
+        String input = """
+                       2 2
+                       500 2500
+                       xo
+                       xx
+                    """;
+
+        String expected = """
+                          0
+                          1
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC323C.main(null);
