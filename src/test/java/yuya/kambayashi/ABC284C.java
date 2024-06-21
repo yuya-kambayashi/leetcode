@@ -42,55 +42,38 @@ public class ABC284C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
-        final int m = sc.nextInt();
-        int[] uu = new int[m];
-        int[] vv = new int[m];
-        List<Graph> graphs = new ArrayList<>();
-        for (int i = 0; i < m; i++) {
-            int u1 = sc.nextInt();
-            int v1 = sc.nextInt();
-            graphs.add(new Graph(u1, v1, i + 1));
-        }
-        Collections.sort(graphs, Comparator.comparingInt(Graph::getV1));
+        int m = sc.nextInt();
 
-        int cnt = 0;
-        HashSet<Integer> set = new HashSet<>();
-        for (int i = 0; i < m; i++) {
-            for (int j = i + 1; j < m; j++) {
-                if (graphs.get(i).isConnect(graphs.get(j))) {
-                    set.add(i);
-                    set.add(j);
-                }
+        var map = new ArrayList<ArrayList<Integer>>();
+        for (int i = 0; i < n; i++) {
+            map.add(new ArrayList<>());
+        }
+        while (m > 0) {
+            int u = sc.nextInt() - 1;
+            int v = sc.nextInt() - 1;
+
+            map.get(u).add(v);
+            map.get(v).add(u);
+
+            m--;
+        }
+        int ans = 0;
+        boolean[] visited = new boolean[n];
+        for (int i = 0; i < n; i++) {
+            if (!visited[i]) {
+                ans++;
+                dfs(map, i, visited);
             }
         }
-
-        System.out.println(set.size());
+        System.out.println(ans);
     }
 
-    static class Graph {
-
-        int v1;
-        int v2;
-        int e;
-
-        Graph(int v1, int v2, int e) {
-            this.v1 = Math.min(v1, v2);
-            this.v2 = Math.max(v1, v2);
-            this.e = e;
-        }
-
-        public int getV1() {
-            return v1;
-        }
-
-        public boolean isConnect(Graph other) {
-            if (this.v1 == other.v1 || this.v1 == other.v2) {
-                return true;
+    static void dfs(ArrayList<ArrayList<Integer>> map, int pos, boolean[] visited) {
+        visited[pos] = true;
+        for (int next : map.get(pos)) {
+            if (!visited[next]) {
+                dfs(map, next, visited);
             }
-            if (this.v2 == other.v1 || this.v2 == other.v2) {
-                return true;
-            }
-            return false;
         }
     }
 //}

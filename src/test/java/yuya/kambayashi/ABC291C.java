@@ -44,60 +44,60 @@ public class ABC291C {
         final int n = sc.nextInt();
         final String s = sc.next();
 
-        int d = 2 * (int) Math.pow(10, 5);
-
-        HashSet<Pair> pairs = new HashSet<>();
-
-        int x = 0, y = 0;
-        pairs.add(new Pair(x, y));
-
-        for (char c : s.toCharArray()) {
-
-            switch (c) {
-                case 'L':
-                    x--;
-                    break;
+        Set<Coord> set = new HashSet<>();
+        Coord c = new Coord(0, 0);
+        set.add(c);
+        int beforeX = 0, beforeY = 0;
+        for (int i = 0; i < n; i++) {
+            Coord t = new Coord(beforeX, beforeY);
+            switch (s.charAt(i)) {
                 case 'R':
-                    x++;
+                    t.x++;
+                    break;
+                case 'L':
+                    t.x--;
                     break;
                 case 'U':
-                    y++;
+                    t.y++;
                     break;
                 case 'D':
-                    y--;
+                    t.y--;
                     break;
             }
-
-            Pair moved = new Pair(x, y);
-            if (pairs.contains(moved)) {
+            if (set.contains(t)) {
                 System.out.println("Yes");
                 return;
             }
-            pairs.add(moved);
+            set.add(t);
+
+            beforeX = t.x;
+            beforeY = t.y;
         }
 
         System.out.println("No");
+
     }
 
-    static class Pair {
+    static class Coord {
 
-        int first, second;
+        int x, y;
 
-        Pair(int first, int second) {
-            this.first = first;
-            this.second = second;
+        Coord(int x, int y) {
+            this.x = x;
+            this.y = y;
         }
 
         public int hashCode() {
-            return 31 * first + second;
+            return 31 * x + y;
         }
 
         public boolean equals(Object obj) {
-            Pair other = (Pair) obj;
+            Coord other = (Coord) obj;
 
-            return this.first == other.first && this.second == other.second;
+            return this.x == other.x && this.y == other.y;
         }
     }
+//}
 
     @Test
     public void Case1() {

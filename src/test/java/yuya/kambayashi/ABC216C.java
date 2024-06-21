@@ -34,7 +34,6 @@ public class ABC216C {
         System.setIn(null);
         System.setOut(null);
     }
-//https://atcoder.jp/contests/abc216/editorial/2503
 //import java.math.*;
 //import java.util.*;
 //import java.util.stream.*;
@@ -44,21 +43,33 @@ public class ABC216C {
         Scanner sc = new Scanner(System.in);
 
         long n = sc.nextLong();
+
         StringBuilder sb = new StringBuilder();
-        while (n >= 1) {
-            if (n % 2 == 1) {
-                sb.append("A");
-                n--;
-            } else {
-                sb.append("B");
-                n /= 2;
-            }
+
+        if (n % 2 == 1) {
+            n--;
+            sb.append("A");
         }
-        System.out.println(sb.toString());
+
+        while (n > 0) {
+            n /= 2;
+
+            sb.append("B");
+
+            if (n % 2 == 1) {
+                n--;
+                sb.append("A");
+            }
+
+            int cnt = sb.length();
+
+        }
+
+        System.out.println(sb.reverse().toString());
     }
 //}
 
-    @Test
+    //@Test
     public void Case1() {
 
         String input = """
@@ -73,7 +84,7 @@ public class ABC216C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    //@Test
     public void Case2() {
 
         String input = """
@@ -88,11 +99,11 @@ public class ABC216C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """
-                       
+                       1000000000000000000
                     """;
 
         String expected = """

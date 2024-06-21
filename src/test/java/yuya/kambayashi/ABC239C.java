@@ -46,32 +46,24 @@ public class ABC239C {
         final int x2 = sc.nextInt();
         final int y2 = sc.nextInt();
 
-        int[][] directions
-                = new int[][]{
-                    {-2, -1}, {-1, -2},
-                    {2, -1}, {1, -2},
-                    {-2, 1}, {-1, 2},
-                    {2, 1}, {1, 2}};
+        final int n = 8;
 
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                int[] d1 = directions[i];
-                int[] d2 = directions[j];
+        int[][] dirs = {{2, 1}, {1, 2}, {-1, 2}, {-2, 1}, {-2, -1}, {-1, -2}, {1, -2}, {2, -1}};
 
-                boolean ok = true;
-                if (x1 + d1[0] != x2 + d2[0]) {
-                    ok = false;
-                }
-                if (y1 + d1[1] != y2 + d2[1]) {
-                    ok = false;
-                }
-                if (ok) {
-                    System.out.println("Yes");
-                    return;
-                }
+        for (int i = 0; i < n; i++) {
+
+            int[] dir = dirs[i];
+
+            int dx = x1 + dir[0];
+            int dy = y1 + dir[1];
+
+            if (((x2 - dx) * (x2 - dx) + (y2 - dy) * (y2 - dy)) == 5) {
+                System.out.println("Yes");
+                return;
             }
         }
         System.out.println("No");
+        return;
     }
 //}
 

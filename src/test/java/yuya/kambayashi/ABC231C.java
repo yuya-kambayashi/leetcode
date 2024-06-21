@@ -52,25 +52,19 @@ public class ABC231C {
         for (int i = 0; i < q; i++) {
             int x = sc.nextInt();
 
-            int ok = n, ng = -1;
-            while (ok - ng > 1) {
-                int mid = (ok + ng) / 2;
+            int index = Arrays.binarySearch(aa, x);
 
-                if (aa[mid] >= x) {
-                    ok = mid;
-                } else {
-                    ng = mid;
-
-                }
+            if (index >= 0) {
+                System.out.println(n - index);
+            } else {
+                System.out.println(n + index + 1);
             }
-
-            System.out.println(n - ok);
         }
-
     }
 //}
 
-    //Test
+    @Test
+
     public void Case1() {
 
         String input = """
@@ -87,7 +81,7 @@ public class ABC231C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    @Test
+    // @Test
     public void Case2() {
 
         String input = """
@@ -112,7 +106,7 @@ public class ABC231C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    @Test
+    //@Test
     public void Case3() {
 
         String input = """

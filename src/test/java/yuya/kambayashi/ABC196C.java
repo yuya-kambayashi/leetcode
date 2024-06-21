@@ -41,22 +41,29 @@ public class ABC196C {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
+        Set<Long> set = new HashSet<>();
+
         final long n = sc.nextLong();
-        long cnt = 0;
-        for (int i = 1; i <= n / 2; i++) {
+        for (int i = 1; i < Math.pow(10, 9); i++) {
 
-            String s = String.valueOf(i);
-            Long t = Long.parseLong(s + s);
-            if (t <= n) {
-                cnt++;
-            } else {
-                break;
+            StringBuilder sb = new StringBuilder();
+            sb.append(i);
+
+            StringBuilder sb2 = new StringBuilder();
+            sb2.append(i);
+            // sb2.reverse();
+            sb.append(sb2);
+
+            Long t = Long.parseLong(sb.toString());
+
+            if (t > n) {
+                System.out.println(set.size());
+                return;
             }
-        }
+            set.add(t);
 
-        // 11,22, 33,44,55,66,77,88,99:9
-        // 1001, 1111, 1221, 1331, 
-        System.out.println(cnt);
+        }
+        System.out.println(0);
     }
 //}
 
@@ -99,6 +106,66 @@ public class ABC196C {
 
         String expected = """
                           999
+                          """;
+        Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
+        ABC196C.main(null);
+        Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
+    }
+
+    @Test
+    public void Case4() {
+
+        String input = """
+                       1
+                    """;
+
+        String expected = """
+                          0
+                          """;
+        Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
+        ABC196C.main(null);
+        Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
+    }
+
+    @Test
+    public void Case5() {
+
+        String input = """
+                       11
+                    """;
+
+        String expected = """
+                          1
+                          """;
+        Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
+        ABC196C.main(null);
+        Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
+    }
+
+    @Test
+    public void Case6() {
+
+        String input = """
+                       1001
+                    """;
+
+        String expected = """
+                          10
+                          """;
+        Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
+        ABC196C.main(null);
+        Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
+    }
+
+    @Test
+    public void Case7() {
+
+        String input = """
+                       10
+                    """;
+
+        String expected = """
+                          1
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC196C.main(null);

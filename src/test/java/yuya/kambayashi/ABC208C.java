@@ -31,43 +31,117 @@ public class ABC208C {
     @AfterAll
     public void afterAll() {
         System.setIn(null);
-        System.setOut(null);
-    }
-//import java.math.*;
-//import java.util.*;
-//import java.util.stream.*;
-//public class Main {
+        System.setOut(null);//import java.math.*;
+        //import java.util.*;
+        //import java.util.stream.*;
+        //public class Main {
+
+    
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
-        final long k = sc.nextLong();
+        long k = sc.nextLong();
 
-        int[] aa = new int[n];
+        List<Pair> pairs = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            aa[i] = sc.nextInt();
-        }
-        Integer[] order = new Integer[n];
-        for (int i = 0; i < n; i++) {
-            order[i] = i;
-        }
-        Arrays.sort(order, (i, j) -> Integer.compare(aa[i], aa[j]));
-
-        long[] ans = new long[n];
-        Arrays.fill(ans, k / n);
-        for (int i = 0; i < k % n; i++) {
-            ans[order[i]]++;
-        }
-        for (long x : ans) {
-            System.out.println(x);
+            pairs.add(new Pair(i + 1, sc.nextInt(), 0));
         }
 
+        for (var p : pairs) {
+            p.cnt += k / n;
+        }
+
+        k %= n;
+
+        Collections.sort(pairs, Comparator.comparingInt(Pair::getNumber));
+        for (int i = 0; i < k; i++) {
+            pairs.get(i).cnt++;
+        }
+        Collections.sort(pairs, Comparator.comparingInt(Pair::getIndex));
+        for (var p : pairs) {
+            System.out.println(p.cnt);
+        }
+    }
+
+    static class Pair {
+
+        int index, number;
+        long cnt;
+
+        Pair(int index, int number, long cnt) {
+            this.index = index;
+            this.number = number;
+            this.cnt = cnt;
+        }
+
+        int getIndex() {
+            return index;
+        }
+
+        int getNumber() {
+            return number;
+        }
     }
 //}
+}
+//import java.math.*;
+//import java.util.*;
+//import java.util.stream.*;
+//public class Main {
 
-    @Test
-    public void Case1() {
+public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        final int n = sc.nextInt();
+        long k = sc.nextLong();
+
+        List<Pair> pairs = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            pairs.add(new Pair(i + 1, sc.nextInt(), 0));
+        }
+
+        for (var p : pairs) {
+            p.cnt += k / n;
+        }
+
+        k %= n;
+
+        Collections.sort(pairs, Comparator.comparingInt(Pair::getNumber));
+        for (int i = 0; i < k; i++) {
+            pairs.get(i).cnt++;
+        }
+        Collections.sort(pairs, Comparator.comparingInt(Pair::getIndex));
+        for (var p : pairs) {
+            System.out.println(p.cnt);
+
+}
+    }
+
+    static class Pair {
+
+    int index, number;
+    long cnt;
+
+    Pair(int index, int number, long cnt) {
+        this.index = index;
+        this.number = number;
+        this.cnt = cnt;
+    }
+
+    int getIndex() {
+        return index;
+    }
+
+    int getNumber() {
+        return number;
+    }
+}
+//}
+
+@Test
+public void Case1() {
 
         String input = """
                        2 7
@@ -84,7 +158,7 @@ public class ABC208C {
     }
 
     @Test
-    public void Case2() {
+public void Case2() {
 
         String input = """
                        1 3
@@ -100,7 +174,7 @@ public class ABC208C {
     }
 
     @Test
-    public void Case3() {
+public void Case3() {
 
         String input = """
                        7 1000000000000

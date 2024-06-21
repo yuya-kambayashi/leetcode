@@ -43,21 +43,22 @@ public class ABC290C {
 
         final int n = sc.nextInt();
         final int k = sc.nextInt();
-        Set<Integer> set = new HashSet<>();
+        Set<Integer> aa = new HashSet<>();
         for (int i = 0; i < n; i++) {
-            set.add(sc.nextInt());
+            aa.add(sc.nextInt());
         }
         for (int i = 0; i < k; i++) {
-            if (!set.contains(i)) {
+            if (!aa.contains(i)) {
                 System.out.println(i);
                 return;
             }
         }
         System.out.println(k);
     }
-
 //}
+
     @Test
+
     public void Case1() {
 
         String input = """
@@ -72,8 +73,8 @@ public class ABC290C {
         ABC290C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
-
     //  @Test
+
     public void Case2() {
 
         String input = """
