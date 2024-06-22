@@ -42,50 +42,54 @@ public class ABC221C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
-        int[] nn = new int[10];
-        char[] cc = String.valueOf(n).toCharArray();
-        for (int i = 0; i < cc.length; i++) {
-            char c = cc[i];
-            nn[c - '0']++;
+
+        List<Integer> nn = new ArrayList<>();
+        String t = String.valueOf(n);
+        for (int i = 0; i < t.length(); i++) {
+            nn.add(t.charAt(i) - '0');
         }
+        int m = t.length();
 
-        StringBuilder sb1 = new StringBuilder();
-        StringBuilder sb2 = new StringBuilder();
-        int cnt = 1;
-        boolean to1 = true;
-        for (int i = 9; i >= 0; i--) {
+        int max = 0;
 
-            for (int j = 0; j < nn[i]; j++) {
-                if (to1) {
-                    if (cnt == 0) {
-                        sb1.append(i);
-                        cnt++;
-                    } else if (cnt == 1) {
-                        sb1.append(i);
-                        cnt = 0;
-                        to1 = false;
-                    }
+        for (long bit = 0; bit < 1 << m; bit++) {
+            List<Integer> in = new ArrayList<>();
+            List<Integer> out = new ArrayList<>();
+            for (int i = 0; i < m; i++) {
+
+                if ((bit & (1 << i)) >= 1) {
+                    in.add(nn.get(i));
                 } else {
-                    if (cnt == 0) {
-                        sb2.append(i);
-                        cnt++;
-                    } else if (cnt == 1) {
-                        sb2.append(i);
-                        cnt = 0;
-                        to1 = true;
-                    }
+                    out.add(nn.get(i));
                 }
             }
+
+            if (in.isEmpty() || out.isEmpty()) {
+                continue;
+            }
+
+            Collections.sort(in);
+            Collections.sort(out);
+
+            StringBuilder sbi = new StringBuilder();
+            StringBuilder sbo = new StringBuilder();
+            for (var k : in) {
+                sbi.append(k);
+            }
+            for (var k : out) {
+                sbo.append(k);
+            }
+            sbi.reverse();
+            sbo.reverse();
+
+            max = Math.max(max, Integer.parseInt(sbi.toString()) * Integer.parseInt(sbo.toString()));
         }
 
-        long n1 = Long.parseLong(sb1.toString());
-        long n2 = Long.parseLong(sb2.toString());
-
-        System.out.println(n1 * n2);
+        System.out.println(max);
     }
 //}
 
-    //@Test
+    @Test
     public void Case1() {
 
         String input = """
@@ -100,7 +104,7 @@ public class ABC221C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //@Test
+    @Test
     public void Case2() {
 
         String input = """

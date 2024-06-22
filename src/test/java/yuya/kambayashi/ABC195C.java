@@ -41,23 +41,51 @@ public class ABC195C {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final long n = sc.nextLong();
+        long n = sc.nextLong();
+        long t = n;
 
         long ans = 0;
-        if (n >= 1_000) {
-            ans += n - 999;
+
+        if (t > 999) {
+            ans += t - 999;
         }
-        if (n >= 1_000_000) {
-            ans += n - 999_999;
+        if (t > 999_999) {
+            ans += (t - 999_999);
         }
-        if (n >= 1000_000_000L) {
-            ans += n - 999_999_999L;
+        if (t > 999_999_999) {
+            ans += (t - 999_999_999);
         }
-        if (n >= 1000_000_000_000L) {
-            ans += n - 999_999_999_999L;
+        if (t > 999_999_999_999L) {
+            ans += (t - 999_999_999_999L);
+
+        }
+        if (t > 999_999_999_999_999L) {
+            ans += (t - 999_999_999_999_999L);
+
+        }
+        if (t > 999_999_999_999_999_999L) {
+            ans += (t - 999_999_999_999_999_999L);
+
         }
 
         System.out.println(ans);
+
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        long n = sc.nextLong();
+
+        long x = 1000;
+        long ans = 0;
+        while (n >= x) {
+            ans += n - x + 1;
+            x *= 1000;
+        }
+
+        System.out.println(ans);
+
     }
 //}
 
@@ -76,7 +104,7 @@ public class ABC195C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """

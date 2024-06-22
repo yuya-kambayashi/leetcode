@@ -43,23 +43,29 @@ public class ABC326C {
 
         final int n = sc.nextInt();
         final int m = sc.nextInt();
-        int[] aa = new int[n];
+        long[] aa = new long[n];
         for (int i = 0; i < n; i++) {
-            aa[i] = sc.nextInt();
+            aa[i] = sc.nextLong();
         }
         Arrays.sort(aa);
 
-        int res = 0;
+        long max = 0;
         int right = 0;
 
         for (int left = 0; left < n; left++) {
-            while (right < n && aa[right] < aa[left] + m) {
+
+            while (true) {
+                if (right >= n) {
+                    break;
+                }
+                if (aa[right] >= aa[left] + m) {
+                    break;
+                }
                 right++;
             }
-            res = Math.max(res, right - left);
+            max = Math.max(max, right - left);
         }
-
-        System.out.println(res);
+        System.out.println(max);
     }
 //}
 
@@ -105,6 +111,22 @@ public class ABC326C {
 
         String expected = """
                           7
+                          """;
+        Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
+        ABC326C.main(null);
+        Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
+    }
+
+    @Test
+    public void Case4() {
+
+        String input = """
+                       4 1000000
+                       1 1 1 1000000
+                    """;
+
+        String expected = """
+                          4
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC326C.main(null);

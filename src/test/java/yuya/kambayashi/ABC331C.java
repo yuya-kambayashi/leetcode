@@ -43,20 +43,32 @@ public class ABC331C {
 
         final int n = sc.nextInt();
         int[] aa = new int[n];
-        TreeMap<Integer, Integer> map = new TreeMap<>(Collections.reverseOrder());
-        Map<Integer, Long> map2 = new HashMap<>();
+        long all = 0;
         for (int i = 0; i < n; i++) {
             aa[i] = sc.nextInt();
-            map.put(aa[i], map.getOrDefault(aa[i], 0) + 1);
+            all += aa[i];
         }
-        long g = 0;
-        for (int k : map.keySet()) {
-            map2.put(k, g);
-            g += (long) k * map.get(k);
+        // Aの要素と個数のmap
+        TreeMap<Integer, Long> map = new TreeMap<>();
+        for (var a : aa) {
+            map.put(a, map.getOrDefault(a, 0L) + 1L);
         }
-        for (int i : aa) {
-            long re = map2.get(i);
-            System.out.print(re);
+
+        List<Integer> keySet = new ArrayList<>(map.keySet());
+
+        // Aの要素と、その値までの合計のmap
+        Map<Integer, Long> map2 = new HashMap<>();
+        int index = 0;
+        long sum = 0;
+        for (var entry : map.entrySet()) {
+
+            sum += entry.getKey() * entry.getValue();
+            map2.put(keySet.get(index), sum);
+            index++;
+        }
+
+        for (var a : aa) {
+            System.out.print(all - map2.get(a));
             System.out.print(" ");
         }
     }
@@ -104,6 +116,22 @@ public class ABC331C {
 
         String expected = """
                           0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                          """;
+        Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
+        ABC331C.main(null);
+        Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
+    }
+
+    @Test
+    public void Case4() {
+
+        String input = """
+                       3
+                       3 2 3
+                    """;
+
+        String expected = """
+                          0 6 0
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC331C.main(null);
