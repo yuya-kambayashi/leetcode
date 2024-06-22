@@ -47,38 +47,34 @@ public class ABC224C {
         final int n = sc.nextInt();
         int[] xx = new int[n];
         int[] yy = new int[n];
-        Point2D[] points = new Point2D[n];
         for (int i = 0; i < n; i++) {
             xx[i] = sc.nextInt();
             yy[i] = sc.nextInt();
-            points[i] = new Point2D.Double((double) xx[i], (double) yy[i]);
         }
 
-        int ans = 0;
-
+        int cnt = 0;
         for (int i = 0; i < n; i++) {
             for (int j = i + 1; j < n; j++) {
                 for (int k = j + 1; k < n; k++) {
 
-                    var p1 = points[i];
-                    var p2 = points[j];
-                    var p3 = points[k];
-                    int t = (int) ((p2.getX() - p1.getX()) * (p3.getY() - p1.getY()) - (p3.getX() - p1.getX()) * (p2.getY() - p1.getY()));
-                    if (Math.abs(t) < 1) {
+                    int x1 = xx[i];
+                    int x2 = xx[j];
+                    int x3 = xx[k];
+                    int y1 = yy[i];
+                    int y2 = yy[j];
+                    int y3 = yy[k];
 
-                        ans++;
+                    if (Math.abs(((x1 - x3) * (y2 - y3) - (x2 - x3) * (y1 - y3))) > 0.01) {
+                        cnt++;
                     }
-
                 }
-
             }
         }
-        System.out.println(ans);
-
+        System.out.println(cnt);
     }
-
 //}
-    // @Test
+
+    @Test
     public void Case1() {
 
         String input = """

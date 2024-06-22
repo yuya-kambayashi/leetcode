@@ -42,24 +42,22 @@ public class ABC206C {
         Scanner sc = new Scanner(System.in);
 
         final long n = sc.nextInt();
-        int[] aa = new int[(int) n];
-        for (int i = 0; i < n; i++) {
-            aa[i] = sc.nextInt();
-        }
-        Arrays.sort(aa);
-
         Map<Integer, Long> map = new HashMap<>();
-        for (int a : aa) {
-            map.put(a, map.getOrDefault(a, 0L) + 1);
+        for (int i = 0; i < n; i++) {
+            int a = sc.nextInt();
+            map.put(a, map.getOrDefault(a, 0L) + 1L);
         }
+
+        long all = n * (n - 1) / 2;
+
         long dup = 0;
         for (var v : map.values()) {
-            if (v == 1) {
-                continue;
-            }
-            dup += (v * (v - 1)) / 2;
+
+            long t = v * (v - 1) / 2;
+            dup += t;
         }
-        System.out.println(((n * (n - 1)) / 2) - dup);
+
+        System.out.println(all - dup);
     }
 //}
 
@@ -131,12 +129,12 @@ public class ABC206C {
     public void Case5() {
 
         String input = """
-                       2
-                       1 1
+                       5
+                       1 3 1 1 1
                     """;
 
         String expected = """
-                          0
+                          4
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC206C.main(null);

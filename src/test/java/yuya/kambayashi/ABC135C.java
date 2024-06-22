@@ -43,33 +43,28 @@ public class ABC135C {
 
         final int n = sc.nextInt();
         int[] aa = new int[n + 1];
-        int[] bb = new int[n];
         for (int i = 0; i < n + 1; i++) {
             aa[i] = sc.nextInt();
         }
+        int[] bb = new int[n];
         for (int i = 0; i < n; i++) {
             bb[i] = sc.nextInt();
         }
-        int sum = 0;
-        int aindex = 0, bindex = 0;
-        int power = 0, monster = 0;
-        while (true) {
-            power = bb[bindex];
 
-            monster = aa[aindex];
-
-            if (monster <= power) {
-                sum += monster;
-                aindex++;
-                power = power - monster;
-            }
+        long ans = 0;
+        for (int i = 0; i < n; i++) {
+            int beat = Math.min(aa[i], bb[i]);
+            ans += beat;
+            bb[i] -= beat;
+            int next = Math.min(aa[i + 1], bb[i]);
+            ans += next;
+            aa[i + 1] -= next;
         }
-
-        System.out.println(sum);
+        System.out.println(ans);
     }
 //}
+    //@Test
 
-    @Test
     public void Case1() {
 
         String input = """
@@ -86,7 +81,7 @@ public class ABC135C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    @Test
+    //@Test
     public void Case2() {
 
         String input = """
@@ -103,7 +98,7 @@ public class ABC135C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    @Test
+    // @Test
     public void Case3() {
 
         String input = """
@@ -114,6 +109,23 @@ public class ABC135C {
 
         String expected = """
                           3
+                          """;
+        Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
+        ABC135C.main(null);
+        Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
+    }
+
+    @Test
+    public void Case4() {
+
+        String input = """
+                       2
+1 3 2
+3 2
+                    """;
+
+        String expected = """
+                          5
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC135C.main(null);

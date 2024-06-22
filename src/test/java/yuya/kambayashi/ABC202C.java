@@ -43,49 +43,28 @@ public class ABC202C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
-        int[] aa = new int[n];
-        int[] bb = new int[n];
-        Map<Integer, Integer> cmap = new HashMap<>();
-        for (int i = 0; i < n; i++) {
+        int[] aa = new int[n + 1];
+        int[] bb = new int[n + 1];
+        int[] cc = new int[n + 1];
+        for (int i = 1; i <= n; i++) {
             aa[i] = sc.nextInt();
         }
-        for (int i = 0; i < n; i++) {
+        for (int i = 1; i <= n; i++) {
             bb[i] = sc.nextInt();
         }
-        for (int i = 0; i < n; i++) {
+        for (int i = 1; i <= n; i++) {
             int c = sc.nextInt();
-
-            cmap.put(c, cmap.getOrDefault(c, 0) + 1);
+            cc[bb[c]]++;
         }
-
-        int ans = 0;
-
-        Map<Integer, Integer> map = new HashMap<>();
-
-        for (int i = 0; i < n; i++) {
-
-            if (map.containsKey(aa[i])) {
-                ans += map.get(aa[i]);
-                continue;
-            }
-            int t = 0;
-            for (int j = 0; j < n; j++) {
-                if (aa[i] == bb[j]) {
-                    if (cmap.containsKey(j + 1)) {
-                        int c = cmap.get(j + 1);
-                        t += c;
-                    }
-                }
-
-            }
-            map.put(aa[i], t);
-            ans += t;
+        long ans = 0;
+        for (int i = 1; i <= n; i++) {
+            ans += cc[aa[i]];
         }
         System.out.println(ans);
     }
-
 //}
-    //@Test
+
+    @Test
     public void Case1() {
 
         String input = """
@@ -103,7 +82,7 @@ public class ABC202C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case2() {
 
         String input = """
