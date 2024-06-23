@@ -43,37 +43,18 @@ public class ABC115C {
 
         final int n = sc.nextInt();
         final int k = sc.nextInt();
-        long[] hh = new long[n];
+        int[] hh = new int[n];
         for (int i = 0; i < n; i++) {
-            hh[i] = sc.nextLong();
+            hh[i] = sc.nextInt();
         }
-        long mind = Long.MAX_VALUE;
-        for (long bit = 0; bit < 1 << n; bit++) {
+        Arrays.sort(hh);
+        int min = Integer.MAX_VALUE;
+        for (int i = 0; i < n - k + 1; i++) {
 
-            long mint = Long.MAX_VALUE, maxt = Long.MIN_VALUE;
-            long cnt = 0;
-            List<Integer> list = new ArrayList<>();
-            for (int i = 0; i < n; i++) {
-
-                if ((bit & (1 << i)) >= 1) {
-                    long h = hh[i];
-                    mint = Math.min(mint, h);
-                    maxt = Math.max(maxt, h);
-                    cnt++;
-                    list.add(i);
-                }
-            }
-            if (cnt == k) {
-                mind = Math.min(mind, maxt - mint);
-                if (mind == 0) {
-                    System.out.println(mind);
-                    return;
-                }
-            }
-
+            min = Math.min(min, hh[i + k - 1] - hh[i]);
         }
 
-        System.out.println(mind);
+        System.out.println(min);
     }
 //}
 
@@ -117,15 +98,18 @@ public class ABC115C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """
-                       
+                       3 2
+                       2
+                       2
+                       2
                     """;
 
         String expected = """
-                          
+                          0
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC115C.main(null);
