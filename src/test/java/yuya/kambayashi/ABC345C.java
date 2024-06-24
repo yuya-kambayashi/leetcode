@@ -41,37 +41,25 @@ public class ABC345C {
         Scanner sc = new Scanner(System.in);
 
         final String s = sc.next();
-        final int n = s.length();
-
-        boolean hasSame = false;
+        final long n = s.length();
 
         Map<Character, Long> map = new HashMap<>();
         for (char c : s.toCharArray()) {
             map.put(c, map.getOrDefault(c, 0L) + 1L);
-
-            if (map.get(c) > 1) {
-                hasSame = true;
-            }
         }
 
-        // 
-        long ways = n * (n - 1) / 2;
+        long sum = n * (n - 1) / 2;
 
         long dup = 0;
-        for (var v : map.values()) {
-            if (v == 1) {
-                continue;
+        for (var e : map.entrySet()) {
+            if (e.getValue() > 1) {
+                dup += e.getValue() * (e.getValue() - 1) / 2;
             }
-            // 重複する組み合わせは除く
-            dup += (v * (v - 1) / 2);
         }
-
-        if (hasSame) {
-            System.out.println(ways - dup + 1);
-
+        if (dup > 0) {
+            System.out.println(sum - dup + 1);
         } else {
-
-            System.out.println(ways);
+            System.out.println(sum);
         }
     }
 //}
@@ -106,15 +94,15 @@ public class ABC345C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """
-                       
+                       aab
                     """;
 
         String expected = """
-                          
+                          3
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC345C.main(null);

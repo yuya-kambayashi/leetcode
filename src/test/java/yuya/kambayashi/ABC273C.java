@@ -42,19 +42,20 @@ public class ABC273C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
-        TreeMap<Integer, Integer> map = new TreeMap<>();
+        int[] aa = new int[n];
         for (int i = 0; i < n; i++) {
-            int a = sc.nextInt();
+            aa[i] = sc.nextInt();
+        }
+        TreeMap<Integer, Integer> map = new TreeMap<>();
+        for (var a : aa) {
             map.put(a, map.getOrDefault(a, 0) + 1);
         }
-        for (Map.Entry<Integer, Integer> entry : map.descendingMap().entrySet()) {
+        for (var entry : map.descendingMap().entrySet()) {
             System.out.println(entry.getValue());
         }
-
         for (int i = 1; i <= n - map.size(); i++) {
             System.out.println(0);
         }
-
     }
 //}
 

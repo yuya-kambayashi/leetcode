@@ -57,8 +57,12 @@ public class ABC347C {
             int left = dd.get(i);
             int right = dd.get(i + n - 1);
             if (right - left + 1 <= a) {
+                System.out.println("Yes");
+                return;
             }
         }
+        System.out.println("No");
+
     }
 //}
 

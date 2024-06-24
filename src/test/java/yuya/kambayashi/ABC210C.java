@@ -47,9 +47,7 @@ public class ABC210C {
         for (int i = 0; i < n; i++) {
             cc[i] = sc.nextInt();
         }
-
         Map<Integer, Integer> map = new HashMap<>();
-
         for (int i = 0; i < k; i++) {
             map.put(cc[i], map.getOrDefault(cc[i], 0) + 1);
         }
@@ -64,11 +62,11 @@ public class ABC210C {
             }
             ans = Math.max(ans, map.size());
         }
+
         System.out.println(ans);
-
     }
-
 //}
+
     @Test
     public void Case1() {
 

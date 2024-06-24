@@ -68,7 +68,7 @@ public class ABC359C {
             } else {
                 long dx = (tx - sx) / 2;
                 if (sy % 2 == 0) {
-                    if (sx % 2 == 1) {
+                    if (sx % 2 == 1) {3
                         dx++;
                     }
                 } else {
