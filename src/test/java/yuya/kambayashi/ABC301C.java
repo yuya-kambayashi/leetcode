@@ -44,65 +44,48 @@ public class ABC301C {
         final String s = sc.next();
         final String t = sc.next();
 
-        String ret = "No";
-        if (solve(s, t) || solve(t, s)) {
-            ret = "Yes";
+        int[] cnt1 = new int[26];
+        int[] cnt2 = new int[26];
+
+        int a = 0, b = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) != '@') {
+                cnt1[s.charAt(i) - 'a']++;
+            } else {
+                a++;
+            }
+
+            if (t.charAt(i) != '@') {
+                cnt2[t.charAt(i) - 'a']++;
+            } else {
+                b++;
+            }
         }
-        System.out.println(ret);
+
+        for (int i = 0; i < 26; i++) {
+            if (cnt1[i] > cnt2[i]) {
+                if (!isAtcoder(i)) {
+                    System.out.println("No");
+                    return;
+                }
+                b -= cnt1[i] - cnt2[i];
+            } else if (cnt1[i] < cnt2[i]) {
+                if (!isAtcoder(i)) {
+                    System.out.println("No");
+                    return;
+                }
+                a -= cnt2[i] - cnt1[i];
+            }
+            if (a < 0 || b < 0) {
+                System.out.println("No");
+                return;
+            }
+        }
+        System.out.println("Yes");
     }
 
-    static boolean solve(String s1, String s2) {
-
-        // s1に対して、s2を操作してゲームに勝てるか
-        // s1と重複する文字は除く
-        Map<Character, Integer> map1 = new HashMap<>();
-        Map<Character, Integer> map2 = new HashMap<>();
-        for (char c : s1.toCharArray()) {
-            map1.put(c, map1.getOrDefault(c, 0) + 1);
-        }
-        for (char c : s2.toCharArray()) {
-            map2.put(c, map2.getOrDefault(c, 0) + 1);
-        }
-
-        ArrayList<Character> cIn2Not1 = new ArrayList<>();
-        for (var entry : map2.entrySet()) {
-
-            if (entry.getKey().equals('@')) {
-                for (int i = 0; i < map2.get(entry.getKey()); i++) {
-                    cIn2Not1.add(entry.getKey());
-                }
-            } else {
-                if (map1.containsKey(entry.getKey())) {
-                    int diff = map1.get(entry.getKey()) - map2.get(entry.getKey());
-                    if (diff > 0) {
-                        for (int i = 0; i < diff; i++) {
-                            cIn2Not1.add(entry.getKey());
-                        }
-                    }
-                } else {
-                    for (int i = 0; i < map2.get(entry.getKey()); i++) {
-                        cIn2Not1.add(entry.getKey());
-                    }
-                }
-            }
-        }
-        // @以外の文字があったら勝てないために終了する
-        for (var r : cIn2Not1) {
-            if (r != '@') {
-                return false;
-            }
-        }
-
-        // @を使って、s2をs1に変換できるか？
-        int atCnt2 = 0;
-        for (var c : s1.toCharArray()) {
-            if (c == '@') {
-                atCnt2++;
-            }
-        }
-
-        // 残ったs1の文字に対して、s2の@を使用して変換可能か
-        return false;
+    static boolean isAtcoder(int c) {
+        return "atcoder".contains("" + (char) (c + 'a'));
     }
 //}
 
@@ -122,7 +105,7 @@ choku@@i
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -138,7 +121,7 @@ akidu@ho
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """

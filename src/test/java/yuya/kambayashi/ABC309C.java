@@ -44,29 +44,34 @@ public class ABC309C {
         final int n = sc.nextInt();
         final int k = sc.nextInt();
 
-        long[] aa = new long[n];
-        long[] bb = new long[n];
+        int[] aa = new int[n];
+        int[] bb = new int[n];
+        TreeMap<Integer, Long> map = new TreeMap<>();
+
+        long sum = 0L;
 
         for (int i = 0; i < n; i++) {
-            aa[i] = sc.nextLong();
-            bb[i] = sc.nextLong();
+            aa[i] = sc.nextInt();
+            bb[i] = sc.nextInt();
+            sum += (long) bb[i];
+            map.put(aa[i], map.getOrDefault(aa[i], 0L) + (long) bb[i]);
         }
 
-        long day = 1;
-
-        while (true) {
-            long sum = 0;
-            for (int i = 0; i < n; i++) {
-                if (day <= aa[i]) {
-                    sum += bb[i];
-                }
-            }
-            if (sum < k) {
-                break;
-            }
-            day++;
+        if (sum <= k) {
+            System.out.println(1);
+            return;
         }
-        System.out.println(day);
+        for (var entry : map.entrySet()) {
+
+            sum -= entry.getValue();
+
+            if (sum <= k) {
+                System.out.println(entry.getKey() + 1);
+                return;
+            }
+        }
+
+        System.out.println(-1);
     }
 //}
 

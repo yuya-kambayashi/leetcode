@@ -42,16 +42,21 @@ public class ABC179C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
+        long cnt = 0;
+        for (int a = 1; a <= n - 1; a++) {
+            for (int b = 1; b <= n - 1; b++) {
 
-        int ans = 0;
-        for (int a = 1; a < n; a++) {
-            int t = (n - 1) / a;
-            ans += t;
+                if (a * b < n) {
+                    cnt++;
+                } else {
+                    break;
+                }
+            }
         }
-        System.out.println(ans);
+        System.out.println(cnt);
     }
-
 //}
+
     @Test
     public void Case1() {
 

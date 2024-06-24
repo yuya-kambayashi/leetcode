@@ -42,29 +42,18 @@ public class ABC193C {
         Scanner sc = new Scanner(System.in);
 
         final long n = sc.nextLong();
+
         Set<Long> set = new HashSet<>();
 
-        // log x 2 = N
-        // log 10 x / 1og 10 2 = n
-        // log 10 x = n * log 10 2
-        long amax = (long) (n * Math.log(2));
+        for (int a = 2; a * a <= n; a++) {
 
-        for (long a = 2; a < amax; a++) {
-
-            // log aN = log 10 n / log 10 a
-            long bmax = (long) (Math.log(n) / Math.log(a));
-
-            for (long b = 2; b <= bmax; b++) {
-                long t = (long) Math.pow(a, b);
-
-                if (t <= n) {
-                    set.add(t);
-                } else {
-                    break;
-                }
+            long x = a * a;
+            while (x <= n) {
+                set.add(x);
+                x *= a;
             }
-        }
 
+        }
         System.out.println(n - set.size());
     }
 //}

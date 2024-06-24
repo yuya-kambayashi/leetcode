@@ -46,22 +46,14 @@ public class ABC194C {
         for (int i = 0; i < n; i++) {
             aa[i] = sc.nextInt();
         }
-
-        long ans = 0;
-        for (int i = 0; i < n; i++) {
+        long k = 0;
+        long s = 0;
+        for (int i = n - 1; i >= 0; i--) {
             int a = aa[i];
-
-            ans += a * a;
-
-            for (int j = 0; j < n; j++) {
-                if (i == j) {
-                    continue;
-                }
-                ans -= a * aa[j] * 2;
-            }
+            k += a * a;
+            s += a;
         }
-
-        System.out.println(ans);
+        System.out.println(k * n - s * s);
     }
 //}
 

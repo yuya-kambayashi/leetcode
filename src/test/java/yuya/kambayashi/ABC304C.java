@@ -34,8 +34,6 @@ public class ABC304C {
         System.setIn(null);
         System.setOut(null);
     }
-//import java.awt.geom.Point2D;
-//import java.awt.geom.Ellipse2D;
 //import java.math.*;
 //import java.util.*;
 //import java.util.stream.*;
@@ -45,66 +43,42 @@ public class ABC304C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
-        final int d = sc.nextInt();
+        int d = sc.nextInt();
+        int[] xx = new int[n];
+        int[] yy = new int[n];
+        boolean[] judge = new boolean[n];
 
-        Point[] points = new Point[n];
+        Queue<Integer> q = new ArrayDeque<>();
         for (int i = 0; i < n; i++) {
-            points[i] = new Point(sc.nextInt(), sc.nextInt(), false);
+            xx[i] = sc.nextInt();
+            yy[i] = sc.nextInt();
+            judge[i] = false;
         }
+        d *= d;
 
-        points[0].infected = true;
+        q.add(0);
+        while (q.size() > 0) {
+            int i = q.poll();
 
-        while (true) {
-            boolean change = false;
-            for (int i = 0; i < n; i++) {
-                var pt1 = points[i];
-                if (!pt1.infected) {
-                    continue;
-                }
+            if (judge[i]) {
+                continue;
+            }
 
-                for (int j = 0; j < n; j++) {
-                    var pt2 = points[j];
+            judge[i] = true;
 
-                    if (i == j) {
-                        continue;
-                    }
-
-                    if (pt2.infected) {
-                        continue;
-                    }
-
-                    double powDist = (pt1.x - pt2.x) * (pt1.x - pt2.x) + (pt1.y - pt2.y) * (pt1.y - pt2.y);
-
-                    if (d * d >= powDist) {
-                        pt2.infected = true;
-                        change = true;
-                    }
+            for (int j = 0; j < n; j++) {
+                if (Math.pow(xx[i] - xx[j], 2) + Math.pow(yy[i] - yy[j], 2) <= d) {
+                    q.add(j);
                 }
             }
-            if (!change) {
-                break;
-            }
         }
-        for (var pt : points) {
-            String ret = "No";
-            if (pt.infected) {
-                ret = "Yes";
+        for (var j : judge) {
+            String ret = "Yes";
+            if (!j) {
+                ret = "No";
             }
             System.out.println(ret);
         }
-    }
-
-    static class Point {
-
-        int x, y;
-        boolean infected;
-
-        public Point(int x, int y, boolean infected) {
-            this.x = x;
-            this.y = y;
-            this.infected = infected;
-        }
-
     }
 //}
 

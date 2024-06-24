@@ -46,27 +46,16 @@ public class ABC177C {
         final int n = sc.nextInt();
         long[] aa = new long[n];
         for (int i = 0; i < n; i++) {
-            long a = sc.nextLong();
-            aa[i] = a % mod;
+            aa[i] = sc.nextLong();
+            //aa[i] = a % mod;
         }
-
+        long[] sum = new long[n + 1];
+        for (int i = 1; i <= n; i++) {
+            sum[i] = (sum[i - 1] + aa[i - 1]) % mod;
+        }
         long ans = 0;
-        for (long bit = 0; bit < 1 << n; bit++) {
-
-            List<Integer> is = new ArrayList<>();
-
-            for (int i = 0; i < n; i++) {
-
-                if ((bit & (1 << i)) >= 1) {
-                    is.add(i);
-                }
-            }
-            if (is.size() != 2) {
-                continue;
-            }
-
-            long t = (aa[is.get(0)] % mod) * (aa[is.get(1)] % mod);
-            ans += (t % mod);
+        for (int i = 1; i < n; i++) {
+            ans += aa[i] * sum[i] % mod;
         }
         System.out.println(ans % mod);
     }
