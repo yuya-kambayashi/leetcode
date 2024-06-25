@@ -52,19 +52,31 @@ public class ABC135C {
         }
 
         long ans = 0;
+
         for (int i = 0; i < n; i++) {
-            int beat = Math.min(aa[i], bb[i]);
+            int a = aa[i];
+            int b = bb[i];
+            int beat = Math.min(a, b);
             ans += beat;
+
+            aa[i] -= beat;
             bb[i] -= beat;
-            int next = Math.min(aa[i + 1], bb[i]);
-            ans += next;
-            aa[i + 1] -= next;
+
+            if (bb[i] > 0) {
+                a = aa[i + 1];
+                b = bb[i];
+                beat = Math.min(a, b);
+                ans += beat;
+
+                aa[i + 1] -= beat;
+                bb[i] -= beat;
+            }
         }
         System.out.println(ans);
     }
 //}
-    //@Test
 
+    @Test
     public void Case1() {
 
         String input = """
@@ -81,7 +93,7 @@ public class ABC135C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //@Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -98,7 +110,7 @@ public class ABC135C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """

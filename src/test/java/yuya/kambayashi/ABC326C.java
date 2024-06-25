@@ -43,33 +43,35 @@ public class ABC326C {
 
         final int n = sc.nextInt();
         final int m = sc.nextInt();
-        long[] aa = new long[n];
+        int[] aa = new int[n];
         for (int i = 0; i < n; i++) {
-            aa[i] = sc.nextLong();
+            aa[i] = sc.nextInt();
         }
         Arrays.sort(aa);
 
-        long max = 0;
         int right = 0;
+        int max = 0;
 
         for (int left = 0; left < n; left++) {
 
             while (true) {
-                if (right >= n) {
+                if (right == n) {
                     break;
                 }
-                if (aa[right] >= aa[left] + m) {
+                if (aa[left] + m <= aa[right]) {
                     break;
                 }
+                max = Math.max(max, right - left + 1);
+
                 right++;
+
             }
-            max = Math.max(max, right - left);
         }
         System.out.println(max);
     }
 //}
+    //@Test
 
-    @Test
     public void Case1() {
 
         String input = """

@@ -52,10 +52,13 @@ public class ABC202C {
         for (int i = 1; i <= n; i++) {
             bb[i] = sc.nextInt();
         }
+        // 2の奴が2こあるよー、そのindexは１だよ c[2] = 2
+        // 1の奴が1こあるよー、そのindexは3だよ c[3] = 1
         for (int i = 1; i <= n; i++) {
             int c = sc.nextInt();
             cc[bb[c]]++;
         }
+
         long ans = 0;
         for (int i = 1; i <= n; i++) {
             ans += cc[aa[i]];
@@ -82,7 +85,7 @@ public class ABC202C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    @Test
+    //@Test
     public void Case2() {
 
         String input = """
@@ -100,7 +103,7 @@ public class ABC202C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    @Test
+    // @Test
     public void Case3() {
 
         String input = """

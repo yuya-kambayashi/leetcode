@@ -43,12 +43,16 @@ public class ABC290C {
 
         final int n = sc.nextInt();
         final int k = sc.nextInt();
-        Set<Integer> aa = new HashSet<>();
+        int[] aa = new int[n];
         for (int i = 0; i < n; i++) {
-            aa.add(sc.nextInt());
+            aa[i] = sc.nextInt();
+        }
+        Set<Integer> set = new HashSet<>();
+        for (var a : aa) {
+            set.add(a);
         }
         for (int i = 0; i < k; i++) {
-            if (!aa.contains(i)) {
+            if (!set.contains(i)) {
                 System.out.println(i);
                 return;
             }

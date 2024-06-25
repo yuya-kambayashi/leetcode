@@ -48,10 +48,13 @@ public class ABC284C {
         for (int i = 0; i < n; i++) {
             map.add(new ArrayList<>());
         }
-        while (m > 0) {
-            int u = sc.nextInt() - 1;
-            int v = sc.nextInt() - 1;
 
+        while (m > 0) {
+            int u = sc.nextInt();
+            int v = sc.nextInt();
+
+            u--;
+            v--;
             map.get(u).add(v);
             map.get(v).add(u);
 
@@ -70,11 +73,13 @@ public class ABC284C {
 
     static void dfs(ArrayList<ArrayList<Integer>> map, int pos, boolean[] visited) {
         visited[pos] = true;
+
         for (int next : map.get(pos)) {
             if (!visited[next]) {
                 dfs(map, next, visited);
             }
         }
+
     }
 //}
 
