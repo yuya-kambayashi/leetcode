@@ -47,16 +47,19 @@ public class HHKB2020C {
             pp[i] = sc.nextInt();
         }
 
-        Set<Integer> list = new LinkedHashSet<>();
+        boolean[] contain = new boolean[n];
 
-        for (int i = 0; i < 200_000; i++) {
-            list.add(i);
-        }
+        int now = 0;
         for (int i = 0; i < n; i++) {
-
             int p = pp[i];
 
-            list.remove(Integer.valueOf(p));
+            if (p < n) {
+                contain[p] = true;
+            }
+            while (now < n && contain[now]) {
+                now++;
+            }
+            System.out.println(now);
         }
     }
 //}

@@ -46,14 +46,13 @@ public class ABC180C {
         Set<Long> set = new HashSet<>();
 
         for (long i = 1; i * i <= n; i++) {
+
             if (n % i == 0) {
                 set.add(i);
                 set.add(n / i);
             }
         }
-
         List<Long> list = new ArrayList<>(set);
-
         Collections.sort(list);
 
         for (var l : list) {

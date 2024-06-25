@@ -43,26 +43,30 @@ public class AISING2020C {
 
         final int n = sc.nextInt();
 
-        final int max = 101;
+        int m = 101;
+        List<Long> aa = new ArrayList<>();
+        for (int i = 1; i <= n; i++) {
 
-        int[] ans = new int[10101];
+            long ans = 0;
 
-        int cnt = 0;
-        for (int x = 1; x <= max; x++) {
-            for (int y = 1; y <= max; y++) {
-                for (int z = 1; z <= max; z++) {
-                    int t = x * x + y * y + z * z + x * y + y * z + x * z;
-                    if (t <= n) {
-                        ans[t]++;
+            for (int x = 1; x <= m; x++) {
+                for (int y = 1; y <= m; y++) {
+                    for (int z = 1; z <= m; z++) {
+                        long t = x * x + y * y + z * z + x * y + y * z + z * x;
+                        if (t == i) {
+                            ans++;
+                        }
+                        if (t > i) {
+                            break;
+                        }
                     }
                 }
             }
+            aa.add(ans);
         }
-
-        for (int i = 1; i <= n; i++) {
-            System.out.println(ans[i]);
+        for (var a : aa) {
+            System.out.println(a);
         }
-
     }
 //}
 
@@ -99,8 +103,8 @@ public class AISING2020C {
         AISING2020C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
-
     //  @Test
+
     public void Case2() {
 
         String input = """

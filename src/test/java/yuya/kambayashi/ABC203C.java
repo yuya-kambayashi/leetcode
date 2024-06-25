@@ -42,45 +42,47 @@ public class ABC203C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
-        long k = sc.nextInt();
-
-        List<Pair> pairs = new ArrayList<>();
+        int k = sc.nextInt();
+        List<Pair> pp = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            pairs.add(new Pair(sc.nextLong(), sc.nextInt()));
+            pp.add(new Pair(sc.nextLong(), sc.nextInt()));
         }
-        Collections.sort(pairs, Comparator.comparingLong(Pair::getVIndex));
 
-        long moneyRest = k;
-        long pindex = 0;
+        Collections.sort(pp, Comparator.comparingLong(Pair::getI));
+
+        long t = k;
 
         for (int i = 0; i < n; i++) {
-            Pair p = pairs.get(i);
-            if (p.vindex > moneyRest) {
-                break;
+            var p = pp.get(i);
+
+            // tまではたどり着けるので、その先と村のiを比較する
+            if (t < p.i) {
+                System.out.println(t);
+                return;
+            } else {
+                t += p.m;
             }
-            moneyRest += p.money;
         }
-        System.out.println(moneyRest);
+        System.out.println(t);
     }
 
     static class Pair {
 
-        long vindex;
-        int money;
+        long i;
+        int m;
 
-        Pair(long vindex, int money) {
-            this.vindex = vindex;
-            this.money = money;
+        Pair(long i, int m) {
+            this.i = i;
+            this.m = m;
         }
 
-        long getVIndex() {
-            return vindex;
+        long getI() {
+            return i;
         }
-
     }
 //}
 
-    // @Test
+    @Test
     public void Case1() {
 
         String input = """
@@ -97,7 +99,7 @@ public class ABC203C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //@Test
+    @Test
     public void Case2() {
 
         String input = """

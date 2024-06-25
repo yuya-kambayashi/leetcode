@@ -50,22 +50,21 @@ public class ABC350C {
         }
 
         List<String> ans = new ArrayList<>();
-
         for (int i = 1; i <= n; i++) {
             if (aa[i] == i) {
                 continue;
             }
 
+            int iindex = bb[i];
+
             int otherValue = aa[i];
-            int thisIndex = bb[i];
 
-            aa[thisIndex] = aa[i];
+            ans.add(String.valueOf(i) + " " + String.valueOf(iindex));
+
             aa[i] = i;
-
-            bb[otherValue] = thisIndex;
+            aa[iindex] = otherValue;
             bb[i] = i;
-
-            ans.add(String.valueOf(i) + " " + String.valueOf(thisIndex));
+            bb[otherValue] = iindex;
         }
         System.out.println(ans.size());
         for (var a : ans) {

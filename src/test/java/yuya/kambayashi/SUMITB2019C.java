@@ -43,25 +43,16 @@ public class SUMITB2019C {
 
         final int x = sc.nextInt();
 
-        boolean[] dp = new boolean[101010];
-
-        dp[0] = true;
-        for (int i = 0; i < x; i++) {
-            if (dp[i]) {
-                for (int d = 0; d < 6; d++) {
-                    dp[i + d + 100] = true;
-                }
-            }
+        int a = x / 100;
+        int b = x % 100;
+        int ans = 0;
+        if (b <= (a * 5)) {
+            ans = 1;
         }
-
-        if (dp[x]) {
-            System.out.println("1");
-        } else {
-            System.out.println("0");
-        }
+        System.out.println(ans);
     }
-
 //}
+
     @Test
     public void Case1() {
 

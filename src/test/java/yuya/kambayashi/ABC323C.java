@@ -52,89 +52,82 @@ public class ABC323C {
             ss[i] = sc.next();
         }
 
-        // 問題リストの作成
-        List<Problem> pp = new ArrayList<>();
+        List<Problem> problems = new ArrayList<>();
         for (int i = 0; i < m; i++) {
-            int a = aa[i];
 
-            List<Integer> solver = new ArrayList<>();
-
-            for (int j = 0; j < n; j++) {
-                String s = ss[j];
-
-                if (s.charAt(i) == 'o') {
-                    solver.add(j + 1);
-                }
+            StringBuilder sb = new StringBuilder();
+            for (var s : ss) {
+                sb.append(s.charAt(i));
             }
-            pp.add(new Problem(a, solver));
+
+            problems.add(new Problem(aa[i], sb.toString()));
         }
 
         int[] points = new int[n];
         for (int i = 0; i < n; i++) {
-            String s = ss[i];
-
-            for (int j = 0; j < m; j++) {
-                if (s.charAt(j) == 'o') {
-                    points[i] += aa[j];
+            for (var p : problems) {
+                if (p.s.charAt(i) == 'o') {
+                    points[i] += p.point;
                 }
             }
             // ボーナス点
             points[i] += i + 1;
-
         }
+        Collections.sort(problems, Comparator.comparingInt(Problem::getPoint));
 
-        Collections.sort(pp, Comparator.comparingInt(Problem::getPoint));
+        int[] ans = new int[n];
 
         for (int i = 0; i < n; i++) {
-            int point = points[i];
-
-            int otherMax = 0;
+            // ほかの人の最高点を取得
+            int max = 0;
             for (int j = 0; j < n; j++) {
-                if (i != j) {
-                    otherMax = Math.max(otherMax, points[j]);
+                if (i == j) {
+                    continue;
                 }
+
+                max = Math.max(max, points[j]);
+            }
+            if (points[i] > max) {
+                ans[i] = 0;
+                continue;
             }
 
-            int pindex = pp.size() - 1;
-            int cnt = 0;
-            while (true) {
-                if (point > otherMax) {
+            int t = points[i];
+
+            for (int j = problems.size() - 1; j >= 0; j--) {
+                var problem = problems.get(j);
+                // 正答済みなら対象外
+                if (problem.s.charAt(i) == 'o') {
+                    continue;
+                }
+                t += problem.point;
+                ans[i]++;
+                if (t > max) {
                     break;
                 }
-                var p = pp.get(pindex);
-
-                if (!p.solver.contains(i + 1)) {
-
-                    // ボーナス点
-                    if (point == 0) {
-                        point += i + 1;
-                    }
-                    point += p.point;
-                    cnt++;
-
-                }
-                pindex--;
             }
-            System.out.println(cnt);
+        }
+        for (var a : ans) {
+            System.out.println(a);
         }
     }
 
     static class Problem {
 
         int point;
-        List<Integer> solver;
+        String s;
 
-        Problem(int point, List<Integer> solver) {
+        Problem(int point, String s) {
             this.point = point;
-            this.solver = solver;
+            this.s = s;
         }
 
         int getPoint() {
             return point;
         }
     }
-//}
 
+//}
     @Test
     public void Case1() {
 
@@ -210,7 +203,7 @@ public class ABC323C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    @Test
+    //@Test
     public void Case4() {
 
         String input = """
@@ -229,7 +222,7 @@ public class ABC323C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    @Test
+    //   @Test
     public void Case5() {
 
         String input = """

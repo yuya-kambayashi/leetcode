@@ -42,51 +42,16 @@ public class ABC185C {
         Scanner sc = new Scanner(System.in);
 
         final int l = sc.nextInt();
+        System.out.println(combination(l - 1, 11));
+    }
 
-        // L-1 C 11
-        int left = l - 1;
-        int right = 11;
-
-        right = left - right;
-        if (right == 0) {
-            System.out.println(1);
-            return;
+    static long combination(long n, long r) {
+        long ret = 1;
+        for (long i = 1; i <= r; n--, i++) {
+            ret *= n;
+            ret /= i;
         }
-
-        int cnt = right;
-
-        List<Integer> children = new ArrayList<>();
-        List<Integer> mothers = new ArrayList<>();
-        int cntt = 0;
-
-        while (cntt < cnt) {
-            children.add(left);
-            left--;
-            cntt++;
-        }
-
-        long m = 1;
-        cntt = 0;
-        while (cntt < cnt) {
-            mothers.add(right);
-            right--;
-            cntt++;
-        }
-
-        long child = 1, mother = 1;
-
-        for (var c : children) {
-            if (!mothers.contains(c)) {
-                child *= c;
-            }
-        }
-        for (var mm : mothers) {
-            if (!children.contains(mm)) {
-                mother *= mm;
-            }
-        }
-
-        System.out.println(child / mother);
+        return ret;
     }
 //}
 
