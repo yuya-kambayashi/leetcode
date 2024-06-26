@@ -45,20 +45,20 @@ public class ABC193C {
 
         Set<Long> set = new HashSet<>();
 
-        for (int a = 2; a * a <= n; a++) {
+        for (long a = 2; a * a <= n; a++) {
 
             long x = a * a;
             while (x <= n) {
                 set.add(x);
                 x *= a;
             }
-
         }
+
         System.out.println(n - set.size());
     }
 //}
 
-    //@Test
+    // @Test
     public void Case1() {
 
         String input = """

@@ -72,7 +72,7 @@ public class ABC359C {
                         dx++;
                     }
                 } else {
-                    if (tx % 2 == 1) {
+                    1  if (tx % 2 == 1) {
                         dx++;
                     }
                 }

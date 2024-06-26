@@ -43,6 +43,7 @@ public class ABC115C {
 
         final int n = sc.nextInt();
         final int k = sc.nextInt();
+
         int[] hh = new int[n];
         for (int i = 0; i < n; i++) {
             hh[i] = sc.nextInt();
@@ -50,10 +51,8 @@ public class ABC115C {
         Arrays.sort(hh);
         int min = Integer.MAX_VALUE;
         for (int i = 0; i < n - k + 1; i++) {
-
             min = Math.min(min, hh[i + k - 1] - hh[i]);
         }
-
         System.out.println(min);
     }
 //}

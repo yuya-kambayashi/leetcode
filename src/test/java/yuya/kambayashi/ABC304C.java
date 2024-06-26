@@ -43,39 +43,46 @@ public class ABC304C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
-        int d = sc.nextInt();
+        final int d = sc.nextInt();
         int[] xx = new int[n];
         int[] yy = new int[n];
-        boolean[] judge = new boolean[n];
-
-        Queue<Integer> q = new ArrayDeque<>();
         for (int i = 0; i < n; i++) {
             xx[i] = sc.nextInt();
             yy[i] = sc.nextInt();
-            judge[i] = false;
         }
-        d *= d;
 
+        boolean[] bb = new boolean[n];
+
+        int d2 = d * d;
+
+        Queue<Integer> q = new ArrayDeque<>();
         q.add(0);
-        while (q.size() > 0) {
-            int i = q.poll();
 
-            if (judge[i]) {
+        while (!q.isEmpty()) {
+            int t = q.poll();
+            if (bb[t]) {
                 continue;
             }
+            bb[t] = true;
 
-            judge[i] = true;
+            for (int i = 0; i < n; i++) {
+                if (i == t) {
+                    continue;
+                }
+                if (bb[i]) {
+                    continue;
+                }
 
-            for (int j = 0; j < n; j++) {
-                if (Math.pow(xx[i] - xx[j], 2) + Math.pow(yy[i] - yy[j], 2) <= d) {
-                    q.add(j);
+                int dist = (xx[t] - xx[i]) * (xx[t] - xx[i]) + (yy[t] - yy[i]) * (yy[t] - yy[i]);
+                if (dist <= d2) {
+                    q.add(i);
                 }
             }
         }
-        for (var j : judge) {
-            String ret = "Yes";
-            if (!j) {
-                ret = "No";
+        for (var b : bb) {
+            String ret = "No";
+            if (b) {
+                ret = "Yes";
             }
             System.out.println(ret);
         }

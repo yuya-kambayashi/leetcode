@@ -42,54 +42,31 @@ public class ABC195C {
         Scanner sc = new Scanner(System.in);
 
         long n = sc.nextLong();
-        long t = n;
-
-        long ans = 0;
-
-        if (t > 999) {
-            ans += t - 999;
-        }
-        if (t > 999_999) {
-            ans += (t - 999_999);
-        }
-        if (t > 999_999_999) {
-            ans += (t - 999_999_999);
-        }
-        if (t > 999_999_999_999L) {
-            ans += (t - 999_999_999_999L);
-
-        }
-        if (t > 999_999_999_999_999L) {
-            ans += (t - 999_999_999_999_999L);
-
-        }
-        if (t > 999_999_999_999_999_999L) {
-            ans += (t - 999_999_999_999_999_999L);
-
-        }
-
-        System.out.println(ans);
-
-    }
-
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        long n = sc.nextLong();
+        /*
+        1,000 = 1
+        1,001 = 2
+        
+        10,000 = 9,001
+        10,001 = 9,002
+        
+        1,000,000 = 999,001
+        1,000,001 = 999,002
+         */
+        long ans = 0L;
 
         long x = 1000;
-        long ans = 0;
+
         while (n >= x) {
+
             ans += n - x + 1;
             x *= 1000;
         }
 
         System.out.println(ans);
-
     }
 //}
 
-    @Test
+    //@Test
     public void Case1() {
 
         String input = """
