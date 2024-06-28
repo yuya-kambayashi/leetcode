@@ -38,46 +38,57 @@ public class ABC284C {
 //import java.util.stream.*;
 //public class Main {
 
+    static boolean[] visited;
+    static List<List<Integer>> list;
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
         int m = sc.nextInt();
 
-        var map = new ArrayList<ArrayList<Integer>>();
+        visited = new boolean[n];
+
+        list = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            map.add(new ArrayList<>());
+            List<Integer> l = new ArrayList<>();
+            list.add(l);
         }
 
-        while (m > 0) {
+        for (int i = 0; i < m; i++) {
             int u = sc.nextInt();
             int v = sc.nextInt();
 
             u--;
             v--;
-            map.get(u).add(v);
-            map.get(v).add(u);
-
-            m--;
+            list.get(u).add(v);
+            list.get(v).add(u);
         }
+
         int ans = 0;
-        boolean[] visited = new boolean[n];
+
         for (int i = 0; i < n; i++) {
-            if (!visited[i]) {
-                ans++;
-                dfs(map, i, visited);
+            if (visited[i]) {
+                continue;
             }
+            ans++;
+            dfs(i);
+
         }
         System.out.println(ans);
     }
 
-    static void dfs(ArrayList<ArrayList<Integer>> map, int pos, boolean[] visited) {
-        visited[pos] = true;
+    static void dfs(int i) {
+        if (visited[i]) {
+            return;
+        }
 
-        for (int next : map.get(pos)) {
-            if (!visited[next]) {
-                dfs(map, next, visited);
-            }
+        visited[i] = true;
+
+        var tt = list.get(i);
+
+        for (var t : tt) {
+            dfs(t);
         }
 
     }

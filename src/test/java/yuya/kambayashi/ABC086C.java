@@ -39,44 +39,46 @@ public class ABC086C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
-
-        int[] ta = new int[n];
-        int[] xa = new int[n];
-        int[] ya = new int[n];
+        int[] tt = new int[n];
+        int[] xx = new int[n];
+        int[] yy = new int[n];
 
         for (int i = 0; i < n; i++) {
-            ta[i] = sc.nextInt();
-            xa[i] = sc.nextInt();
-            ya[i] = sc.nextInt();
+            tt[i] = sc.nextInt();
+            xx[i] = sc.nextInt();
+            yy[i] = sc.nextInt();
         }
-        boolean ok = true;
-        int bt = 0, bx = 0, by = 0;
+
+        int bx = 0, by = 0, bt = 0;
+
         for (int i = 0; i < n; i++) {
-            int t = ta[i] - bt;
 
-            int x = Math.abs(xa[i] - bx);
-            int y = Math.abs(ya[i] - by);
+            int dt = tt[i] - bt;
+            int dx = xx[i] - bx;
+            int dy = yy[i] - by;
 
-            if (t % 2 != (x + y) % 2) {
-                ok = false;
-                break;
+            long move = Math.abs(dx) + Math.abs(dy);
+
+            // 移動量が時間を乞えるならNo
+            if (move > dt) {
+                System.out.println("No");
+                return;
+            }
+            // とどまって調整できるか？
+            if (move % 2 == 0 && dt % 2 == 1) {
+                System.out.println("No");
+                return;
+            }
+            if (move % 2 == 1 && dt % 2 == 0) {
+                System.out.println("No");
+                return;
             }
 
-            if (t < x + y) {
-                ok = false;
-                break;
-            }
-            bt = t;
-            bx = x;
-            by = y;
-
+            bt = dt;
+            bx = dx;
+            by = dy;
         }
-        if (ok) {
-            System.out.println("Yes");
-        } else {
-            System.out.println("No");
-
-        }
+        System.out.println("Yes");
     }
 //}
 

@@ -41,37 +41,33 @@ public class ABC145C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
-        int[][] zaa = new int[n][2];
+
+        int[] xx = new int[n];
+        int[] yy = new int[n];
         for (int i = 0; i < n; i++) {
-            zaa[i][0] = sc.nextInt();
-            zaa[i][1] = sc.nextInt();
+            xx[i] = sc.nextInt();
+            yy[i] = sc.nextInt();
         }
-
-        int[] aa = new int[n];
+        int[] seeds = new int[n];
         for (int i = 0; i < n; i++) {
-            aa[i] = i;
+            seeds[i] = i;
         }
+        var perms = permutation(seeds);
 
-        var arrays = permutation(aa);
-
-        double sum = 0.0;
+        double sum = 0;
         int cnt = 0;
 
-        for (int i = 0; i < arrays.size(); i++) {
+        for (var perm : perms) {
+            for (int i = 0; i < perm.size() - 1; i++) {
 
-            ArrayList<Integer> array = arrays.get(i);
-            for (int j = 1; j < array.size(); j++) {
-
-                int[] za0 = zaa[array.get(j - 1).intValue()];
-                int[] za1 = zaa[array.get(j).intValue()];
-
-                double dist = Math.sqrt(Math.pow(za0[0] - za1[0], 2) + Math.pow(za0[1] - za1[1], 2));
-                sum += dist;
+                int from = perm.get(i);
+                int to = perm.get(i + 1);
+                double t = Math.sqrt((xx[from] - xx[to]) * (xx[from] - xx[to]) + (yy[from] - yy[to]) * (yy[from] - yy[to]));
+                sum += t;
             }
-            cnt++;
         }
+        System.out.println(sum / perms.size());
 
-        System.out.println(sum / cnt);
     }
 
     private static ArrayList<ArrayList<Integer>> permutation(int[] seed) {

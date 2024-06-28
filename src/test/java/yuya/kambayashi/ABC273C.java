@@ -47,13 +47,13 @@ public class ABC273C {
             aa[i] = sc.nextInt();
         }
         TreeMap<Integer, Integer> map = new TreeMap<>();
-        for (var a : aa) {
-            map.put(a, map.getOrDefault(a, 0) + 1);
+        for (int i = 0; i < n; i++) {
+            map.put(aa[i], map.getOrDefault(aa[i], 0) + 1);
         }
-        for (var entry : map.descendingMap().entrySet()) {
-            System.out.println(entry.getValue());
+        for (var v : map.descendingMap().values()) {
+            System.out.println(v);
         }
-        for (int i = 1; i <= n - map.size(); i++) {
+        for (int i = 0; i < n - map.size(); i++) {
             System.out.println(0);
         }
     }

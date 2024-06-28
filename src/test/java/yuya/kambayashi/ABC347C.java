@@ -62,7 +62,6 @@ public class ABC347C {
             }
         }
         System.out.println("No");
-
     }
 //}
 

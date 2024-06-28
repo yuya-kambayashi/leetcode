@@ -44,51 +44,75 @@ public class ABC301C {
         final String s = sc.next();
         final String t = sc.next();
 
-        int[] cnt1 = new int[26];
-        int[] cnt2 = new int[26];
+        for (int i = 0; i < 26; i++) {
+            var b1 = isAtcoder(i);
+            var b2 = isAtcoder2(i);
 
-        int a = 0, b = 0;
-        for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) != '@') {
-                cnt1[s.charAt(i) - 'a']++;
-            } else {
-                a++;
+            if (b1 != b2) {
+                int aaaa = 0;
             }
 
-            if (t.charAt(i) != '@') {
-                cnt2[t.charAt(i) - 'a']++;
-            } else {
-                b++;
-            }
         }
 
-        for (int i = 0; i < 26; i++) {
-            if (cnt1[i] > cnt2[i]) {
-                if (!isAtcoder(i)) {
-                    System.out.println("No");
-                    return;
-                }
-                b -= cnt1[i] - cnt2[i];
-            } else if (cnt1[i] < cnt2[i]) {
-                if (!isAtcoder(i)) {
-                    System.out.println("No");
-                    return;
-                }
-                a -= cnt2[i] - cnt1[i];
+        int[] cntS = new int[26];
+        int[] cntT = new int[26];
+
+        int atS = 0, atT = 0;
+
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '@') {
+                atS++;
+            } else {
+                cntS[(int) (s.charAt(i) - 'a')]++;
             }
-            if (a < 0 || b < 0) {
+
+            if (t.charAt(i) == '@') {
+                atT++;
+            } else {
+                cntT[(int) (t.charAt(i) - 'a')]++;
+            }
+        }
+        for (int i = 0; i < 26; i++) {
+
+            if (cntS[i] < cntT[i]) {
+
+                if (!isAtcoder(i)) {
+                    System.out.println("No");
+                    return;
+                } else {
+                    atS -= (cntT[i] - cntS[i]);
+                }
+            } else if (cntS[i] > cntT[i]) {
+
+                if (!isAtcoder(i)) {
+                    System.out.println("No");
+                    return;
+                } else {
+                    atT -= (cntS[i] - cntT[i]);
+                }
+            }
+            if (atT < 0 || atS < 0) {
                 System.out.println("No");
                 return;
+
             }
         }
         System.out.println("Yes");
+
     }
 
-    static boolean isAtcoder(int c) {
+    static boolean isAtcoder(int i) {
+
+        char c = (char) ('a' + i);
+
+        return "atcoder".indexOf(String.valueOf(c)) != -1;
+    }
+
+    static boolean isAtcoder2(int c) {
         return "atcoder".contains("" + (char) (c + 'a'));
     }
-//}
 
+//}
     @Test
     public void Case1() {
 

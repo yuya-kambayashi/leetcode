@@ -41,38 +41,36 @@ public class ABC329C {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final long n = sc.nextLong();
+        final int n = sc.nextInt();
         final String s = sc.next();
 
-        if (n == 1) {
-            System.out.println(1);
-            return;
-        }
-
         Set<String> set = new HashSet<>();
-        for (int i = 0; i < (int) n; i++) {
-            for (int j = i + 1; j < (int) n; j++) {
-                String t = s.substring(i, j);
-                set.add(t);
-            }
-        }
 
-        int rem = 0;
+        int right = 0;
+        for (int left = 0; left < n; left++) {
 
-        for (var ss : set) {
-            if (ss.length() == 1) {
-                continue;
-            }
-            char c = ss.charAt(0);
-            for (int i = 1; i < ss.length(); i++) {
-                if (c != ss.charAt(i)) {
-                    rem++;
+            char l = s.charAt(left);
+            String t = String.valueOf(l) + "1";
+            set.add(t);
+
+            while (right < n) {
+
+                char r = s.charAt(right);
+
+                if (l != r) {
                     break;
                 }
+
+                String v = String.valueOf(r) + String.valueOf(right - left + 1);
+
+                set.add(v);
+
+                right++;
+
             }
         }
+        System.out.println(set.size());
 
-        System.out.println(set.size() - rem);
     }
 //}
 
