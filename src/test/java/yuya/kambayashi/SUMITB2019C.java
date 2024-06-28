@@ -43,13 +43,14 @@ public class SUMITB2019C {
 
         final int x = sc.nextInt();
 
-        int a = x / 100;
-        int b = x % 100;
-        int ans = 0;
-        if (b <= (a * 5)) {
-            ans = 1;
+        int t = x / 100;
+
+        if (x % 100 <= t * 5) {
+            System.out.println(1);
+        } else {
+            System.out.println(0);
         }
-        System.out.println(ans);
+
     }
 //}
 
@@ -68,7 +69,7 @@ public class SUMITB2019C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case2() {
 
         String input = """

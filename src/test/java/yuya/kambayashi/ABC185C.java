@@ -42,20 +42,24 @@ public class ABC185C {
         Scanner sc = new Scanner(System.in);
 
         final int l = sc.nextInt();
-        System.out.println(combination(l - 1, 11));
-    }
+        int n = l - 1;
 
-    static long combination(long n, long r) {
-        long ret = 1;
-        for (long i = 1; i <= r; n--, i++) {
-            ret *= n;
-            ret /= i;
+        // l-1 c 11
+        long t = 1;
+
+        for (long i = 1; i <= 11; i++) {
+
+            t *= n;
+            t /= i;
+
+            n--;
         }
-        return ret;
+
+        System.out.println(t);
     }
 //}
 
-    //@Test
+    @Test
     public void Case1() {
 
         String input = """
@@ -70,7 +74,7 @@ public class ABC185C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //@Test
+    @Test
     public void Case2() {
 
         String input = """

@@ -47,7 +47,6 @@ public class ABC177C {
         long[] aa = new long[n];
         for (int i = 0; i < n; i++) {
             aa[i] = sc.nextLong();
-            //aa[i] = a % mod;
         }
         long[] sum = new long[n + 1];
         for (int i = 1; i <= n; i++) {
