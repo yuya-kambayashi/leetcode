@@ -52,18 +52,18 @@ public class ABC210C {
             map.put(cc[i], map.getOrDefault(cc[i], 0) + 1);
         }
 
-        int ans = map.size();
+        int max = map.size();
 
         for (int i = k; i < n; i++) {
+
             map.put(cc[i], map.getOrDefault(cc[i], 0) + 1);
             map.put(cc[i - k], map.get(cc[i - k]) - 1);
             if (map.get(cc[i - k]) == 0) {
-                map.remove(cc[i - k]);
+                map.remove(Integer.valueOf(cc[i - k]));
             }
-            ans = Math.max(ans, map.size());
+            max = Math.max(max, map.size());
         }
-
-        System.out.println(ans);
+        System.out.println(max);
     }
 //}
 

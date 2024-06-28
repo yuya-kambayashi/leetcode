@@ -44,26 +44,27 @@ public class ABC262C {
         final int n = sc.nextInt();
         int[] aa = new int[n + 1];
 
-        long same = 0;
+        long samePos = 0;
         for (int i = 1; i <= n; i++) {
-            int a = sc.nextInt();
-            aa[i] = a;
+            aa[i] = sc.nextInt();
             if (aa[i] == i) {
-                same++;
+                samePos++;
             }
         }
-        long bsame = 0;
+
+        long exchange = 0;
         for (int i = 1; i <= n; i++) {
             if (aa[i] != i && aa[aa[i]] == i) {
-                bsame++;
+                exchange++;
             }
         }
-        long sum = 0;
-        if (same >= 2) {
-            sum += same * (same - 1) / 2;
-        }
-        sum += bsame / 2;
 
+        long sum = 0;
+        if (samePos >= 2) {
+            sum += samePos * (samePos - 1) / 2;
+        }
+
+        sum += exchange / 2;
         System.out.println(sum);
 
     }

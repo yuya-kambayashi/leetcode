@@ -46,6 +46,7 @@ public class ABC194C {
         for (int i = 0; i < n; i++) {
             aa[i] = sc.nextInt();
         }
+
         long k = 0;
         long s = 0;
         for (int i = n - 1; i >= 0; i--) {
