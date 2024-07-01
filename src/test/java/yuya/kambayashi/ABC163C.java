@@ -42,22 +42,16 @@ public class ABC163C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
-        int[] aa = new int[n];
-        aa[1] = 0;
-        for (int i = 1; i < n; i++) {
-            aa[i] = sc.nextInt();
-        }
-
         Map<Integer, Integer> map = new HashMap<>();
-        for (int i = 1; i < n; i++) {
-            int a = aa[i];
+        for (int i = 2; i <= n; i++) {
+            int a = sc.nextInt();
             map.put(a, map.getOrDefault(a, 0) + 1);
         }
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 1; i <= n; i++) {
             int ret = 0;
-            if (map.containsKey(i + 1)) {
-                ret = map.get(i + 1);
+            if (map.containsKey(i)) {
+                ret = map.get(i);
             }
             System.out.println(ret);
         }

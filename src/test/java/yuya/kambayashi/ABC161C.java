@@ -44,9 +44,31 @@ public class ABC161C {
         final long n = sc.nextLong();
         final long k = sc.nextLong();
 
+        // 0 6
+        // -> 6, 0,
+        // 1 6
+        // -> 5, 1, 5, 1
+        // 2 6
+        // -> 4, 2, 4, 2
+        // 3 6
+        // -> 3 3 3 
+        // 4 6
+        // -> 2 4 2
+        // 5 6
+        // -> 1 5 1 5
+        // 6 6 
+        // 0
+        // 7 6
+        // 1 5 1
+        // 8 6
+        // -> 2 4
+        // 9 6
+        // -> 3 3 
+        // 12 6
+        // -> 6 0 
         long t = n % k;
-
         System.out.println(Math.min(t, k - t));
+
     }
 //}
 

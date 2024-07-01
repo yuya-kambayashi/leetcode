@@ -44,18 +44,18 @@ public class ABC185C {
         final int l = sc.nextInt();
         int n = l - 1;
 
-        // l-1 c 11
-        long t = 1;
+        // n c 11
+        long ans = 1;
+        for (int i = 1; i <= 11; i++) {
 
-        for (long i = 1; i <= 11; i++) {
-
-            t *= n;
-            t /= i;
+            ans *= n;
+            ans /= i;
 
             n--;
         }
 
-        System.out.println(t);
+        System.out.println(ans);
+
     }
 //}
 

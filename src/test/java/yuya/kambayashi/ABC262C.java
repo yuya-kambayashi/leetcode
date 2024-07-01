@@ -61,10 +61,11 @@ public class ABC262C {
 
         long sum = 0;
         if (samePos >= 2) {
-            sum += samePos * (samePos - 1) / 2;
+            sum += (samePos * (samePos - 1)) / 2;
         }
 
         sum += exchange / 2;
+
         System.out.println(sum);
 
     }

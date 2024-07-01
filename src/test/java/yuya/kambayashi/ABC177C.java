@@ -52,9 +52,10 @@ public class ABC177C {
         for (int i = 1; i <= n; i++) {
             sum[i] = (sum[i - 1] + aa[i - 1]) % mod;
         }
+
         long ans = 0;
-        for (int i = 1; i < n; i++) {
-            ans += aa[i] * sum[i] % mod;
+        for (int i = 0; i < n; i++) {
+            ans += (sum[i] * aa[i]) % mod;
         }
         System.out.println(ans % mod);
     }
