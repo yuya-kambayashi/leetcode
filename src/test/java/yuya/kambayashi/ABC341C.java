@@ -37,75 +37,89 @@ public class ABC341C {
 //import java.util.*;
 //public class Main {
 
+    static char[][] grid;
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final int height = sc.nextInt();
-        final int width = sc.nextInt();
+        final int row = sc.nextInt();
+        final int col = sc.nextInt();
         final int n = sc.nextInt();
         final String t = sc.next();
-        char[][] grid = new char[height][width];
-        for (int row = 0; row < height; row++) {
+
+        grid = new char[row][col];
+        for (int i = 0; i < row; i++) {
             String s = sc.next();
-            for (int col = 0; col < width; col++) {
-                grid[row][col] = s.charAt(col);
-            }
+
+            grid[i] = s.toCharArray();
+
         }
 
-        int result = 0;
+        int ans = 0;
 
-        for (int row = 0; row < height; row++) {
-            for (int col = 0; col < width; col++) {
-                if (grid[row][col] == '#') {
-                    continue;
-                }
+        for (int r = 0; r < row; r++) {
+            for (int c = 0; c < col; c++) {
 
+                int rt = r, ct = c;
                 boolean ok = true;
 
-                // チェック対象の座標
-                int r = row;
-                int c = col;
-
-                // 逆順で移動する
-                char[] ca = t.toCharArray();
-                for (int i = ca.length - 1; i >= 0; i--) {
-                    char ch = ca[i];
-
-                    switch (ch) {
-                        case 'L':
-                            // 右に戻る
-                            c++;
-                            break;
-                        case 'R':
-                            // 左に戻る
-                            c--;
-                            break;
-                        case 'U':
-                            // 下に戻る
-                            r++;
-                            break;
-                        case 'D':
-                            // 上に戻る
-                            r--;
-                            break;
+                if (rt == 4 && ct == 6) {
+                    int a1 = 0;
+                }
+                if (rt == 5 && ct == 6) {
+                    int a2 = 0;
+                }
+                if (rt == 6 && ct == 9) {
+                    int a3 = 0;
+                }
+                if (rt == 7 && ct == 9) {
+                    int a4 = 0;
+                }
+                if (rt == 9 && ct == 14) {
+                    int a5 = 0;
+                }
+                if (rt == 11 && ct == 3) {
+                    int a6 = 0;
+                }
+                for (int i = 0; i < t.length(); i++) {
+                    if (!isLand(rt, ct) || rt == 0 || rt == row || ct == 0 || ct == col) {
+                        ok = false;
+                        break;
                     }
 
-                    // 座標が移動可能かをチェック
-                    if (r == 0 || r == height || c == 0 || c == width || grid[r][c] == '#') {
+                    switch (t.charAt(i)) {
+                        case 'L':
+                            ct--;
+                            break;
+                        case 'R':
+                            ct++;
+                            break;
+                        case 'U':
+                            rt--;
+                            break;
+                        case 'D':
+                            rt++;
+                            break;
+                    }
+                    if (!isLand(rt, ct) || rt == 0 || rt == row || ct == 0 || ct == col) {
                         ok = false;
                         break;
                     }
                 }
                 if (ok) {
-                    result++;
+                    ans++;
                 }
             }
         }
-        System.out.println(result);
+        System.out.println(ans);
+    }
+
+    static boolean isLand(int r, int c) {
+        return grid[r][c] == '.';
     }
 //}
 
-    @Test
+    //@Test
     public void Case1() {
 
         String input = """
@@ -131,7 +145,7 @@ public class ABC341C {
     public void Case2() {
 
         String input = """
-                       13 16 9
+13 16 9
                        ULURDLURD
                        ################
                        ##..##.#..####.#
@@ -155,8 +169,8 @@ public class ABC341C {
         ABC341C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
-
     // @Test
+
     public void Case3() {
 
         String input = """

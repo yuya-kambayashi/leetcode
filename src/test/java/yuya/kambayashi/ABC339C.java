@@ -42,20 +42,17 @@ public class ABC339C {
 
         final int n = sc.nextInt();
         long[] aa = new long[n];
-
         for (int i = 0; i < n; i++) {
-            aa[i] = sc.nextInt();
+            aa[i] = sc.nextLong();
         }
 
-        long t = 0;
-        for (int i = 0; i < n; i++) {
-            t += aa[i];
-
-            if (t < 0) {
-                t = 0;
-            }
+        long sum = 0;
+        for (var a : aa) {
+            sum += a;
+            sum = Math.max(sum, 0);
         }
-        System.out.println(t);
+
+        System.out.println(sum);
     }
 //}
 

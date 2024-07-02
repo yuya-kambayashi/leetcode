@@ -17,7 +17,7 @@ import org.junit.jupiter.api.TestInstance;
  * @author kamba
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ABC340C {
+public class ABC360A {
 
     private StandardInputSnatcher in = new StandardInputSnatcher();
     private StandardOutputSnatcher out = new StandardOutputSnatcher();
@@ -35,29 +35,23 @@ public class ABC340C {
     }
 //import java.math.*;
 //import java.util.*;
+//import java.util.stream.*;
 //public class Main {
-
-    static Map<Long, Long> map = new HashMap<>();
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final long n = sc.nextLong();
+        final String s = sc.next();
 
-        System.out.println(solve(n));
-    }
+        int r = s.indexOf("R");
+        int m = s.indexOf("M");
 
-    static long solve(long n) {
-        if (n == 1) {
-            return 0;
-        }
-        if (map.containsKey(n)) {
-            return map.get(n);
+        String ret = "No";
+        if (r < m) {
+            ret = "Yes";
         }
 
-        long ret = solve(n / 2) + solve((n + 1) / 2) + n;
-        map.put(n, ret);
-        return ret;
+        System.out.println(ret);
     }
 //}
 
@@ -65,14 +59,14 @@ public class ABC340C {
     public void Case1() {
 
         String input = """
-                       3
+                       RSM
                     """;
 
         String expected = """
-                          5
+                          Yes
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC340C.main(null);
+        ABC360A.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
@@ -80,29 +74,29 @@ public class ABC340C {
     public void Case2() {
 
         String input = """
-                       340
+                       SMR
                     """;
 
         String expected = """
-                          2888
+                          No
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC340C.main(null);
+        ABC360A.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    @Test
+    // @Test
     public void Case3() {
 
         String input = """
-                       100000000000000000
+                       
                     """;
 
         String expected = """
-                          5655884811924144128
+                          
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC340C.main(null);
+        ABC360A.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 }
