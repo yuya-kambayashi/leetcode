@@ -42,35 +42,44 @@ public class ABC361C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
+        final int k = sc.nextInt();
+        long[] aa = new long[n];
+        for (int i = 0; i < n; i++) {
+            aa[i] = sc.nextLong();
+        }
 
-        System.out.println();
+        Arrays.sort(aa);
+
+        long ans = Long.MAX_VALUE;
+
+        for (int i = 0; i < n; i++) {
+            if (i + n - k >= n) {
+                break;
+            }
+
+            ans = Math.min(ans, aa[i + n - k - 1] - aa[i]);
+        }
+        for (int i = n - 1; i >= 0; i--) {
+            if (i - n + k < 0) {
+                break;
+            }
+
+            ans = Math.min(ans, aa[i] - aa[i - (n - k - 1)]);
+        }
+        System.out.println(ans);
     }
 //}
 
-    @Test
+    // @Test
     public void Case1() {
 
         String input = """
-                       
+                          5 2
+                          3 1 5 4 9
                     """;
 
         String expected = """
-                          
-                          """;
-        Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC361C.main(null);
-        Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
-    }
-
-    //  @Test
-    public void Case2() {
-
-        String input = """
-                       
-                    """;
-
-        String expected = """
-                          
+                          2
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC361C.main(null);
@@ -78,33 +87,50 @@ public class ABC361C {
     }
 
     // @Test
-    public void Case3() {
+    public void Case2() {
 
         String input = """
-                       
+                       6 5
+                       1 1 1 1 1 1
                     """;
 
         String expected = """
-                          
+                          0
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC361C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
-}
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 
+    //@Test
+    public void Case3() {
 
+        String input = """
+                       8 3
+                       31 43 26 6 18 36 22 13
+                    """;
 
-package yuya.kambayashi;
+        String expected = """
+                          18
+                          """;
+        Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
+        ABC361C.main(null);
+        Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
+    }
 
-/**
- *
- * @author kamba
- */
-public class ABC361C {
+    @Test
+    public void Case4() {
 
+        String input = """
+                       3 1
+                       2 2 1
+                    """;
+
+        String expected = """
+                          0
+                          """;
+        Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
+        ABC361C.main(null);
+        Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
+    }
 }
