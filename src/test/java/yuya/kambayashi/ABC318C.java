@@ -42,8 +42,31 @@ public class ABC318C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
+        final int d = sc.nextInt();
+        final int p = sc.nextInt();
 
-        System.out.println();
+        int[] ff = new int[n];
+        for (int i = 0; i < n; i++) {
+            ff[i] = sc.nextInt();
+        }
+
+        Arrays.sort(ff);
+        long ans = 0;
+        int i = n - 1, cnt = 0;
+        long t = 0;
+        while (i >= 0) {
+
+            t += ff[i];
+            i--;
+            cnt++;
+            if (cnt == d || i < 0) {
+                ans += Math.min(t, p);
+                t = 0;
+                cnt = 0;
+            }
+        }
+
+        System.out.println(ans);
     }
 //}
 
@@ -63,7 +86,7 @@ public class ABC318C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -79,7 +102,7 @@ public class ABC318C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """

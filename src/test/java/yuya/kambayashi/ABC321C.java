@@ -38,12 +38,34 @@ public class ABC321C {
 //import java.util.stream.*;
 //public class Main {
 
+    static List<Long> list;
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final int n = sc.nextInt();
+        final int k = sc.nextInt();
 
-        System.out.println();
+        list = new ArrayList<>();
+
+        for (int i = 0; i <= 9; i++) {
+            makeList(i);
+        }
+
+        Collections.sort(list);
+
+        System.out.println(list.get(k));
+    }
+
+    static void makeList(long n) {
+
+        list.add(n);
+
+        for (long i = 0; i <= 9; i++) {
+            if (i < n % 10) {
+                makeList(Long.parseLong(String.valueOf(n) + String.valueOf(i)));
+            }
+        }
+
     }
 //}
 
@@ -62,7 +84,7 @@ public class ABC321C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -77,7 +99,7 @@ public class ABC321C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """

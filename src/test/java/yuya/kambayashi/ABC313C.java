@@ -42,12 +42,30 @@ public class ABC313C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
+        long[] aa = new long[n];
+        long sum = 0;
+        for (int i = 0; i < n; i++) {
+            aa[i] = sc.nextLong();
+            sum += aa[i];
+        }
 
-        System.out.println();
+        long min = sum / n;
+        long max = min + 1;
+        long plus = 0, minus = 0;
+        for (int i = 0; i < n; i++) {
+            long a = aa[i];
+            if (a < min) {
+                minus += min - a;
+            } else if (min < a) {
+                plus += a - max;
+            }
+        }
+
+        System.out.println(Math.max(plus, minus));
     }
 //}
 
-    @Test
+    //@Test
     public void Case1() {
 
         String input = """
@@ -63,7 +81,7 @@ public class ABC313C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    //@Test
     public void Case2() {
 
         String input = """
@@ -79,7 +97,7 @@ public class ABC313C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    //@Test
     public void Case3() {
 
         String input = """
@@ -95,15 +113,16 @@ public class ABC313C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case4() {
 
         String input = """
-                       
+                       4
+                       1 1 1 3
                     """;
 
         String expected = """
-                          
+                          1
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC313C.main(null);

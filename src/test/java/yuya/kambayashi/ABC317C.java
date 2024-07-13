@@ -38,12 +38,41 @@ public class ABC317C {
 //import java.util.stream.*;
 //public class Main {
 
+    static int[][] eee;
+    static int ans;
+    static boolean[] ch;
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
+        int m = sc.nextInt();
+        eee = new int[n + 1][n + 1];
+        ch = new boolean[n + 1];
+        ans = 0;
+        for (int i = 0; i < m; i++) {
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            int c = sc.nextInt();
+            eee[a][b] = c;
+            eee[b][a] = c;
+        }
+        for (int i = 1; i <= n; i++) {
+            dfs(i, 0);
+        }
 
-        System.out.println();
+        System.out.println(ans);
+    }
+
+    static void dfs(int v, int s) {
+        ch[v] = true;
+        ans = Math.max(ans, s);
+        for (int i = 1; i < eee.length; i++) {
+            if (!ch[i] && eee[v][i] != 0) {
+                dfs(i, s + eee[v][i]);
+            }
+        }
+        ch[v] = false;
     }
 //}
 
@@ -66,7 +95,7 @@ public class ABC317C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -82,7 +111,7 @@ public class ABC317C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """

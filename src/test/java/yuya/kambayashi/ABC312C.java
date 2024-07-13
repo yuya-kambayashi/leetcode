@@ -42,8 +42,36 @@ public class ABC312C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
+        final int m = sc.nextInt();
+        int[] aa = new int[n];
+        int[] bb = new int[m];
+        int[] cc = new int[n + m];
+        for (int i = 0; i < n; i++) {
+            aa[i] = sc.nextInt();
+            cc[i] = aa[i];
+        }
+        for (int i = 0; i < m; i++) {
+            bb[i] = sc.nextInt();
+            cc[n + i] = bb[i] + 1;
+        }
+        Arrays.sort(aa);
+        Arrays.sort(bb);
+        Arrays.sort(cc);
 
-        System.out.println();
+        int j = 0;  // j人が売る  
+        int k = 0;  // k人が買わない
+        for (int i = 0; i < n + m; i++) {
+            while (j < n && cc[i] >= aa[j]) {
+                j++;
+            }
+            while (k < m && cc[i] > bb[k]) {
+                k++;
+            }
+            if (j >= m - k) {
+                System.out.println(cc[i]);
+                return;
+            }
+        }
     }
 //}
 
@@ -64,7 +92,7 @@ public class ABC312C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -81,7 +109,7 @@ public class ABC312C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """
