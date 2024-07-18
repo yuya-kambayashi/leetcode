@@ -4,6 +4,8 @@
  */
 package yuya.kambayashi;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -43,7 +45,49 @@ public class ABC308C {
 
         final int n = sc.nextInt();
 
-        System.out.println();
+        int[] aa = new int[n + 1];
+        int[] bb = new int[n + 1];
+        for (int i = 1; i <= n; i++) {
+            aa[i] = sc.nextInt();
+            bb[i] = sc.nextInt();
+        }
+        List<Pair> cc = new ArrayList<>();
+        for (int i = 1; i <= n; i++) {
+            if (aa[i] == 0 && bb[i] == 0) {
+                cc.add(new Pair(i, new BigDecimal(0)));
+            } else {
+                BigDecimal a = new BigDecimal(aa[i]);
+                BigDecimal b = new BigDecimal(bb[i]);
+                BigDecimal ab = new BigDecimal(aa[i] + bb[i]);
+
+                cc.add(new Pair(i, a.divide(ab, 40, RoundingMode.HALF_UP)));
+            }
+        }
+        Collections.sort(cc, new Comparator<Pair>() {
+            @Override
+            public int compare(Pair p1, Pair p2) {
+                if (p1.c.equals(p2.c)) {
+                    return Integer.compare(p1.id, p2.id);
+                }
+                return p2.c.compareTo(p1.c);
+            }
+        });
+
+        for (var c : cc) {
+            System.out.print(c.id);
+            System.out.print(" ");
+        }
+    }
+
+    static class Pair {
+
+        int id;
+        BigDecimal c;
+
+        public Pair(int id, BigDecimal c) {
+            this.id = id;
+            this.c = c;
+        }
     }
 //}
 
@@ -65,7 +109,7 @@ public class ABC308C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -82,7 +126,7 @@ public class ABC308C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """

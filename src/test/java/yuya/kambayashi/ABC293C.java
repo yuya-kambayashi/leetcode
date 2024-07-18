@@ -41,13 +41,53 @@ public class ABC293C {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final int n = sc.nextInt();
+        final int h = sc.nextInt();
+        final int w = sc.nextInt();
 
-        System.out.println();
+        long[][] grid = new long[h][w];
+        for (int i = 0; i < h; i++) {
+            for (int j = 0; j < w; j++) {
+                grid[i][j] = sc.nextLong();
+            }
+        }
+        long ans = 0;
+
+        // 移動回数はh+w-2
+        // 右に行くタイミングをbitとする
+        long n = h + w - 2;
+        for (int bit = 0; bit < 1 << n; bit++) {
+
+            List<Long> rights = new ArrayList<>();
+
+            for (long i = 0; i < n; i++) {
+                if ((bit & (1 << i)) != 0) {
+                    rights.add(i);
+                }
+            }
+            if (rights.size() != w - 1) {
+                continue;
+            }
+            Set<Long> set = new HashSet<>();
+            int x = 0, y = 0;
+            for (long i = 0; i < n; i++) {
+                set.add(grid[x][y]);
+                if (rights.contains(i)) {
+                    x++;
+                } else {
+                    y++;
+                }
+            }
+            if (set.size() == n) {
+                ans++;
+            }
+        }
+
+        System.out.println(ans);
     }
 //}
 
     @Test
+
     public void Case1() {
 
         String input = """
@@ -65,7 +105,7 @@ public class ABC293C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -90,7 +130,7 @@ public class ABC293C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    //@Test
     public void Case3() {
 
         String input = """

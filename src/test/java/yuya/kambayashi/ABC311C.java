@@ -43,11 +43,41 @@ public class ABC311C {
 
         final int n = sc.nextInt();
 
+        List<Integer> aa = new ArrayList<>();
+        aa.add(0);
+        for (int i = 1; i <= n; i++) {
+            aa.add(sc.nextInt());
+        }
+
+        List<Integer> ids = new ArrayList<>();
+        for (int i = 0; i <= n; i++) {
+            ids.add(0);
+        }
+
+        int k = 1;
+        int v = 1;
+        while (ids.get(v) == 0) {
+            ids.set(v, k);
+            k++;
+            v = aa.get(v);
+        }
+
+        List<Integer> ans = new ArrayList<>();
+        int len = k - ids.get(v);
+        for (int i = 0; i < len; i++) {
+            ans.add(v);
+            v = aa.get(v);
+        }
+        System.out.println(ans.size());
+        for (int a : ans) {
+            System.out.print(a + " ");
+        }
         System.out.println();
+
     }
 //}
 
-    @Test
+    //@Test
     public void Case1() {
 
         String input = """
@@ -64,7 +94,7 @@ public class ABC311C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    //@Test
     public void Case2() {
 
         String input = """
@@ -81,7 +111,7 @@ public class ABC311C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """

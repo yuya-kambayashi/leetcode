@@ -42,8 +42,54 @@ public class ABC303C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
+        final int m = sc.nextInt();
+        int h = sc.nextInt();
+        final int k = sc.nextInt();
+        final String s = sc.next();
+        Map<Integer, Integer> items = new HashMap<>();
+        for (int i = 0; i < m; i++) {
+            int x = sc.nextInt();
+            int y = sc.nextInt();
+            items.put(x, y);
+        }
 
-        System.out.println();
+        int x = 0, y = 0;
+
+        for (int i = 0; i < s.length(); i++) {
+
+            if (h <= 0) {
+                System.out.println("No");
+                return;
+            }
+
+            switch (s.charAt(i)) {
+                case 'R':
+                    x++;
+                    break;
+                case 'L':
+                    x--;
+                    break;
+                case 'U':
+                    y++;
+                    break;
+                case 'D':
+                    y--;
+                    break;
+            }
+            h--;
+            if (h < k) {
+                if (items.containsKey(x)) {
+                    if (items.get(x) == y) {
+                        h = k;
+
+                        items.remove(x);
+                    }
+                }
+            }
+
+        }
+
+        System.out.println("Yes");
     }
 //}
 
@@ -65,7 +111,7 @@ RUDL
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
