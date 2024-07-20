@@ -91,19 +91,4 @@ public class XXX {
         XXX.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
-
-    // @Test
-    public void Case4() {
-
-        String input = """
-                       
-                    """;
-
-        String expected = """
-                          
-                          """;
-        Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        XXX.main(null);
-        Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
-    }
 }
