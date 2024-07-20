@@ -36,30 +36,43 @@ public class ABC340C {
 //import java.math.*;
 //import java.util.*;
 //public class Main {
-
-    static Map<Long, Long> map = new HashMap<>();
+    static Map<Long, Long> map;
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         final long n = sc.nextLong();
-
+        map = new HashMap<>();
         System.out.println(solve(n));
     }
 
-    static long solve(long n) {
-        if (n == 1) {
-            return 0;
-        }
-        if (map.containsKey(n)) {
-            return map.get(n);
+    static long solve(long t) {
+
+        if (map.containsKey(t)) {
+            return map.get(t);
         }
 
-        long ret = solve(n / 2) + solve((n + 1) / 2) + n;
-        map.put(n, ret);
-        return ret;
+        long ans = 0;
+        if (t < 2) {
+            return ans;
+        }
+        ans += t;
+
+        long t1 = t / 2;
+
+        ans += solve(t1);
+
+        if (t % 2 != 0) {
+            ans += solve(t1 + 1);
+        } else {
+            ans += solve(t1);
+        }
+
+        map.put(t, ans);
+
+        return ans;
     }
-//}
+    //}
 
     @Test
     public void Case1() {

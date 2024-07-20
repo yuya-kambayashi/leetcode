@@ -38,70 +38,54 @@ public class ABC341C {
 //public class Main {
 
     static char[][] grid;
+    static int height;
+    static int width;
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final int row = sc.nextInt();
-        final int col = sc.nextInt();
+        height = sc.nextInt();
+        width = sc.nextInt();
         final int n = sc.nextInt();
         final String t = sc.next();
 
-        grid = new char[row][col];
-        for (int i = 0; i < row; i++) {
-            String s = sc.next();
-
-            grid[i] = s.toCharArray();
-
+        grid = new char[height][width];
+        for (int i = 0; i < height; i++) {
+            grid[i] = sc.next().toCharArray();
         }
-
         int ans = 0;
 
-        for (int r = 0; r < row; r++) {
-            for (int c = 0; c < col; c++) {
+        for (int row = 0; row < height; row++) {
+            for (int col = 0; col < width; col++) {
 
-                int rt = r, ct = c;
+                if (!isLand(row, col)) {
+                    continue;
+                }
+
+                int r = row;
+                int c = col;
                 boolean ok = true;
 
-                if (rt == 4 && ct == 6) {
-                    int a1 = 0;
-                }
-                if (rt == 5 && ct == 6) {
-                    int a2 = 0;
-                }
-                if (rt == 6 && ct == 9) {
-                    int a3 = 0;
-                }
-                if (rt == 7 && ct == 9) {
-                    int a4 = 0;
-                }
-                if (rt == 9 && ct == 14) {
-                    int a5 = 0;
-                }
-                if (rt == 11 && ct == 3) {
-                    int a6 = 0;
-                }
-                for (int i = 0; i < t.length(); i++) {
-                    if (!isLand(rt, ct) || rt == 0 || rt == row || ct == 0 || ct == col) {
+                for (int i = 0; i < n; i++) {
+                    switch (t.charAt(i)) {
+                        case 'L':
+                            c--;
+                            break;
+                        case 'R':
+                            c++;
+                            break;
+                        case 'U':
+                            r--;
+                            break;
+                        case 'D':
+                            r++;
+                            break;
+                    }
+                    if (!isValid(r, c)) {
                         ok = false;
                         break;
                     }
-
-                    switch (t.charAt(i)) {
-                        case 'L':
-                            ct--;
-                            break;
-                        case 'R':
-                            ct++;
-                            break;
-                        case 'U':
-                            rt--;
-                            break;
-                        case 'D':
-                            rt++;
-                            break;
-                    }
-                    if (!isLand(rt, ct) || rt == 0 || rt == row || ct == 0 || ct == col) {
+                    if (!isLand(r, c)) {
                         ok = false;
                         break;
                     }
@@ -109,17 +93,34 @@ public class ABC341C {
                 if (ok) {
                     ans++;
                 }
+
             }
         }
         System.out.println(ans);
     }
 
-    static boolean isLand(int r, int c) {
-        return grid[r][c] == '.';
+    static boolean isLand(int row, int col) {
+        return grid[row][col] == '.';
+    }
+
+    static boolean isValid(int row, int col) {
+        if (row < 0) {
+            return false;
+        }
+        if (row >= height) {
+            return false;
+        }
+        if (col < 0) {
+            return false;
+        }
+        if (col >= width) {
+            return false;
+        }
+        return true;
     }
 //}
 
-    //@Test
+    @Test
     public void Case1() {
 
         String input = """
