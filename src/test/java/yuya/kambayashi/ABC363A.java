@@ -43,7 +43,16 @@ public class ABC363A {
 
         final int n = sc.nextInt();
 
-        System.out.println();
+        int diff = 0;
+        if (n <= 99) {
+            diff = 100 - n;
+        } else if (n <= 199) {
+            diff = 200 - n;
+        } else if (n <= 299) {
+            diff = 300 - n;
+        }
+
+        System.out.println(diff);
     }
 //}
 
@@ -51,26 +60,26 @@ public class ABC363A {
     public void Case1() {
 
         String input = """
-                       
+                       123
                     """;
 
         String expected = """
-                          
+                          77
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC363A.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
-                       
+                       250
                     """;
 
         String expected = """
-                          
+                          50
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC363A.main(null);
