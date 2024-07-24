@@ -107,7 +107,7 @@ public class ABC250C {
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC250C.main(null);
-        Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
+        Stream.of(expected.split("\\n")).map(s -> s.trim330()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
     // @Test

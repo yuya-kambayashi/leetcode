@@ -47,11 +47,8 @@ public class ABC338C {
         int[] aa = new int[n];
         int[] bb = new int[n];
 
-        int maxQ = 0;
-
         for (int i = 0; i < n; i++) {
             qq[i] = sc.nextInt();
-            maxQ = Math.max(maxQ, qq[i]);
         }
         for (int i = 0; i < n; i++) {
             aa[i] = sc.nextInt();
@@ -60,33 +57,42 @@ public class ABC338C {
             bb[i] = sc.nextInt();
         }
 
-        int ans = 0;
-        int[] max = new int[maxQ + 1];
-        Arrays.fill(max, maxQ);
+        // 料理Aを0～maxまで作ってみて、その時にbがどれだけ作れるかを考える
+        int cntA = 0;
+        int max = 0;
+        while (true) {
 
-        // 料理Aを0-maxQ人前作ると仮定する
-        boolean b = true;
-        for (int x = 0; x <= maxQ; x++) {
+            // 残ったqqでbを何人前作れるか?
+            int cntB = Integer.MAX_VALUE;
             for (int i = 0; i < n; i++) {
-                if (bb[i] > 0) {
-                    int y = qq[i] / bb[i];
-                    max[x] = Math.min(y, max[x]);
-                }
-                // 次はaを1人目作るので、引いておく
-                qq[i] -= aa[i];
-                if (qq[i] < 0) {
-                    b = false;
+                if (bb[i] != 0) {
+                    cntB = Math.min(cntB, qq[i] / bb[i]);
                 }
             }
-            ans = Math.max(ans, x + max[x]);
-            if (!b) {
+
+            max = Math.max(max, cntA + cntB);
+
+            // 一人分減らす
+            boolean fin = false;
+            for (int i = 0; i < n; i++) {
+                qq[i] -= aa[i];
+
+                if (qq[i] < 0) {
+                    fin = true;
+                    break;
+                }
+            }
+            if (fin) {
                 break;
             }
-        }
-        System.out.println(ans);
-    }
-//}
+            cntA++;
 
+        }
+        System.out.println(max);
+
+    }
+
+//}
     @Test
     public void Case1() {
 
@@ -123,7 +129,7 @@ public class ABC338C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """

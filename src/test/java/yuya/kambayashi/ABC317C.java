@@ -38,41 +38,52 @@ public class ABC317C {
 //import java.util.stream.*;
 //public class Main {
 
-    static int[][] eee;
     static int ans;
-    static boolean[] ch;
+    static boolean[] checked;
+    static int[][] grid;
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
-        int m = sc.nextInt();
-        eee = new int[n + 1][n + 1];
-        ch = new boolean[n + 1];
-        ans = 0;
+        final int m = sc.nextInt();
+
+        grid = new int[n][n];
         for (int i = 0; i < m; i++) {
             int a = sc.nextInt();
             int b = sc.nextInt();
             int c = sc.nextInt();
-            eee[a][b] = c;
-            eee[b][a] = c;
+            a--;
+            b--;
+            grid[a][b] = c;
+            grid[b][a] = c;
         }
-        for (int i = 1; i <= n; i++) {
+        ans = 0;
+        checked = new boolean[n];
+
+        for (int i = 0; i < n; i++) {
             dfs(i, 0);
         }
 
         System.out.println(ans);
     }
 
-    static void dfs(int v, int s) {
-        ch[v] = true;
-        ans = Math.max(ans, s);
-        for (int i = 1; i < eee.length; i++) {
-            if (!ch[i] && eee[v][i] != 0) {
-                dfs(i, s + eee[v][i]);
+    static void dfs(int i, int p) {
+        ans = Math.max(ans, p);
+
+        checked[i] = true;
+
+        for (int j = 0; j < grid.length; j++) {
+            if (checked[j]) {
+                continue;
             }
+            if (grid[i][j] == 0) {
+                continue;
+            }
+            dfs(j, p + grid[i][j]);
         }
-        ch[v] = false;
+        checked[i] = false;
+
     }
 //}
 

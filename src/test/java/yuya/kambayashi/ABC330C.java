@@ -42,23 +42,18 @@ public class ABC330C {
         Scanner sc = new Scanner(System.in);
 
         final long d = sc.nextLong();
-        long ans = Long.MAX_VALUE;
 
-        for (long x = 0; x <= (long) Math.sqrt(d); x++) {
-            long yy1 = d - (x * x);
+        long ans = d;
+        for (long x = 0; x < Math.sqrt(d); x++) {
+            long y = Math.round(Math.sqrt(Math.abs(d - x * x)));
 
-            if (yy1 >= 0) {
-                long y1 = (long) Math.sqrt(yy1);
-                ans = Math.min(ans, Math.abs(x * x + y1 * y1 - d));
+            if (y >= 0) {
 
-                long yy2 = yy1 - 1;
-                if (yy2 >= 0) {
-                    long y2 = (long) Math.sqrt(yy2);
-                    ans = Math.min(ans, Math.abs(x * x + (y2 + 1) * (y2 + 1) - d));
-                }
+                ans = Math.min(ans, Math.abs(x * x + y * y - d));
             }
         }
         System.out.println(ans);
+
     }
 //}
 

@@ -58,20 +58,25 @@ public class ABC312C {
         Arrays.sort(bb);
         Arrays.sort(cc);
 
-        int j = 0;  // j人が売る  
-        int k = 0;  // k人が買わない
+        int seller = 0, noBuyer = 0;
         for (int i = 0; i < n + m; i++) {
-            while (j < n && cc[i] >= aa[j]) {
-                j++;
+            int c = cc[i];
+
+            while (seller < n && c >= aa[seller]) {
+                seller++;
             }
-            while (k < m && cc[i] > bb[k]) {
-                k++;
+
+            while (noBuyer < m && c > bb[noBuyer]) {
+                noBuyer++;
             }
-            if (j >= m - k) {
-                System.out.println(cc[i]);
+
+            if (seller >= m - noBuyer) {
+                System.out.println(c);
                 return;
             }
         }
+        System.out.println(0);
+
     }
 //}
 

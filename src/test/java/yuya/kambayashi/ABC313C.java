@@ -51,21 +51,23 @@ public class ABC313C {
 
         long min = sum / n;
         long max = min + 1;
-        long plus = 0, minus = 0;
+
+        long minus = 0, plus = 0;
         for (int i = 0; i < n; i++) {
             long a = aa[i];
             if (a < min) {
                 minus += min - a;
-            } else if (min < a) {
+            } else if (max < a) {
                 plus += a - max;
             }
         }
 
-        System.out.println(Math.max(plus, minus));
+        System.out.println(Math.max(minus, plus));
+
     }
 //}
 
-    //@Test
+    @Test
     public void Case1() {
 
         String input = """
@@ -81,7 +83,7 @@ public class ABC313C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //@Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -97,7 +99,7 @@ public class ABC313C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //@Test
+    @Test
     public void Case3() {
 
         String input = """
