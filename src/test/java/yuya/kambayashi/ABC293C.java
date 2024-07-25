@@ -43,45 +43,48 @@ public class ABC293C {
 
         final int h = sc.nextInt();
         final int w = sc.nextInt();
+        final int n = h + w - 2;
 
-        long[][] grid = new long[h][w];
-        for (int i = 0; i < h; i++) {
-            for (int j = 0; j < w; j++) {
-                grid[i][j] = sc.nextLong();
+        int[][] aaa = new int[h][w];
+        for (int r = 0; r < h; r++) {
+            for (int c = 0; c < w; c++) {
+                aaa[r][c] = sc.nextInt();
             }
         }
-        long ans = 0;
 
-        // 移動回数はh+w-2
-        // 右に行くタイミングをbitとする
-        long n = h + w - 2;
+        int ans = 0;
+
         for (int bit = 0; bit < 1 << n; bit++) {
 
-            List<Long> rights = new ArrayList<>();
+            Set<Integer> points = new HashSet<>();
 
-            for (long i = 0; i < n; i++) {
-                if ((bit & (1 << i)) != 0) {
-                    rights.add(i);
+            int r = 0, c = 0;
+            points.add(aaa[r][c]);
+            boolean over = false;
+            for (int i = 0; i < n; i++) {
+
+                if ((bit & (1 << i)) >= 1) {
+                    r++;
+                } else {
+                    c++;
                 }
+                if (r >= h || c >= w) {
+                    over = true;
+                    break;
+                }
+                points.add(aaa[r][c]);
             }
-            if (rights.size() != w - 1) {
+            if (over) {
                 continue;
             }
-            Set<Long> set = new HashSet<>();
-            int x = 0, y = 0;
-            for (long i = 0; i < n; i++) {
-                set.add(grid[x][y]);
-                if (rights.contains(i)) {
-                    x++;
-                } else {
-                    y++;
-                }
-            }
-            if (set.size() == n) {
+
+            points.add(aaa[r][c]);
+
+            if (points.size() == n + 1) {
                 ans++;
             }
-        }
 
+        }
         System.out.println(ans);
     }
 //}

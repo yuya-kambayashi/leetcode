@@ -43,7 +43,32 @@ public class ABC292C {
 
         final int n = sc.nextInt();
 
-        System.out.println();
+        long ans = 0;
+
+        for (int i = 1; i < n; i++) {
+            int xx = i, yy = n - i;
+
+            long x = 0, y = 0;
+            for (int j = 1; j * j <= xx; j++) {
+                if (xx % j == 0) {
+                    x++;
+                    if (xx != j * j) {
+                        x++;
+                    }
+                }
+            }
+            for (int j = 1; j * j <= yy; j++) {
+                if (yy % j == 0) {
+                    y++;
+                    if (yy != j * j) {
+                        y++;
+                    }
+                }
+            }
+            ans += x * y;
+        }
+
+        System.out.println(ans);
     }
 //}
 
@@ -62,7 +87,7 @@ public class ABC292C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -77,7 +102,7 @@ public class ABC292C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """
@@ -91,8 +116,8 @@ public class ABC292C {
         ABC292C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
-
     // @Test
+
     public void Case4() {
 
         String input = """

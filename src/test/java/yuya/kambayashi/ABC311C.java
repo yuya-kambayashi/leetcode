@@ -39,45 +39,35 @@ public class ABC311C {
 //public class Main {
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        final int n = sc.nextInt();
-
-        List<Integer> aa = new ArrayList<>();
-        aa.add(0);
-        for (int i = 1; i <= n; i++) {
-            aa.add(sc.nextInt());
+        Scanner scanner = new Scanner(System.in);
+        int N = scanner.nextInt();
+        int[] A = new int[N + 1];
+        A[0] = 0; // Dummy value
+        for (int i = 1; i <= N; i++) {
+            A[i] = scanner.nextInt();
         }
 
-        List<Integer> ids = new ArrayList<>();
-        for (int i = 0; i <= n; i++) {
-            ids.add(0);
+        int now = 1;
+        for (int i = 0; i < N; i++) {
+            now = A[now];
         }
 
-        int k = 1;
-        int v = 1;
-        while (ids.get(v) == 0) {
-            ids.set(v, k);
-            k++;
-            v = aa.get(v);
+        List<Integer> B = new ArrayList<>();
+        B.add(now);
+        while (B.get(0) != A[now]) {
+            now = A[now];
+            B.add(now);
         }
 
-        List<Integer> ans = new ArrayList<>();
-        int len = k - ids.get(v);
-        for (int i = 0; i < len; i++) {
-            ans.add(v);
-            v = aa.get(v);
-        }
-        System.out.println(ans.size());
-        for (int a : ans) {
-            System.out.print(a + " ");
+        System.out.println(B.size());
+        for (int num : B) {
+            System.out.print(num + " ");
         }
         System.out.println();
-
     }
 //}
 
-    //@Test
+    @Test
     public void Case1() {
 
         String input = """
@@ -111,7 +101,7 @@ public class ABC311C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    @Test
+    // @Test
     public void Case3() {
 
         String input = """
