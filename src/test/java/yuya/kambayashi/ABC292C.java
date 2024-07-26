@@ -45,29 +45,28 @@ public class ABC292C {
 
         long ans = 0;
 
-        for (int i = 1; i < n; i++) {
-            int xx = i, yy = n - i;
+        for (int i = 1; i <= n - 1; i++) {
+            int ab = i, cd = n - i;
 
-            long x = 0, y = 0;
-            for (int j = 1; j * j <= xx; j++) {
-                if (xx % j == 0) {
-                    x++;
-                    if (xx != j * j) {
-                        x++;
+            long abs = 0, cds = 0;
+            for (int j = 1; j * j <= ab; j++) {
+                if (ab % j == 0) {
+                    abs++;
+                    if (ab != j * j) {
+                        abs++;
                     }
                 }
             }
-            for (int j = 1; j * j <= yy; j++) {
-                if (yy % j == 0) {
-                    y++;
-                    if (yy != j * j) {
-                        y++;
+            for (int j = 1; j * j <= cd; j++) {
+                if (cd % j == 0) {
+                    cds++;
+                    if (cd != j * j) {
+                        cds++;
                     }
                 }
             }
-            ans += x * y;
+            ans += abs * cds;
         }
-
         System.out.println(ans);
     }
 //}

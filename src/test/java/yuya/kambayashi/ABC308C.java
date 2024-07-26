@@ -46,45 +46,38 @@ public class ABC308C {
 
         final int n = sc.nextInt();
 
-        int[] aa = new int[n + 1];
-        int[] bb = new int[n + 1];
         List<Pair> pp = new ArrayList<>();
-
         for (int i = 1; i <= n; i++) {
-            aa[i] = sc.nextInt();
-            bb[i] = sc.nextInt();
-            BigDecimal a = new BigDecimal(aa[i]);
-            BigDecimal b = new BigDecimal(bb[i]);
-            BigDecimal ab = new BigDecimal(aa[i] + bb[i]);
-
-            pp.add(new Pair(i, a, b, a.divide(ab, 20, RoundingMode.HALF_UP)));
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            BigDecimal a2 = new BigDecimal(a);
+            BigDecimal b2 = new BigDecimal(b);
+            BigDecimal ab2 = new BigDecimal(a + b);
+            pp.add(new Pair(i, a2.divide(ab2, 20, BigDecimal.ROUND_HALF_UP)));
         }
-
         Collections.sort(pp, new Comparator<Pair>() {
             @Override
             public int compare(Pair p1, Pair p2) {
                 if (p1.c.equals(p2.c)) {
                     return Integer.compare(p1.id, p2.id);
                 }
+
                 return p2.c.compareTo(p1.c);
             }
         });
         for (var p : pp) {
             System.out.print(p.id);
             System.out.print(" ");
-
         }
     }
 
     static class Pair {
 
         int id;
-        BigDecimal a, b, c;
+        BigDecimal c;
 
-        public Pair(int id, BigDecimal a, BigDecimal b, BigDecimal c) {
+        Pair(int id, BigDecimal c) {
             this.id = id;
-            this.a = a;
-            this.b = b;
             this.c = c;
         }
     }

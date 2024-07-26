@@ -42,8 +42,42 @@ public class ABC288C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
+        final int m = sc.nextInt();
+        List<List<Integer>> list = new ArrayList<List<Integer>>();
 
-        System.out.println();
+        for (int i = 0; i < n; i++) {
+            list.add(new ArrayList<Integer>());
+        }
+
+        for (int i = 0; i < m; i++) {
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            a--;
+            b--;
+
+            list.get(a).add(b);
+            list.get(b).add(a);
+        }
+        boolean[] used = new boolean[n];
+        int s = 0;
+        for (int i = 0; i < n; i++) {
+            if (!used[i]) {
+                s++;
+                Queue<Integer> queue = new ArrayDeque<>();
+                queue.add(i);
+                while (!queue.isEmpty()) {
+                    int q = queue.poll();
+                    for (int v : list.get(q)) {
+                        if (!used[v]) {
+                            used[v] = true;
+                            queue.add(v);
+                        }
+                    }
+                }
+            }
+        }
+
+        System.out.println(m - n + s);
     }
 //}
 
@@ -69,7 +103,7 @@ public class ABC288C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -86,7 +120,7 @@ public class ABC288C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """
