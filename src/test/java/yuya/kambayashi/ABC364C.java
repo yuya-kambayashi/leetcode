@@ -17,7 +17,7 @@ import org.junit.jupiter.api.TestInstance;
  * @author kamba
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ABC286C {
+public class XXX {
 
     private StandardInputSnatcher in = new StandardInputSnatcher();
     private StandardOutputSnatcher out = new StandardOutputSnatcher();
@@ -42,26 +42,8 @@ public class ABC286C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
-        final long a = sc.nextLong();
-        final long b = sc.nextLong();
-        String s = sc.next();
-        s += s;
-        long ans = Long.MAX_VALUE;
-        for (int i = 0; i < n; i++) {
-            long t = a * i;
 
-            for (int j = 0; j < n / 2; j++) {
-                int left = i + j;
-                int right = i + n - 1 - j;
-
-                if (s.charAt(left) != s.charAt(right)) {
-                    t += b;
-                }
-            }
-            ans = Math.min(ans, t);
-        }
-
-        System.out.println(ans);
+        System.out.println();
     }
 //}
 
@@ -69,32 +51,30 @@ public class ABC286C {
     public void Case1() {
 
         String input = """
-                       5 1 2
-rrefa
+                       
                     """;
 
         String expected = """
-                          3
+                          
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC286C.main(null);
-        Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
+        XXX.main(null);
+        Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
-    @Test
+    //  @Test
     public void Case2() {
 
         String input = """
-                       8 1000000000 1000000000
-bcdfcgaa
+                       
                     """;
 
         String expected = """
-                          4000000000
+                          
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC286C.main(null);
-        Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
+        XXX.main(null);
+        Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
 
     // @Test
@@ -108,22 +88,21 @@ bcdfcgaa
                           
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC286C.main(null);
-        Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
+        XXX.main(null);
+        Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine()).isEqualTo(s));
     }
+}
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 
-    // @Test
-    public void Case4() {
+package yuya.kambayashi;
 
-        String input = """
-                       
-                    """;
+/**
+ *
+ * @author kamba
+ */
+public class ABC364C {
 
-        String expected = """
-                          
-                          """;
-        Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC286C.main(null);
-        Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
-    }
 }

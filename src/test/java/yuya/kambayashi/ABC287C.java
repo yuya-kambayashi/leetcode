@@ -17,7 +17,7 @@ import org.junit.jupiter.api.TestInstance;
  * @author kamba
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ABC288C {
+public class ABC287C {
 
     private StandardInputSnatcher in = new StandardInputSnatcher();
     private StandardOutputSnatcher out = new StandardOutputSnatcher();
@@ -43,42 +43,50 @@ public class ABC288C {
 
         final int n = sc.nextInt();
         final int m = sc.nextInt();
-        List<List<Integer>> gg = new ArrayList<>();
+        List<List<Integer>> list = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            gg.add(new ArrayList<Integer>());
+            list.add(new ArrayList<Integer>());
         }
+
         for (int i = 0; i < m; i++) {
-            int a = sc.nextInt();
-            int b = sc.nextInt();
-            a--;
-            b--;
-            gg.get(a).add(b);
-            gg.get(b).add(a);
+            int v = sc.nextInt();
+            int u = sc.nextInt();
+            v--;
+            u--;
+            list.get(u).add(v);
+            list.get(v).add(u);
         }
-
-        int s = 0;
-        Set<Integer> used = new HashSet<>();
-
+        if (n != m + 1) {
+            System.out.println("No");
+            return;
+        }
         for (int i = 0; i < n; i++) {
-
-            if (!used.contains(i)) {
-                s++;
-                Queue<Integer> que = new ArrayDeque<>();
-                que.add(i);
-                while (!que.isEmpty()) {
-                    int q = que.poll();
-                    for (var t : gg.get(q)) {
-                        if (!used.contains(t)) {
-
-                            used.add(t);
-                            que.add(t);
-                        }
-                    }
+            if (list.get(i).size() >= 3) {
+                System.out.println("No");
+                return;
+            }
+        }
+        int[] used = new int[n];
+        Queue<Integer> que = new LinkedList<>();
+        que.add(0);
+        while (!que.isEmpty()) {
+            int q = que.poll();
+            for (var t : list.get(q)) {
+                if (used[t] == 0) {
+                    used[t]++;
+                    que.add(t);
                 }
             }
         }
 
-        System.out.print(m - n + s);
+        for (var v : used) {
+            if (v != 1) {
+                System.out.println("No");
+                return;
+            }
+        }
+        System.out.println("Yes");
+
     }
 //}
 
@@ -86,21 +94,17 @@ public class ABC288C {
     public void Case1() {
 
         String input = """
-                       6 7
-1 2
+                       4 3
 1 3
-2 3
 4 2
-6 5
-4 6
-4 5
+3 2
                     """;
 
         String expected = """
-                          2
+                          Yes
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC288C.main(null);
+        ABC287C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
@@ -108,16 +112,14 @@ public class ABC288C {
     public void Case2() {
 
         String input = """
-                       4 2
-1 2
-3 4
+                       2 0
                     """;
 
         String expected = """
-                          0
+                          No
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC288C.main(null);
+        ABC287C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
@@ -125,17 +127,19 @@ public class ABC288C {
     public void Case3() {
 
         String input = """
-                       5 3
+                       5 5
 1 2
-1 3
 2 3
+3 4
+4 5
+5 1
                     """;
 
         String expected = """
-                          1
+                          No
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC288C.main(null);
+        ABC287C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
@@ -150,7 +154,7 @@ public class ABC288C {
                           
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC288C.main(null);
+        ABC287C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 }
