@@ -43,11 +43,51 @@ public class ABC277C {
 
         final int n = sc.nextInt();
 
-        System.out.println();
+        Map<Integer, ArrayList<Integer>> graph = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            a--;
+            b--;
+            if (graph.containsKey(a)) {
+                graph.get(a).add(b);
+            } else {
+                ArrayList<Integer> l = new ArrayList<>();
+                l.add(b);
+                graph.put(a, l);
+            }
+            if (graph.containsKey(b)) {
+                graph.get(b).add(a);
+            } else {
+                ArrayList<Integer> l = new ArrayList<>();
+                l.add(a);
+                graph.put(b, l);
+            }
+        }
+        Queue<Integer> que = new LinkedList<>();
+        que.add(0);
+        int ans = 0;
+        HashSet<Integer> used = new HashSet<>();
+        used.add(0);
+        while (!que.isEmpty()) {
+            int q = que.poll();
+
+            if (graph.containsKey(q)) {
+                for (var t : graph.get(q)) {
+                    if (!used.contains(t)) {
+                        ans = Math.max(ans, t);
+                        que.add(t);
+                        used.add(t);
+                    }
+                }
+            }
+        }
+
+        System.out.println(ans + 1);
     }
 //}
 
-    @Test
+    //@Test
     public void Case1() {
 
         String input = """
@@ -66,7 +106,7 @@ public class ABC277C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -87,7 +127,7 @@ public class ABC277C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """

@@ -42,8 +42,25 @@ public class ABC286C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
+        final long a = sc.nextLong();
+        final long b = sc.nextLong();
+        String s = sc.next();
+        s += s;
+        long ans = Long.MAX_VALUE;
+        for (int i = 0; i < n; i++) {
+            long t = a * i;
+            for (int j = 0; j < n / 2; j++) {
+                int l = i + j;
+                int r = i + n - 1 - j;
+                if (s.charAt(l) != s.charAt(r)) {
+                    t += b;
+                }
+            }
+            ans = Math.min(ans, t);
 
-        System.out.println();
+        }
+
+        System.out.println(ans);
     }
 //}
 
@@ -63,7 +80,7 @@ rrefa
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """

@@ -45,22 +45,25 @@ public class ABC292C {
 
         long ans = 0;
 
-        for (int i = 1; i <= n - 1; i++) {
+        for (int i = 1; i <= n; i++) {
             int ab = i, cd = n - i;
 
             long abs = 0, cds = 0;
+
             for (int j = 1; j * j <= ab; j++) {
+
                 if (ab % j == 0) {
                     abs++;
-                    if (ab != j * j) {
+                    if (j * j != ab) {
                         abs++;
                     }
                 }
             }
             for (int j = 1; j * j <= cd; j++) {
+
                 if (cd % j == 0) {
                     cds++;
-                    if (cd != j * j) {
+                    if (j * j != cd) {
                         cds++;
                     }
                 }
@@ -68,6 +71,7 @@ public class ABC292C {
             ans += abs * cds;
         }
         System.out.println(ans);
+
     }
 //}
 
