@@ -6,6 +6,7 @@ package yuya.kambayashi;
 
 import java.util.*;
 import java.util.stream.Stream;
+import net.bytebuddy.matcher.ElementMatchers;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -43,49 +44,80 @@ public class ABC364A {
 
         final int n = sc.nextInt();
 
-        System.out.println();
+        String s1 = sc.next();
+        boolean isSweet = s1.equals("sweet");
+
+        for (int i = 0; i < n - 1; i++) {
+            String t = sc.next();
+
+            if (isSweet && t.equals("sweet")) {
+                if (i != n - 2) {
+                    System.out.println("No");
+                    return;
+                }
+            }
+
+            isSweet = t.equals("sweet");
+        }
+
+        System.out.println("Yes");
     }
 //}
 
-    @Test
+    //@Test
     public void Case1() {
 
         String input = """
-                       
+                       5
+                       salty
+                       sweet
+                       salty
+                       salty
+                       sweet
                     """;
 
         String expected = """
-                          
+                          Yes
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC364A.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
-                       
+                       4
+                       sweet
+                       salty
+                       sweet
+                       sweet
                     """;
 
         String expected = """
-                          
+                          Yes
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC364A.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    //@Test
     public void Case3() {
 
         String input = """
-                       
+                       6
+                       salty
+                       sweet
+                       sweet
+                       salty
+                       sweet
+                       sweet
                     """;
 
         String expected = """
-                          
+                          No
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC364A.main(null);

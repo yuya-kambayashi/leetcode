@@ -42,6 +42,55 @@ public class ABC270C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
+        final int x = sc.nextInt() - 1;
+        final int y = sc.nextInt() - 1;
+
+        List<List<Integer>> gg = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            gg.add(new ArrayList<Integer>());
+        }
+        for (int i = 0; i < n - 1; i++) {
+            int u = sc.nextInt();
+            int v = sc.nextInt();
+            u--;
+            v--;
+            gg.get(u).add(v);
+            gg.get(v).add(u);
+        }
+
+        boolean[] used = new boolean[n];
+        Queue<Integer> que = new LinkedList<>();
+        que.add(x);
+
+        List<Integer> ans = new ArrayList<>();
+        ans.add(x);
+
+        while (!que.isEmpty()) {
+            int q = que.poll();
+
+            if (!used[q]) {
+                used[q] = true;
+
+                if (gg.get(q).contains(y)) {
+                    ans.add(y);
+                    break;
+                }
+
+                for (var t : gg.get(q)) {
+
+                    if (!used[t]) {
+                        que.add(t);
+                        ans.add(t);
+                    }
+                }
+            }
+        }
+
+        for (var a : ans) {
+            System.out.print(a + 1);
+            System.out.print(" ");
+
+        }
 
         System.out.println();
     }
@@ -66,7 +115,7 @@ public class ABC270C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """

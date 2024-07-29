@@ -14,7 +14,7 @@ import org.junit.jupiter.api.TestInstance;
 
 /**
  *
- * @author kamba
+ * @author kamba288
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ABC287C {
@@ -43,44 +43,48 @@ public class ABC287C {
 
         final int n = sc.nextInt();
         final int m = sc.nextInt();
-        List<List<Integer>> list = new ArrayList<>();
+        List<List<Integer>> gg = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            list.add(new ArrayList<Integer>());
+            gg.add(new ArrayList<Integer>());
         }
-
         for (int i = 0; i < m; i++) {
             int v = sc.nextInt();
             int u = sc.nextInt();
             v--;
             u--;
-            list.get(u).add(v);
-            list.get(v).add(u);
+            gg.get(v).add(u);
+            gg.get(u).add(v);
         }
         if (n != m + 1) {
             System.out.println("No");
             return;
         }
         for (int i = 0; i < n; i++) {
-            if (list.get(i).size() >= 3) {
+            if (gg.get(i).size() > 2) {
                 System.out.println("No");
                 return;
             }
         }
-        int[] used = new int[n];
+
         Queue<Integer> que = new LinkedList<>();
         que.add(0);
+        boolean[] used = new boolean[n];
         while (!que.isEmpty()) {
-            int q = que.poll();
-            for (var t : list.get(q)) {
-                if (used[t] == 0) {
-                    used[t]++;
-                    que.add(t);
+
+            int t = que.poll();
+            if (!used[t]) {
+
+                used[t] = true;
+
+                for (var p : gg.get(t)) {
+                    if (!used[p]) {
+                        que.add(p);
+                    }
                 }
             }
         }
-
-        for (var v : used) {
-            if (v != 1) {
+        for (var b : used) {
+            if (!b) {
                 System.out.println("No");
                 return;
             }

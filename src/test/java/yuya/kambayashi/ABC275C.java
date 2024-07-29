@@ -42,66 +42,64 @@ public class ABC275C {
         Scanner sc = new Scanner(System.in);
 
         final int n = 9;
-        List<Pair> pp = new ArrayList<>();
+        char[][] grid = new char[n][n];
+        List<Coord> cc = new ArrayList<>();
         for (int i = 0; i < n; i++) {
             String s = sc.next();
-            for (int j = 0; j < n; j++) {
-                if (s.charAt(j) == '#') {
-                    pp.add(new Pair(i, j));
+            grid[i] = s.toCharArray();
+
+            for (int j = 0; j < s.length(); j++) {
+
+                if (grid[i][j] == '#') {
+                    cc.add(new Coord(i, j));
                 }
             }
         }
-        int size = pp.size();
         int ans = 0;
-        for (int bit = 0; bit < 1 << size; bit++) {
-            List<Pair> tt = new ArrayList<>();
-            for (int i = 0; i < size; i++) {
-                if ((bit & (1 << i)) >= 1) {
-                    tt.add(pp.get(i));
+        for (int i = 0; i < cc.size(); i++) {
+            for (int j = i + 1; j < cc.size(); j++) {
+                for (int k = j + 1; k < cc.size(); k++) {
+                    for (int l = k + 1; l < cc.size(); l++) {
+                        if (isSquare(cc.get(i), cc.get(j), cc.get(k), cc.get(l))) {
+                            ans++;
+                        }
+                    }
                 }
-            }
-            if (tt.size() != 4) {
-                continue;
-            }
-            if (isSquare(tt)) {
-                ans++;
             }
         }
 
         System.out.println(ans);
+
     }
 
-    static boolean isSquare(List<Pair> pp) {
-        List<Integer> dist = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            for (int j = i + 1; j < 4; j++) {
-                int dx = pp.get(i).x - pp.get(j).x;
-                int dy = pp.get(i).y - pp.get(j).y;
+    static class Coord {
 
-                dist.add(dx * dx + dy * dy);
-            }
+        int row, col;
+
+        Coord(int row, int col) {
+            this.row = row;
+            this.col = col;
         }
-        Collections.sort(dist);
-        int l = dist.get(0);
-        if (l == 0) {
+    }
+
+    static boolean isSquare(Coord c1, Coord c2, Coord c3, Coord c4) {
+
+        List<Double> dd = new ArrayList<>();
+        dd.add(Math.pow(c1.row - c2.row, 2) + Math.pow(c1.col - c2.col, 2));
+        dd.add(Math.pow(c1.row - c3.row, 2) + Math.pow(c1.col - c3.col, 2));
+        dd.add(Math.pow(c1.row - c4.row, 2) + Math.pow(c1.col - c4.col, 2));
+        dd.add(Math.pow(c2.row - c3.row, 2) + Math.pow(c2.col - c3.col, 2));
+        dd.add(Math.pow(c2.row - c4.row, 2) + Math.pow(c2.col - c4.col, 2));
+        dd.add(Math.pow(c3.row - c4.row, 2) + Math.pow(c3.col - c4.col, 2));
+        Collections.sort(dd);
+
+        double d = dd.get(0);
+
+        if (d < 0.01) {
             return false;
         }
-        return dist.get(0) == l
-                && dist.get(1) == l
-                && dist.get(2) == l
-                && dist.get(3) == l
-                && dist.get(4) == l * 2
-                && dist.get(5) == l * 2;
-    }
+        return d == dd.get(1) && d == dd.get(2) && d == dd.get(3) && 2 * d == dd.get(4) && 2 * d == dd.get(5);
 
-    static class Pair {
-
-        int x, y;
-
-        Pair(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
     }
 //}
 
@@ -150,8 +148,8 @@ public class ABC275C {
         ABC275C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
+    //@Test
 
-    // @Test
     public void Case3() {
 
         String input = """

@@ -56,29 +56,31 @@ public class ABC288C {
             gg.get(b).add(a);
         }
 
+        Queue<Integer> que = new LinkedList<>();
+
+        boolean[] used = new boolean[n];
+
         int s = 0;
-        Set<Integer> used = new HashSet<>();
-
         for (int i = 0; i < n; i++) {
-
-            if (!used.contains(i)) {
+            if (!used[i]) {
                 s++;
-                Queue<Integer> que = new ArrayDeque<>();
                 que.add(i);
-                while (!que.isEmpty()) {
-                    int q = que.poll();
-                    for (var t : gg.get(q)) {
-                        if (!used.contains(t)) {
 
-                            used.add(t);
-                            que.add(t);
+                while (!que.isEmpty()) {
+
+                    int t = que.poll();
+
+                    for (var p : gg.get(t)) {
+                        if (!used[p]) {
+                            used[p] = true;
+                            que.add(p);
                         }
                     }
+
                 }
             }
         }
-
-        System.out.print(m - n + s);
+        System.out.println(m - n + s);
     }
 //}
 
@@ -138,8 +140,8 @@ public class ABC288C {
         ABC288C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
-
     // @Test
+
     public void Case4() {
 
         String input = """
