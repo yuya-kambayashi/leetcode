@@ -38,14 +38,20 @@ public class ABC270C {
 //import java.util.stream.*;
 //public class Main {
 
+    static boolean[] visited;
+    static ArrayList<ArrayList<Integer>> gg;
+    static ArrayList<Integer> tlist;
+    static int destination;
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
         final int x = sc.nextInt() - 1;
         final int y = sc.nextInt() - 1;
+        destination = y;
 
-        List<List<Integer>> gg = new ArrayList<>();
+        gg = new ArrayList<ArrayList<Integer>>();
         for (int i = 0; i < n; i++) {
             gg.add(new ArrayList<Integer>());
         }
@@ -57,44 +63,34 @@ public class ABC270C {
             gg.get(u).add(v);
             gg.get(v).add(u);
         }
+        visited = new boolean[n];
+        tlist = new ArrayList<Integer>();
+        dfs(x);
+    }
 
-        boolean[] used = new boolean[n];
-        Queue<Integer> que = new LinkedList<>();
-        que.add(x);
-
-        List<Integer> ans = new ArrayList<>();
-        ans.add(x);
-
-        while (!que.isEmpty()) {
-            int q = que.poll();
-
-            if (!used[q]) {
-                used[q] = true;
-
-                if (gg.get(q).contains(y)) {
-                    ans.add(y);
-                    break;
-                }
-
-                for (var t : gg.get(q)) {
-
-                    if (!used[t]) {
-                        que.add(t);
-                        ans.add(t);
+    static boolean dfs(int cur) {
+        visited[cur] = true;
+        tlist.add(cur);
+        if (cur == destination) {
+            for (int i : tlist) {
+                System.out.print(i + 1 + " ");
+            }
+            System.out.println();
+            return true;
+        } else {
+            for (int next : gg.get(cur)) {
+                if (!visited[next]) {
+                    if (dfs(next)) {
+                        return true;
                     }
                 }
             }
         }
+        tlist.remove(tlist.size() - 1);
+        return false;
 
-        for (var a : ans) {
-            System.out.print(a + 1);
-            System.out.print(" ");
-
-        }
-
-        System.out.println();
     }
-//}
+    //}
 
     @Test
     public void Case1() {
@@ -135,15 +131,20 @@ public class ABC270C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """
-                       
+                                              6 3 6
+                       3 1
+                       2 5
+                       1 2
+                       4 1
+                       2 6
                     """;
 
         String expected = """
-                          
+                          3 1 2 6
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC270C.main(null);

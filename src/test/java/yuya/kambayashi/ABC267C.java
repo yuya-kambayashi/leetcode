@@ -42,12 +42,35 @@ public class ABC267C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
+        final int m = sc.nextInt();
+        long[] aa = new long[n];
+        for (int i = 0; i < n; i++) {
+            aa[i] = sc.nextLong();
+        }
 
-        System.out.println();
+        long sum = 0;
+        long cur = 0;
+        for (int i = 0; i < m; i++) {
+            sum += aa[i];
+            cur += aa[i] * (i + 1);
+        }
+
+        long max = Long.MIN_VALUE;
+        max = Math.max(max, cur);
+
+        for (int i = m; i < n; i++) {
+            cur -= sum;
+            cur += aa[i] * m;
+
+            max = Math.max(max, cur);
+            sum -= aa[i - m];
+            sum += aa[i];
+        }
+        System.out.println(max);
     }
 //}
 
-    @Test
+    // @Test
     public void Case1() {
 
         String input = """
@@ -63,7 +86,7 @@ public class ABC267C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    //@Test
     public void Case2() {
 
         String input = """
@@ -79,15 +102,16 @@ public class ABC267C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """
-                       
+                       4 4
+                       1 2 3 4
                     """;
 
         String expected = """
-                          
+                          11
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC267C.main(null);

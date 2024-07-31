@@ -41,9 +41,39 @@ public class ABC266C {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final int n = sc.nextInt();
+        Pair[] pp = new Pair[4];
+        for (int i = 0; i < 4; i++) {
+            pp[i] = new Pair(sc.nextInt(), sc.nextInt());
+        }
 
-        System.out.println();
+        for (int i = 0; i < 4; i++) {
+            int j = (i + 1) % 4;
+            int k = (i + 2) % 4;
+
+            int x1 = pp[i].x - pp[j].x;
+            int y1 = pp[i].y - pp[j].y;
+
+            int x2 = pp[k].x - pp[j].x;
+            int y2 = pp[k].y - pp[j].y;
+
+            if (x1 * y2 - x2 * y1 > 0) {
+                System.out.println("No");
+                return;
+            }
+
+        }
+
+        System.out.println("Yes");
+    }
+
+    static class Pair {
+
+        int x, y;
+
+        Pair(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
     }
 //}
 

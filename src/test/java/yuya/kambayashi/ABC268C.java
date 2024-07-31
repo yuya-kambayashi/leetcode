@@ -42,8 +42,24 @@ public class ABC268C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
+        int[] pp = new int[n];
+        for (int i = 0; i < n; i++) {
+            pp[i] = sc.nextInt();
+        }
 
-        System.out.println();
+        int[] cnt = new int[n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < 3; j++) {
+                int t = pp[i] - 1 - i + j + n;
+                cnt[t % n]++;
+            }
+        }
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            ans = Math.max(ans, cnt[i]);
+        }
+
+        System.out.println(ans);
     }
 //}
 
