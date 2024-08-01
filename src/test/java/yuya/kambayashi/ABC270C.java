@@ -38,22 +38,21 @@ public class ABC270C {
 //import java.util.stream.*;
 //public class Main {
 
-    static boolean[] visited;
     static ArrayList<ArrayList<Integer>> gg;
-    static ArrayList<Integer> tlist;
-    static int destination;
+    static int goal;
+    static boolean[] visited;
+    static List<Integer> ans;
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
-        final int x = sc.nextInt() - 1;
-        final int y = sc.nextInt() - 1;
-        destination = y;
-
+        final int x = sc.nextInt();
+        final int y = sc.nextInt();
+        goal = y - 1;
         gg = new ArrayList<ArrayList<Integer>>();
         for (int i = 0; i < n; i++) {
-            gg.add(new ArrayList<Integer>());
+            gg.add(new ArrayList<>());
         }
         for (int i = 0; i < n - 1; i++) {
             int u = sc.nextInt();
@@ -64,31 +63,31 @@ public class ABC270C {
             gg.get(v).add(u);
         }
         visited = new boolean[n];
-        tlist = new ArrayList<Integer>();
-        dfs(x);
+        ans = new ArrayList<>();
+        dfs(x - 1);
     }
 
     static boolean dfs(int cur) {
         visited[cur] = true;
-        tlist.add(cur);
-        if (cur == destination) {
-            for (int i : tlist) {
-                System.out.print(i + 1 + " ");
+        ans.add(cur);
+
+        if (cur == goal) {
+            for (var a : ans) {
+                System.out.print(a + 1);
+                System.out.print(" ");
             }
-            System.out.println();
             return true;
         } else {
-            for (int next : gg.get(cur)) {
-                if (!visited[next]) {
-                    if (dfs(next)) {
+            for (int t : gg.get(cur)) {
+                if (!visited[t]) {
+                    if (dfs(t)) {
                         return true;
                     }
                 }
             }
         }
-        tlist.remove(tlist.size() - 1);
+        ans.remove(ans.size() - 1);
         return false;
-
     }
     //}
 

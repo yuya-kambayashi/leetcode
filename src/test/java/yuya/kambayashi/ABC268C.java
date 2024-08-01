@@ -46,20 +46,18 @@ public class ABC268C {
         for (int i = 0; i < n; i++) {
             pp[i] = sc.nextInt();
         }
-
-        int[] cnt = new int[n];
+        int[] cur = new int[n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < 3; j++) {
                 int t = pp[i] - 1 - i + j + n;
-                cnt[t % n]++;
+                cur[t % n]++;
             }
         }
-        int ans = 0;
-        for (int i = 0; i < n; i++) {
-            ans = Math.max(ans, cnt[i]);
+        int max = 0;
+        for (int c : cur) {
+            max = Math.max(max, c);
         }
-
-        System.out.println(ans);
+        System.out.println(max);
     }
 //}
 
@@ -79,7 +77,7 @@ public class ABC268C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -95,7 +93,7 @@ public class ABC268C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """
