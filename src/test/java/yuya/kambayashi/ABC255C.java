@@ -41,13 +41,42 @@ public class ABC255C {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final int n = sc.nextInt();
+        final long x = sc.nextLong();
+        final long a = sc.nextLong();
+        final long d = sc.nextLong();
+        final long n = sc.nextLong();
 
-        System.out.println();
+        long last = d * n + a;
+
+        long min = Math.min(a, last);
+        long max = Math.max(a, last);
+
+        if (x <= min) {
+            System.out.println(Math.abs(min - x));
+            return;
+        }
+        if (max <= x) {
+            System.out.println(Math.abs(x - max));
+            return;
+        }
+
+        for (long i = 444445; i < Math.abs(x); i++) {
+
+            if ((x + i) % d == a) {
+                System.out.println(i);
+                return;
+            }
+            if ((x - i) % d == a) {
+                System.out.println(i);
+                return;
+            }
+        }
+        System.out.println(0);
+
     }
 //}
 
-    @Test
+    //@Test
     public void Case1() {
 
         String input = """
@@ -62,7 +91,7 @@ public class ABC255C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    // @Test
     public void Case2() {
 
         String input = """
@@ -77,7 +106,7 @@ public class ABC255C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    //  @Test
     public void Case3() {
 
         String input = """
@@ -92,7 +121,7 @@ public class ABC255C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case4() {
 
         String input = """

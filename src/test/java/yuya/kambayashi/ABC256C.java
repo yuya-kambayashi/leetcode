@@ -41,9 +41,42 @@ public class ABC256C {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final int n = sc.nextInt();
+        int[] hh = new int[3];
+        int[] ww = new int[3];
+        int n = 3;
 
-        System.out.println();
+        for (int i = 0; i < 3; i++) {
+            hh[i] = sc.nextInt();
+        }
+        for (int i = 0; i < 3; i++) {
+            ww[i] = sc.nextInt();
+        }
+
+        int ans = 0;
+
+        for (int a = 1; a <= 30; a++) {
+            for (int b = 1; b <= 30; b++) {
+                for (int d = 1; d <= 30; d++) {
+                    for (int e = 1; e <= 30; e++) {
+                        int c = hh[0] - a - b;
+                        int f = hh[1] - d - e;
+                        int g = ww[0] - a - d;
+                        int h = ww[1] - b - e;
+                        int i = ww[2] - c - f;
+
+                        if (c < 1 || f < 1 || g < 1 || h < 1 || i < 1) {
+                            continue;
+                        }
+                        if (g + h + i != hh[2]) {
+                            continue;
+                        }
+                        ans++;
+
+                    }
+                }
+            }
+        }
+        System.out.println(ans);
     }
 //}
 
@@ -62,7 +95,8 @@ public class ABC256C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
+
     public void Case2() {
 
         String input = """
@@ -77,7 +111,7 @@ public class ABC256C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """
