@@ -61,9 +61,9 @@ public class ABC266C {
                 System.out.println("No");
                 return;
             }
+
         }
         System.out.println("Yes");
-        return;
     }
 //}
 
@@ -85,7 +85,7 @@ public class ABC266C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """

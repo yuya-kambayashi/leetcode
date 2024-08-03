@@ -41,11 +41,85 @@ public class ABC259C {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final int n = sc.nextInt();
+        final String s = sc.next();
+        final String t = sc.next();
 
-        System.out.println();
+        List<Pair> ts = compess(s);
+        List<Pair> tt = compess(t);
+
+        String ret = "Yes";
+        if (ts.size() != tt.size()) {
+            System.out.println("No");
+            return;
+        }
+
+        for (int i = 0; i < ts.size(); i++) {
+            var ps = ts.get(i);
+            var pt = tt.get(i);
+
+            if (ps.c != pt.c) {
+                System.out.println("No");
+                return;
+            }
+            if (ps.cnt == 1 && ps.cnt != pt.cnt) {
+                System.out.println("No");
+                return;
+            }
+            if (ps.cnt > pt.cnt) {
+
+                System.out.println("No");
+                return;
+            }
+
+        }
+
+        System.out.println("Yes");
+
     }
-//}
+
+    static List<Pair> compess(String s) {
+        List<Pair> ll = new ArrayList<>();
+
+        char t = s.charAt(0);
+        int cnt = 1;
+        for (int i = 1; i < s.length(); i++) {
+            char c = s.charAt(i);
+
+            if (i < s.length() - 1) {
+
+                if (t == c) {
+                    cnt++;
+                } else {
+                    ll.add(new Pair(t, cnt));
+                    t = c;
+                    cnt = 1;
+                }
+            } else {
+                if (t == c) {
+                    cnt++;
+                    ll.add(new Pair(t, cnt));
+
+                } else {
+                    ll.add(new Pair(t, cnt));
+                    ll.add(new Pair(c, 1));
+
+                }
+            }
+        }
+        return ll;
+    }
+
+    static class Pair {
+
+        char c;
+        int cnt;
+
+        Pair(char c, int cnt) {
+            this.c = c;
+            this.cnt = cnt;
+        }
+    }
+    //}
 
     @Test
     public void Case1() {
@@ -63,7 +137,7 @@ abbbbaaac
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -79,30 +153,32 @@ xyyzz
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """
-                       
+                       aab
+                       aaba
                     """;
 
         String expected = """
-                          
+                          No
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC259C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case4() {
 
         String input = """
-                       
+                       aaa
+                       aaa
                     """;
 
         String expected = """
-                          
+                          Yes
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC259C.main(null);

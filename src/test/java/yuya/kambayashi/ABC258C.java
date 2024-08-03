@@ -42,12 +42,38 @@ public class ABC258C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
+        final int q = sc.nextInt();
+        String s = sc.next();
+        int[] qq1 = new int[q];
+        int[] qq2 = new int[q];
+        for (int i = 0; i < q; i++) {
+            qq1[i] = sc.nextInt();
+            qq2[i] = sc.nextInt();
+        }
 
-        System.out.println();
+        int startIndex = 0;
+
+        for (int i = 0; i < q; i++) {
+            int t = qq1[i];
+            int x = qq2[i] % n;
+
+            if (t == 1) {
+                startIndex += n - x;
+                startIndex %= n;
+
+            } else {
+                int index = (startIndex + x - 1) % n;
+                if (index < 0) {
+                    index += n;
+                }
+
+                System.out.println(s.charAt(index));
+            }
+        }
     }
 //}
 
-    @Test
+    //@Test
     public void Case1() {
 
         String input = """
@@ -67,7 +93,7 @@ a
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    //@Test
     public void Case2() {
 
         String input = """
@@ -94,15 +120,18 @@ u
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """
-                       
+                       3 2
+                       abc
+                       1 3
+                       2 3
                     """;
 
         String expected = """
-                          
+                          b
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC258C.main(null);

@@ -38,30 +38,30 @@ public class ABC260C {
 //import java.util.stream.*;
 //public class Main {
 
-    static int x, y;
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int x = sc.nextInt();
+        int y = sc.nextInt();
 
-        final int n = sc.nextInt();
-        x = sc.nextInt();
-        y = sc.nextInt();
+        long[] rr = new long[n + 1];
+        long[] bb = new long[n + 1];
 
-        long[] rr = new long[12];
-        long[] bb = new long[12];
-        rr[1] = 0;
-        bb[1] = 1;
-        for (int i = 2; i <= n; i++) {
-            bb[i] = rr[n - 1] + bb[n - 1] * y;
-            rr[i] = rr[n - 1] + bb[n - 1] * x;
+        rr[n] = 1;
+
+        for (int i = n; i > 1; i--) {
+            rr[i - 1] += rr[i];
+            bb[i] += x * rr[i];
+
+            rr[i - 1] += bb[i];
+            bb[i - 1] += y * bb[i];
         }
 
-        System.out.println(ret);
-
+        System.out.println(bb[1]);
     }
-
 //}
-    //@Test
+
+    @Test
     public void Case1() {
 
         String input = """
@@ -76,7 +76,7 @@ public class ABC260C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //@Test
+    @Test
     public void Case2() {
 
         String input = """
