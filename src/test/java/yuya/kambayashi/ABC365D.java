@@ -17,7 +17,7 @@ import org.junit.jupiter.api.TestInstance;
  * @author kamba
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ABC256C {
+public class ABC365D {
 
     private StandardInputSnatcher in = new StandardInputSnatcher();
     private StandardOutputSnatcher out = new StandardOutputSnatcher();
@@ -41,71 +41,70 @@ public class ABC256C {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        int[] hh = new int[3];
-        int[] ww = new int[3];
-
-        for (int i = 0; i < 3; i++) {
-            hh[i] = sc.nextInt();
-        }
-        for (int i = 0; i < 3; i++) {
-            ww[i] = sc.nextInt();
-        }
-
-        int ans = 0;
-        for (int a = 1; a <= 30; a++) {
-            for (int b = 1; b <= 30; b++) {
-                for (int d = 1; d <= 30; d++) {
-                    for (int e = 1; e <= 30; e++) {
-                        int c = hh[0] - a - b;
-                        int f = hh[1] - d - e;
-                        int g = ww[0] - a - d;
-                        int h = ww[1] - b - e;
-                        int i = ww[2] - c - f;
-                        if (c < 1 || f < 1 || g < 1 || h < 1 || i < 1) {
-                            continue;
-                        }
-                        if (i != hh[2] - g - h) {
-                            continue;
-                        }
-
-                        ans++;
-                    }
-                }
+        final int n = sc.nextInt();
+        final String s = sc.next();
+        String rsp = "RSP";
+        int[][] dp = new int[3][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < 3; j++) {
+                dp[j][i] = -n;
             }
         }
+        for (int i = 0; i < 3; i++) {
+            if (s.charAt(0) == rsp.charAt(i)) {
+                dp[i][0] = 0;
+                dp[(i + 2) % 3][0] = 1;
+            }
+        }
+        for (int i = 1; i < n; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (s.charAt(i) != rsp.charAt(j)) {
+                    continue;
+                }
+                int win = (j + 2) % 3;
+                dp[j][i] = Math.max(dp[j][i], dp[(j + 1) % 3][i - 1]);
+                dp[j][i] = Math.max(dp[j][i], dp[(j + 2) % 3][i - 1]);
+                dp[win][i] = Math.max(dp[win][i], dp[(win + 1) % 3][i - 1] + 1);
+                dp[win][i] = Math.max(dp[win][i], dp[(win + 2) % 3][i - 1] + 1);
+            }
+        }
+        int ans = 0;
+        for (int i = 0; i < 3; i++) {
+            ans = Math.max(dp[i][n - 1], ans);
+        }
         System.out.println(ans);
-
     }
-//}
 
+//}
     @Test
     public void Case1() {
 
         String input = """
-                       3 4 6 3 3 7
+                       6
+                       PRSSRS
                     """;
 
         String expected = """
-                          1
+                          5
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC256C.main(null);
+        ABC365D.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
     @Test
-
     public void Case2() {
 
         String input = """
-                       3 4 5 6 7 8
+                       10
+                       SSSSSSSSSS
                     """;
 
         String expected = """
-                          0
+                          5
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC256C.main(null);
+        ABC365D.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
@@ -113,29 +112,47 @@ public class ABC256C {
     public void Case3() {
 
         String input = """
-                       5 13 10 6 13 9
+                       24
+                       SPRPSRRRRRPPRPRPSSRSPRSS
                     """;
 
         String expected = """
-                          120
+                          18
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC256C.main(null);
+        ABC365D.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case4() {
 
         String input = """
-                       20 25 30 22 29 24
+                       4
+                       PPPS
                     """;
 
         String expected = """
-                          30613
+                          3
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC256C.main(null);
+        ABC365D.main(null);
+        Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
+    }
+
+    @Test
+    public void Case5() {
+
+        String input = """
+                       4
+                       PPPR
+                    """;
+
+        String expected = """
+                          3
+                          """;
+        Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
+        ABC365D.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 }

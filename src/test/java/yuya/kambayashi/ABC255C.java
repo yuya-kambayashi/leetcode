@@ -46,31 +46,10 @@ public class ABC255C {
         final long d = sc.nextLong();
         final long n = sc.nextLong();
 
-        long last = d * n + a;
+        long ans = a + (n - 1) * d;
 
-        long min = Math.min(a, last);
-        long max = Math.max(a, last);
+        long min = Math.min(ans, a);
 
-        if (x <= min) {
-            System.out.println(Math.abs(min - x));
-            return;
-        }
-        if (max <= x) {
-            System.out.println(Math.abs(x - max));
-            return;
-        }
-
-        for (long i = 444445; i < Math.abs(x); i++) {
-
-            if ((x + i) % d == a) {
-                System.out.println(i);
-                return;
-            }
-            if ((x - i) % d == a) {
-                System.out.println(i);
-                return;
-            }
-        }
         System.out.println(0);
 
     }

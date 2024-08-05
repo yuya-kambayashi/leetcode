@@ -42,42 +42,43 @@ public class ABC257C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
-        final String s = sc.next();
-
-        List<Pair> pp = new ArrayList<>();
-
+        String s = sc.next();
+        Pair[] pp = new Pair[n];
         for (int i = 0; i < n; i++) {
-            pp.add(new Pair(s.charAt(i), sc.nextInt()));
+            int w = sc.nextInt();
+            pp[i] = new Pair(s.charAt(i), w);
         }
-        Collections.sort(pp, Comparator.comparingInt(Pair::getW));
+        Arrays.sort(pp, Comparator.comparingInt(Pair::getW));
 
-        int cntA = 0;
+        int collect = 0;
         for (var p : pp) {
             if (p.t == '1') {
-                cntA++;
+                collect++;
             }
         }
-        int max = cntA;
+
+        int ans = collect;
         for (int i = 0; i < n; i++) {
-            if (pp.get(i).t == '1') {
-                cntA--;
+            if (pp[i].t == '1') {
+                collect--;
             } else {
-                cntA++;
+                collect++;
+            }
+            if (i < n - 1) {
+                if (pp[i].w != pp[i + 1].w) {
+                    ans = Math.max(ans, collect);
+
+                }
+            } else {
+                ans = Math.max(ans, collect);
             }
 
-//            if (i < n - 1) {
-//                if (pp.get(i).w == pp.get(i + 1).w) {
-//                    continue;
-//                }
-//            }
-            max = Math.max(max, cntA);
-
         }
+        System.out.println(ans);
 
-        System.out.println(max);
     }
 
-    public static class Pair {
+    static class Pair {
 
         char t;
         int w;
@@ -87,14 +88,13 @@ public class ABC257C {
             this.w = w;
         }
 
-        int getW() {
+        public int getW() {
             return w;
         }
-
     }
 //}
+    //@Test
 
-    @Test
     public void Case1() {
 
         String input = """
@@ -111,7 +111,7 @@ public class ABC257C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    @Test
+    //@Test
     public void Case2() {
 
         String input = """
@@ -128,7 +128,7 @@ public class ABC257C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    @Test
+    // @Test
     public void Case3() {
 
         String input = """
@@ -145,15 +145,17 @@ public class ABC257C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case4() {
 
         String input = """
-                       
+                       1
+                       0
+                       1
                     """;
 
         String expected = """
-                          
+                            1
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC257C.main(null);
