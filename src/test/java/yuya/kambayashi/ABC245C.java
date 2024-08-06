@@ -42,8 +42,43 @@ public class ABC245C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
+        final int k = sc.nextInt();
+        int[] aa = new int[n];
+        int[] bb = new int[n];
+        for (int i = 0; i < n; i++) {
+            aa[i] = sc.nextInt();
+        }
+        for (int i = 0; i < n; i++) {
+            bb[i] = sc.nextInt();
+        }
 
-        System.out.println();
+        boolean[][] dp = new boolean[2][n];
+        dp[0][0] = true;
+        dp[1][0] = true;
+
+        for (int i = 1; i < n; i++) {
+            if (dp[0][i - 1]) {
+                if (Math.abs(aa[i] - aa[i - 1]) <= k) {
+                    dp[0][i] = true;
+                }
+                if (Math.abs(bb[i] - aa[i - 1]) <= k) {
+                    dp[1][i] = true;
+                }
+            }
+            if (dp[1][i - 1]) {
+                if (Math.abs(aa[i] - bb[i - 1]) <= k) {
+                    dp[0][i] = true;
+                }
+                if (Math.abs(bb[i] - bb[i - 1]) <= k) {
+                    dp[1][i] = true;
+                }
+            }
+        }
+        if (dp[0][n - 1] || dp[1][n - 1]) {
+            System.out.println("Yes");
+        } else {
+            System.out.println("No");
+        }
     }
 //}
 
@@ -64,7 +99,7 @@ public class ABC245C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -81,7 +116,7 @@ public class ABC245C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """

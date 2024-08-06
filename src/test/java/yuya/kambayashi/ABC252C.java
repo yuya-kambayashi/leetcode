@@ -42,8 +42,37 @@ public class ABC252C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
+        String[] ss = new String[n];
+        for (int i = 0; i < n; i++) {
+            ss[i] = sc.next();
+        }
 
-        System.out.println();
+        int min = Integer.MAX_VALUE;
+
+        for (int i = 0; i < 10; i++) {
+
+            TreeMap<Integer, Integer> map = new TreeMap<>();
+            for (var s : ss) {
+                int index = s.indexOf(String.valueOf(i));
+                map.put(index, map.getOrDefault(index, 0) + 1);
+            }
+            int maxK = 0, maxV = 0;
+            for (var e : map.entrySet()) {
+                if (maxV <= e.getValue()) {
+                    maxV = e.getValue();
+                    maxK = e.getKey();
+                }
+            }
+            int time = 0;
+            if (maxV == 1) {
+                time = map.lastKey();
+            } else {
+                time = (maxV - 1) * 10 + maxK;
+            }
+            min = Math.min(min, time);
+        }
+
+        System.out.println(min);
     }
 //}
 
@@ -65,7 +94,7 @@ public class ABC252C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """

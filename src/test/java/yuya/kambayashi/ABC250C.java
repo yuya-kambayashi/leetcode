@@ -42,8 +42,43 @@ public class ABC250C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
+        final int q = sc.nextInt();
 
-        System.out.println();
+        int[] aa = new int[n + 1];
+        int[] ids = new int[n + 1];
+        for (int i = 1; i <= n; i++) {
+            aa[i] = i;
+            ids[i] = i;
+        }
+        for (int i = 0; i < q; i++) {
+            int x = sc.nextInt();
+
+            int id = ids[x];
+
+            if (id == n) {
+                int otherID = id - 1;
+                int other = aa[otherID];
+                aa[id] = other;
+                aa[otherID] = x;
+
+                ids[x] = otherID;
+                ids[other] = id;
+
+            } else {
+                int otherID = id + 1;
+                int other = aa[otherID];
+                aa[id] = other;
+                aa[otherID] = x;
+
+                ids[x] = otherID;
+                ids[other] = id;
+            }
+        }
+        for (int i = 1; i <= n; i++) {
+            System.out.print(aa[i]);
+            System.out.print(" ");
+        }
+
     }
 //}
 
@@ -67,7 +102,7 @@ public class ABC250C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -89,7 +124,7 @@ public class ABC250C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """
@@ -107,7 +142,7 @@ public class ABC250C {
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC250C.main(null);
-        Stream.of(expected.split("\\n")).map(s -> s.trim330()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
+        Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
     // @Test

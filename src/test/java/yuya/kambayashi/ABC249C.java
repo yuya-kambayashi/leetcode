@@ -42,8 +42,39 @@ public class ABC249C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
+        final int k = sc.nextInt();
+        String[] ss = new String[n];
+        for (int i = 0; i < n; i++) {
+            ss[i] = sc.next();
+        }
 
-        System.out.println();
+        int ans = Integer.MIN_VALUE;
+
+        for (int bit = 0; bit < 1 << n; bit++) {
+
+            Map<Character, Integer> map = new HashMap<>();
+
+            for (int i = 0; i < n; i++) {
+                if ((bit & (1 << i)) >= 1) {
+                    for (char c : ss[i].toCharArray()) {
+                        map.put(c, map.getOrDefault(c, 0) + 1);
+                    }
+                }
+            }
+            if (map.size() == 0) {
+                continue;
+            }
+            int cnt = 0;
+
+            for (var v : map.values()) {
+                if (v == k) {
+                    cnt++;
+                }
+            }
+            ans = Math.max(ans, cnt);
+        }
+
+        System.out.println(ans);
     }
 //}
 
@@ -66,7 +97,7 @@ acg
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -83,7 +114,7 @@ b
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """
