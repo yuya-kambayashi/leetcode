@@ -37,13 +37,45 @@ public class ABC233C {
 //import java.util.*;
 //import java.util.stream.*;
 //public class Main {
+    static long n;
+    static long x;
+    static long ans;
+    static ArrayList<ArrayList<Long>> aa;
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final int n = sc.nextInt();
+        ans = 0;
+        n = sc.nextLong();
+        x = sc.nextLong();
 
-        System.out.println();
+        aa = new ArrayList<>();
+        for (long i = 0; i < n; i++) {
+            long l = sc.nextLong();
+            ArrayList<Long> list = new ArrayList<>();
+            for (long j = 0; j < l; j++) {
+                list.add(sc.nextLong());
+            }
+            aa.add(list);
+        }
+        dfs(0, 1);
+        System.out.println(ans);
+    }
+
+    static void dfs(int pos, long product) {
+        if (pos == n) {
+            if (product == x) {
+                ans++;
+            }
+            return;
+        }
+
+        for (long p : aa.get(pos)) {
+            if (product > x / p) {
+                continue;
+            }
+            dfs(pos + 1, product * p);
+        }
     }
 //}
 
@@ -64,7 +96,7 @@ public class ABC233C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -82,7 +114,7 @@ public class ABC233C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """

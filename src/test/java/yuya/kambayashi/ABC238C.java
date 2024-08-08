@@ -40,10 +40,18 @@ public class ABC238C {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        int mod = 998244353;
 
-        final int n = sc.nextInt();
+        long n = sc.nextLong();
+        long r = 9, t = 0, ans = 0;
+        while (n > 0) {
+            t = ((1 + Math.min(r, n)) % mod) * ((Math.min(r, n)) % mod) / 2;
+            ans += t;
+            n -= r;
+            r *= 10;
+        }
+        System.out.println(ans % mod);
 
-        System.out.println();
     }
 //}
 
@@ -62,7 +70,7 @@ public class ABC238C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -77,7 +85,7 @@ public class ABC238C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """

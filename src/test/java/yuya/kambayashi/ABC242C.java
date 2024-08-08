@@ -40,14 +40,39 @@ public class ABC242C {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        int mod = 998244353;
 
         final int n = sc.nextInt();
 
-        System.out.println();
+        long[][] dp = new long[n + 1][10];
+        for (int i = 1; i <= 9; i++) {
+            dp[1][i] = 1;
+        }
+        for (int i = 2; i <= n; i++) {
+            for (int j = 1; j <= 9; j++) {
+                if (j == 1) {
+                    dp[i][j] = dp[i - 1][j] + dp[i - 1][j + 1];
+                    dp[i][j] %= mod;
+                } else if (j == 9) {
+                    dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j];
+                    dp[i][j] %= mod;
+                } else {
+                    dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j] + dp[i - 1][j + 1];
+                    dp[i][j] %= mod;
+                }
+            }
+        }
+        long ans = 0;
+        for (int i = 1; i <= 9; i++) {
+            ans += dp[n][i];
+            ans %= mod;
+        }
+        System.out.println(ans);
+
     }
 //}
 
-    @Test
+    // @Test
     public void Case1() {
 
         String input = """
@@ -62,7 +87,7 @@ public class ABC242C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    //@Test
     public void Case2() {
 
         String input = """
@@ -77,7 +102,7 @@ public class ABC242C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """

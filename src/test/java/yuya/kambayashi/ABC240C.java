@@ -42,8 +42,31 @@ public class ABC240C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
+        final int x = sc.nextInt();
+        boolean[][] dp = new boolean[n + 1][x + 1];
+        dp[0][0] = true;
 
-        System.out.println();
+        for (int i = 1; i <= n; i++) {
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+
+            for (int j = 0; j <= x; j++) {
+                if (dp[i - 1][j]) {
+                    if (j + a <= x) {
+                        dp[i][j + a] = true;
+                    }
+                    if (j + b <= x) {
+                        dp[i][j + b] = true;
+                    }
+                }
+            }
+        }
+        String ret = "No";
+        if (dp[n][x]) {
+            ret = "Yes";
+        }
+        System.out.println(ret);
+
     }
 //}
 
@@ -64,7 +87,7 @@ public class ABC240C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -81,7 +104,7 @@ public class ABC240C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """

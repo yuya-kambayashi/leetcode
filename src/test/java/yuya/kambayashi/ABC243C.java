@@ -43,7 +43,56 @@ public class ABC243C {
 
         final int n = sc.nextInt();
 
-        System.out.println();
+        Map<Integer, List<Integer>> map = new HashMap<>();
+
+        int[] xx = new int[n];
+        int[] yy = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            xx[i] = sc.nextInt();
+            yy[i] = sc.nextInt();
+        }
+        final String s = sc.next();
+        for (int i = 0; i < n; i++) {
+            int x = xx[i];
+            int y = yy[i];
+            char c = s.charAt(i);
+            if (c == 'L') {
+                x *= -1;
+            }
+            if (map.containsKey(y)) {
+                var l = map.get(y);
+                l.add(x);
+                map.put(y, l);
+            } else {
+                List<Integer> l = new ArrayList<>();
+                l.add(x);
+                map.put(y, l);
+            }
+        }
+        for (var vv : map.values()) {
+            if (vv.size() < 2) {
+                continue;
+            }
+
+            int maxL = Integer.MIN_VALUE, minR = Integer.MAX_VALUE;
+            for (var i = 0; i < vv.size(); i++) {
+
+                int t = vv.get(i);
+                if (t < 0) {
+                    maxL = Math.max(maxL, -t);
+                } else {
+                    minR = Math.min(minR, t);
+                }
+                if (minR < maxL) {
+                    System.out.println("Yes");
+                    return;
+                }
+
+            }
+        }
+
+        System.out.println("No");
     }
 //}
 
@@ -66,7 +115,7 @@ RRL
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -84,7 +133,7 @@ RR
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """
