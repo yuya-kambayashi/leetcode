@@ -45,7 +45,7 @@ public class ABC238C {
         long n = sc.nextLong();
         long r = 9, t = 0, ans = 0;
         while (n > 0) {
-            t = ((1 + Math.min(r, n)) % mod) * ((Math.min(r, n)) % mod) / 2;
+            t = (((1 + Math.min(r, n)) % mod) * ((Math.min(r, n)) % mod) / 2) % mod;
             ans += t;
             n -= r;
             r *= 10;

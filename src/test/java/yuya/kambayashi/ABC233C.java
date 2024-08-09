@@ -40,23 +40,25 @@ public class ABC233C {
     static long n;
     static long x;
     static long ans;
-    static ArrayList<ArrayList<Long>> aa;
+    static List<List<Integer>> aaa;
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        ans = 0;
         n = sc.nextLong();
         x = sc.nextLong();
-
-        aa = new ArrayList<>();
-        for (long i = 0; i < n; i++) {
-            long l = sc.nextLong();
-            ArrayList<Long> list = new ArrayList<>();
-            for (long j = 0; j < l; j++) {
-                list.add(sc.nextLong());
+        ans = 0;
+        aaa = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            int l = sc.nextInt();
+            List<Integer> aa = new ArrayList<>();
+            for (int j = 0; j < l; j++) {
+                int a = sc.nextInt();
+                if (x % a == 0) {
+                    aa.add(a);
+                }
             }
-            aa.add(list);
+            aaa.add(aa);
         }
         dfs(0, 1);
         System.out.println(ans);
@@ -69,16 +71,15 @@ public class ABC233C {
             }
             return;
         }
-
-        for (long p : aa.get(pos)) {
-            if (product > x / p) {
-                continue;
+        for (var a : aaa.get(pos)) {
+            if (a * product <= x) {
+                dfs(pos + 1, a * product);
             }
-            dfs(pos + 1, product * p);
         }
-    }
-//}
 
+    }
+
+//}
     @Test
     public void Case1() {
 
