@@ -42,57 +42,62 @@ public class ABC366D {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
-        int[][][] aaa = new int[n][n][n];
-        int[][][] bbb = new int[n][n][n];
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                for (int k = 0; k < n; k++) {
+        int[][][] aaa = new int[n + 1][n + 1][n + 1];
+        int[][][] bbb = new int[n + 1][n + 1][n + 1];
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= n; j++) {
+                for (int k = 1; k <= n; k++) {
                     int t = sc.nextInt();
                     aaa[i][j][k] = t;
                     bbb[i][j][k] = t;
                 }
             }
         }
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                for (int k = 1; k < n; k++) {
-                    bbb[i][j][k] += bbb[i][j][k - 1];
-                }
-            }
-        }
 
         // 1,2,3
         // 1,3,6
-        int ap = 0;
-
         int q = sc.nextInt();
-        int[] lxx = new int[q];
-        int[] rxx = new int[q];
-        int[] lyy = new int[q];
-        int[] ryy = new int[q];
-        int[] lzz = new int[q];
-        int[] rzz = new int[q];
+        int[][] qq = new int[q][6];
         for (int i = 0; i < q; i++) {
-            lxx[i] = sc.nextInt() - 1;
-            rxx[i] = sc.nextInt() - 1;
-            lyy[i] = sc.nextInt() - 1;
-            ryy[i] = sc.nextInt() - 1;
-            lzz[i] = sc.nextInt() - 1;
-            rzz[i] = sc.nextInt() - 1;
+            for (int j = 0; j < 6; j++) {
+                qq[i][j] = sc.nextInt();
+            }
         }
-        for (int i = 0; i < q; i++) {
-            int lx = lxx[i];
-            int rx = rxx[i];
-            int ly = lyy[i];
-            int ry = ryy[i];
-            int lz = lzz[i];
-            int rz = rzz[i];
-            // 1,2,1 -> 2,2,1   / 0,1,0 -? 1,1,0
-            // 2,1,1 -> 2,2,2
-            int ans = bbb[lx][rx][ly];
-            int ans2 = bbb[lx][rx][ly];
 
-            System.out.println(ans);
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j <= n; j++) {
+                for (int k = 0; k <= n; k++) {
+                    aaa[i + 1][j][k] += aaa[i][j][k];
+                }
+            }
+        }
+        for (int i = 0; i <= n; i++) {
+            for (int j = 0; j < n; j++) {
+                for (int k = 0; k <= n; k++) {
+                    aaa[i][j + 1][k] += aaa[i][j][k];
+                }
+            }
+        }
+        for (int i = 0; i <= n; i++) {
+            for (int j = 0; j <= n; j++) {
+                for (int k = 0; k < n; k++) {
+                    aaa[i][j][k + 1] += aaa[i][j][k];
+                }
+            }
+        }
+        for (int i = 0; i < 1; i++) {
+            int lx = qq[i][0];
+            int rx = qq[i][1];
+            int ly = qq[i][2];
+            int ry = qq[i][3];
+            int lz = qq[i][4];
+            int rz = qq[i][5];
+
+            int t = aaa[rx][ry][rz] - aaa[rx][ry][lz - 1]
+                    - aaa[rx][ly - 1][rz] - aaa[rx][ly - 1][lz - 1]
+                    + aaa[lx - 1][ry][rz] + aaa[lx - 1][ry][lz - 1]
+                    + aaa[lx - 1][ly - 1][rz] - aaa[lx - 1][ly - 1][lz - 1];
+            System.out.println(t);
 
         }
     }

@@ -41,9 +41,16 @@ public class ABC227C {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final int n = sc.nextInt();
-
-        System.out.println();
+        final long n = sc.nextLong();
+        long ans = 0;
+        for (long a = 1; a * a * a <= n; a++) {
+            long bc = n / a;
+            for (long b = a; b * b * a <= n; b++) {
+                long c = bc / b;
+                ans += c - b + 1;
+            }
+        }
+        System.out.println(ans);
     }
 //}
 
@@ -62,7 +69,7 @@ public class ABC227C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -77,7 +84,7 @@ public class ABC227C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """

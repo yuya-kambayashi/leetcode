@@ -41,9 +41,32 @@ public class ABC230C {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final int n = sc.nextInt();
+        final long n = sc.nextLong();
+        final long a = sc.nextLong();
+        final long b = sc.nextLong();
+        final long p = sc.nextLong();
+        final long q = sc.nextLong();
+        final long r = sc.nextLong();
+        final long s = sc.nextLong();
 
-        System.out.println();
+        int row = (int) (q - p + 1);
+        int col = (int) (s - r + 1);
+
+        char[][] ans = new char[row][col];
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                long x = p + i;
+                long y = r + j;
+                if (Math.abs(x - a) == Math.abs(y - b)) {
+                    ans[i][j] = '#';
+                } else {
+                    ans[i][j] = '.';
+                }
+            }
+        }
+        for (int i = 0; i < row; i++) {
+            System.out.println(String.valueOf(ans[i]));
+        }
     }
 //}
 
@@ -67,7 +90,8 @@ public class ABC230C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
+
     public void Case2() {
 
         String input = """
