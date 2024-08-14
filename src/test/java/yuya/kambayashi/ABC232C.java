@@ -43,46 +43,35 @@ public class ABC232C {
 
         final int n = sc.nextInt();
         final int m = sc.nextInt();
-        int[][] gg1 = new int[n][n];
-        int[][] gg2 = new int[n][n];
+        int[][] grid1 = new int[n + 1][n + 1];
+        int[][] grid2 = new int[n + 1][n + 1];
+        for (int i = 1; i <= m; i++) {
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            grid1[a][b] = 1;
+            grid1[b][a] = 1;
+        }
+        for (int i = 1; i <= m; i++) {
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            grid2[a][b] = 1;
+            grid2[b][a] = 1;
+        }
 
-        for (int i = 0; i < m; i++) {
-            int a = sc.nextInt();
-            int b = sc.nextInt();
-            a--;
-            b--;
-            gg1[a][b] = 1;
-            gg1[b][a] = 1;
-        }
-        for (int i = 0; i < m; i++) {
-            int a = sc.nextInt();
-            int b = sc.nextInt();
-            a--;
-            b--;
-            gg2[a][b] = 1;
-            gg2[b][a] = 1;
-        }
         int[] seeds = new int[n];
         for (int i = 0; i < n; i++) {
-            seeds[i] = i;
+            seeds[i] = i + 1;
         }
         var perms = permutation(seeds);
+        // 頂点の順列を生成し、入力データが適合するかをチェックする
         for (var perm : perms) {
             boolean ok = true;
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < n; j++) {
-
-                    if (perm.get(0) == 2 && perm.get(1) == 1 && perm.get(2) == 0) {
-                        int a = 0;
-                    }
-
-                    if (gg1[i][j] != gg2[perm.get(i)][perm.get(j)]) {
+            for (int i = 1; i <= n; i++) {
+                for (int j = 1; j <= n; j++) {
+                    if (grid1[i][j] != grid2[perm.get(i - 1)][perm.get(j - 1)]) {
                         ok = false;
                         break;
                     }
-                }
-                if (!ok) {
-                    break;
                 }
             }
             if (ok) {

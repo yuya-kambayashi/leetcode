@@ -45,7 +45,8 @@ public class ABC227C {
         long ans = 0;
         for (long a = 1; a * a * a <= n; a++) {
             long bc = n / a;
-            for (long b = a; b * b * a <= n; b++) {
+
+            for (long b = a; a * b * b <= n; b++) {
                 long c = bc / b;
                 ans += c - b + 1;
             }

@@ -37,22 +37,16 @@ public class ABC226C {
 //import java.util.*;
 //import java.util.stream.*;
 //public class Main {
-    static long ans;
-    static boolean[] visited;
-    static List<List<Integer>> aaa = new ArrayList<>();
-    static int[] tt;
+    static List<List<Integer>> aaa;
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
-        ans = Long.MAX_VALUE;
-        tt = new int[n + 1];
+        int[] tt = new int[n];
         aaa = new ArrayList<>();
-        aaa.add(new ArrayList<>());
-        for (int i = 1; i <= n; i++) {
-            int t = sc.nextInt();
-            tt[i] = t;
+        for (int i = 0; i < n; i++) {
+            tt[i] = sc.nextInt();
             int k = sc.nextInt();
             List<Integer> aa = new ArrayList<>();
             for (int j = 0; j < k; j++) {
@@ -61,30 +55,25 @@ public class ABC226C {
             }
             aaa.add(aa);
         }
-        visited = new boolean[n + 1];
-
-        boolean[] needs = new boolean[n + 1];
-        dfs(n, needs);
+        boolean[] needs = new boolean[n];
+        dfs(n - 1, needs);
         long ans = 0;
-        for (int i = 1; i <= n; i++) {
+        for (int i = 0; i < n; i++) {
             if (needs[i]) {
                 ans += tt[i];
             }
         }
-
         System.out.println(ans);
     }
 
     static void dfs(int pos, boolean[] needs) {
-        if (needs[pos]) {
-            return;
-        }
-        needs[pos] = true;
+        if (!needs[pos]) {
+            needs[pos] = true;
 
-        for (var a : aaa.get(pos)) {
-            dfs(a, needs);
+            for (var a : aaa.get(pos)) {
+                dfs(a - 1, needs);
+            }
         }
-
     }
 //}
 
@@ -125,8 +114,8 @@ public class ABC226C {
         ABC226C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
-
     // @Test
+
     public void Case3() {
 
         String input = """
