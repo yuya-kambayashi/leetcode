@@ -41,9 +41,35 @@ public class ABC213C {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final int n = sc.nextInt();
+        final int h = sc.nextInt();
+        final int w = sc.nextInt();
+        final int n = sc.nextInt();;
+        int[] aa = new int[n];
+        int[] bb = new int[n];
+        TreeSet<Integer> rowSet = new TreeSet<Integer>();
+        TreeSet<Integer> colSet = new TreeSet<Integer>();
 
-        System.out.println();
+        for (int i = 0; i < n; i++) {
+            aa[i] = sc.nextInt();
+            bb[i] = sc.nextInt();
+            rowSet.add(aa[i]);
+            colSet.add(bb[i]);
+        }
+        HashMap<Integer, Integer> maph = new HashMap<>();
+        HashMap<Integer, Integer> mapw = new HashMap<>();
+        int j = 1;
+        for (int a : rowSet) {
+            maph.put(a, j);
+            j++;
+        }
+        j = 1;
+        for (int b : colSet) {
+            mapw.put(b, j);
+            j++;
+        }
+        for (int i = 0; i < n; i++) {
+            System.out.println(maph.get(aa[i]) + " " + mapw.get(bb[i]));
+        }
     }
 //}
 
@@ -65,7 +91,7 @@ public class ABC213C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """

@@ -42,10 +42,130 @@ public class ABC218C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
+        char[][] sss = new char[n][n];
+        char[][] ttt = new char[n][n];
+        int cntS = 0;
 
-        System.out.println();
+        for (int i = 0; i < n; i++) {
+            String t = sc.next();
+            sss[i] = t.toCharArray();
+            for (int j = 0; j < n; j++) {
+                if (t.charAt(j) == '#') {
+                    cntS++;
+                }
+            }
+        }
+        int cntT = 0;
+
+        for (int i = 0; i < n; i++) {
+            String t = sc.next();
+            ttt[i] = t.toCharArray();
+            for (int j = 0; j < n; j++) {
+                if (t.charAt(j) == '#') {
+                    cntT++;
+                }
+            }
+        }
+
+        for (int si = -n + 1; si < 2 * n; si++) {
+            for (int sj = -n + 1; sj < 2 * n; sj++) {
+                char[][] nnn = new char[n][n];
+                for (int i = 0; i < n; i++) {
+                    Arrays.fill(nnn[i], '.');
+                }
+
+                int cntN = 0;
+                for (int i = 0; i < n; i++) {
+                    for (int j = 0; j < n; j++) {
+                        int ni = i + si;
+                        int nj = j + sj;
+
+                        if (0 <= ni && ni < n && 0 <= nj && nj < n) {
+                            nnn[ni][nj] = sss[i][j];
+                            if (nnn[ni][nj] == '#') {
+                                cntN++;
+                            }
+                        }
+                    }
+                }
+                if (cntN != cntS || cntT != cntN) {
+                    continue;
+                }
+                if (deepEquals(nnn, ttt)) {
+                    System.out.println("Yes");
+                    return;
+                }
+                nnn = rotateMatrix90Degrees(nnn);
+                if (deepEquals(nnn, ttt)) {
+                    System.out.println("Yes");
+                    return;
+                }
+                nnn = rotateMatrix90Degrees(nnn);
+                if (deepEquals(nnn, ttt)) {
+                    System.out.println("Yes");
+                    return;
+                }
+                nnn = rotateMatrix90Degrees(nnn);
+                if (deepEquals(nnn, ttt)) {
+                    System.out.println("Yes");
+                    return;
+                }
+            }
+        }
+
+        System.out.println("No");
+    }
+
+    public static boolean deepEquals(char[][] aa, char[][] bb) {
+
+        if (aa.length != bb.length) {
+            return false;
+        }
+        for (int i = 0; i < aa.length; i++) {
+            for (int j = 0; j < aa[i].length; j++) {
+                if (aa[i][j] != bb[i][j]) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public static char[][] rotateMatrix90Degrees(char[][] matrix) {
+        int n = matrix.length;
+        int m = matrix[0].length;
+        char[][] rotatedMatrix = new char[m][n];
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                rotatedMatrix[j][n - 1 - i] = matrix[i][j];
+            }
+        }
+
+        return rotatedMatrix;
     }
 //}
+
+    @Test
+    public void Case0() {
+
+        String input = """
+                       3
+.##
+...
+...
+...
+...
+...
+                    """;
+
+        String expected = """
+                          Yes
+                          """;
+        Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
+        ABC218C.main(null);
+        Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
+    }
 
     @Test
     public void Case1() {
@@ -72,7 +192,7 @@ public class ABC218C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -97,7 +217,7 @@ public class ABC218C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """

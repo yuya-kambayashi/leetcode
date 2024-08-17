@@ -41,9 +41,44 @@ public class ABC211C {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final int n = sc.nextInt();
+        int mod = 1000000007;
+        String c = "chokudai";
 
-        System.out.println();
+        final String s = sc.next();
+        int n = s.length();
+        long[] dp = new long[c.length()];
+
+        for (int i = s.length() - 1; i >= 0; i--) {
+            switch (s.charAt(i)) {
+                case 'c':
+                    dp[0] = (dp[0] + dp[1]) % mod;
+                    break;
+                case 'h':
+                    dp[1] = (dp[1] + dp[2]) % mod;
+                    break;
+                case 'o':
+                    dp[2] = (dp[2] + dp[3]) % mod;
+                    break;
+                case 'k':
+                    dp[3] = (dp[3] + dp[4]) % mod;
+                    break;
+                case 'u':
+                    dp[4] = (dp[4] + dp[5]) % mod;
+                    break;
+                case 'd':
+                    dp[5] = (dp[5] + dp[6]) % mod;
+                    break;
+                case 'a':
+                    dp[6] = (dp[6] + dp[7]) % mod;
+                    break;
+                case 'i':
+                    dp[7]++;
+                    dp[7] %= mod;
+                    break;
+            }
+        }
+
+        System.out.println(dp[0]);
     }
 //}
 
@@ -62,7 +97,8 @@ public class ABC211C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
+
     public void Case2() {
 
         String input = """
@@ -77,7 +113,7 @@ public class ABC211C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """

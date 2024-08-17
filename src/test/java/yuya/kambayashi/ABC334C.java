@@ -17,7 +17,7 @@ import org.junit.jupiter.api.TestInstance;
  * @author kamba
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ABC201C {
+public class ABC334C {
 
     private StandardInputSnatcher in = new StandardInputSnatcher();
     private StandardOutputSnatcher out = new StandardOutputSnatcher();
@@ -41,34 +41,29 @@ public class ABC201C {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final String s = sc.next();
-        List<String> req = new ArrayList<>();
-        for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == 'o') {
-                req.add(String.valueOf(i));
+        final int n = sc.nextInt();
+        final int k = sc.nextInt();
+        int[] aa = new int[k];
+        for (int i = 0; i < k; i++) {
+            aa[i] = sc.nextInt();
+        }
+        int[] pre = new int[k + 1];
+        int[] suf = new int[k + 1];
+        for (int i = 1; i <= k; i++) {
+            pre[i] = pre[i - 1];
+            if (i % 2 == 0) {
+                pre[i] += aa[i - 1] - aa[i - 2];
             }
         }
-
-        int ans = 0;
-        for (int i = 0; i <= 9999; i++) {
-            String t = String.format("%04d", i);
-            boolean ok = true;
-            for (var c : t.toCharArray()) {
-                int n = (int) (c - '0');
-                if (s.charAt(n) == 'x') {
-                    ok = false;
-                    break;
-                }
+        for (int i = k - 1; i >= 0; i--) {
+            suf[i] = suf[i + 1];
+            if ((k - i) % 2 == 0) {
+                suf[i] += aa[i + 1] - aa[i];
             }
-            for (var c : req) {
-                if (!t.contains(c)) {
-                    ok = false;
-                    break;
-                }
-            }
-            if (ok) {
-                ans++;
-            }
+        }
+        int ans = Integer.MAX_VALUE;
+        for (int i = 0; i <= k; i += 2) {
+            ans = Math.min(ans, pre[i] + suf[i]);
         }
         System.out.println(ans);
     }
@@ -78,44 +73,47 @@ public class ABC201C {
     public void Case1() {
 
         String input = """
-                       ooo???xxxx
+                       4 2
+1 3
                     """;
 
         String expected = """
-                          108
+                          2
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC201C.main(null);
+        ABC334C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    @Test
+    //  @Test
     public void Case2() {
 
         String input = """
-                       o?oo?oxoxo
+                       5 1
+2
                     """;
 
         String expected = """
                           0
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC201C.main(null);
+        ABC334C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    @Test
+    // @Test
     public void Case3() {
 
         String input = """
-                       xxxxx?xxxo
+                       8 5
+1 2 4 7 8
                     """;
 
         String expected = """
-                          15
+                          2
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC201C.main(null);
+        ABC334C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
@@ -130,7 +128,7 @@ public class ABC201C {
                           
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC201C.main(null);
+        ABC334C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 }

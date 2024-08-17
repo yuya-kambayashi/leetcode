@@ -17,7 +17,7 @@ import org.junit.jupiter.api.TestInstance;
  * @author kamba
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ABC201C {
+public class ABC320C {
 
     private StandardInputSnatcher in = new StandardInputSnatcher();
     private StandardOutputSnatcher out = new StandardOutputSnatcher();
@@ -41,34 +41,26 @@ public class ABC201C {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final String s = sc.next();
-        List<String> req = new ArrayList<>();
-        for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == 'o') {
-                req.add(String.valueOf(i));
+        final int m = sc.nextInt();
+        String[] ss = new String[3];
+        ss[0] = sc.next();
+        ss[1] = sc.next();
+        ss[2] = sc.next();
+        int ans = Integer.MAX_VALUE;
+        for (int i = 0; i < 3 * m; i++) {
+            for (int j = 0; j < 3 * m; j++) {
+                for (int k = 0; k < 3 * m; k++) {
+                    if (i == j || i == k || j == k) {
+                        continue;
+                    }
+                    if (ss[0].charAt(i % m) == ss[1].charAt(j % m) && ss[0].charAt(i % m) == ss[2].charAt(k % m)) {
+                        ans = Math.min(ans, Math.max(Math.max(i, j), k));
+                    }
+                }
             }
         }
-
-        int ans = 0;
-        for (int i = 0; i <= 9999; i++) {
-            String t = String.format("%04d", i);
-            boolean ok = true;
-            for (var c : t.toCharArray()) {
-                int n = (int) (c - '0');
-                if (s.charAt(n) == 'x') {
-                    ok = false;
-                    break;
-                }
-            }
-            for (var c : req) {
-                if (!t.contains(c)) {
-                    ok = false;
-                    break;
-                }
-            }
-            if (ok) {
-                ans++;
-            }
+        if (ans == Integer.MAX_VALUE) {
+            ans = -1;
         }
         System.out.println(ans);
     }
@@ -78,14 +70,17 @@ public class ABC201C {
     public void Case1() {
 
         String input = """
-                       ooo???xxxx
+                       10
+1937458062
+8124690357
+2385760149
                     """;
 
         String expected = """
-                          108
+                          6
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC201C.main(null);
+        ABC320C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
@@ -93,14 +88,17 @@ public class ABC201C {
     public void Case2() {
 
         String input = """
-                       o?oo?oxoxo
+                       20
+01234567890123456789
+01234567890123456789
+01234567890123456789
                     """;
 
         String expected = """
-                          0
+                          20
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC201C.main(null);
+        ABC320C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
@@ -108,14 +106,17 @@ public class ABC201C {
     public void Case3() {
 
         String input = """
-                       xxxxx?xxxo
+                       5
+11111
+22222
+33333
                     """;
 
         String expected = """
-                          15
+                          -1
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC201C.main(null);
+        ABC320C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
@@ -130,7 +131,7 @@ public class ABC201C {
                           
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC201C.main(null);
+        ABC320C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 }

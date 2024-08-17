@@ -37,13 +37,45 @@ public class ABC204C {
 //import java.util.*;
 //import java.util.stream.*;
 //public class Main {
+    static List<List<Integer>> gg;
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
+        final int m = sc.nextInt();
+        gg = new ArrayList<>();
+        for (int i = 0; i <= n; i++) {
+            gg.add(new ArrayList<Integer>());
+        }
+        for (int i = 0; i < m; i++) {
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            gg.get(a).add(b);
+        }
 
-        System.out.println();
+        long ans = 0;
+        for (int i = 1; i <= n; i++) {
+            boolean[] visited = new boolean[n + 1];
+            dfs(i, visited);
+            for (int j = 1; j <= n; j++) {
+                if (visited[j]) {
+                    ans++;
+                }
+            }
+        }
+
+        System.out.println(ans);
+    }
+
+    static void dfs(int cur, boolean[] visited) {
+        if (!visited[cur]) {
+            visited[cur] = true;
+
+            for (var next : gg.get(cur)) {
+                dfs(next, visited);
+            }
+        }
     }
 //}
 
@@ -65,7 +97,7 @@ public class ABC204C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -80,7 +112,7 @@ public class ABC204C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """
