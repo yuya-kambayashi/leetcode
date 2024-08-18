@@ -47,48 +47,48 @@ public class ABC367C {
         for (int i = 0; i < n; i++) {
             rr[i] = sc.nextInt();
         }
+        List<List<Integer>> result = new ArrayList<>();
+        int[] num = new int[n];
+        generateCombinations(result, rr, num, 0, n, k);
 
-        List<int[]> sequences = generateSequences(n, k, rr);
-        if (sequences.isEmpty()) {
-            System.out.println();
-        } else {
-
-            for (var ss : sequences) {
-                StringBuilder sb = new StringBuilder();
-                for (var i : ss) {
-                    sb.append(i);
-                    sb.append(" ");
-                }
-                System.out.println(sb.toString());
+        for (var combi : result) {
+            for (var v : combi) {
+                System.out.print(v);
+                System.out.print(" ");
             }
+            System.out.println();
         }
 
     }
 
-    public static List<int[]> generateSequences(int N, int K, int[] rr) {
-        List<int[]> validSequences = new ArrayList<>();
-        int[] sequence = new int[N];
-
-        generate(N, K, 0, sequence, validSequences, rr);
-        return validSequences;
-    }
-
-    private static void generate(int N, int K, int index, int[] sequence, List<int[]> validSequences, int[] rr) {
-        if (index == N) {
-            if (Arrays.stream(sequence).sum() % K == 0) {
-                validSequences.add(sequence.clone());
+    static void generateCombinations(List<List<Integer>> result, int[] rr, int[] num, int index, int n, int k) {
+        if (index == n) {
+            if (check(num, k)) {
+                List<Integer> combi = new ArrayList<>(n);
+                for (int v : num) {
+                    combi.add(v);
+                }
+                result.add(combi);
             }
             return;
         }
 
         for (int i = 1; i <= rr[index]; i++) {
-            sequence[index] = i;
-            generate(N, K, index + 1, sequence, validSequences, rr);
+            num[index] = i;
+            generateCombinations(result, rr, num, index + 1, n, k);
         }
+    }
+
+    static boolean check(int[] num, int k) {
+        int sum = 0;
+        for (int v : num) {
+            sum += v;
+        }
+        return sum % k == 0;
     }
 //}
 
-//    @Test
+    @Test
     public void Case1() {
 
         String input = """
@@ -106,7 +106,7 @@ public class ABC367C {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -149,8 +149,8 @@ public class ABC367C {
         ABC367C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
-
     // @Test
+
     public void Case4() {
 
         String input = """

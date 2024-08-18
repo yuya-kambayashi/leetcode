@@ -40,36 +40,45 @@ public class ABC211C {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-
+        String s = sc.next();
         int mod = 1000000007;
         String c = "chokudai";
-
-        final String s = sc.next();
-        int n = s.length();
-        long[] dp = new long[c.length()];
+        int[] dp = new int[c.length()];
 
         for (int i = s.length() - 1; i >= 0; i--) {
             switch (s.charAt(i)) {
                 case 'c':
-                    dp[0] = (dp[0] + dp[1]) % mod;
+                    dp[0] = dp[0] + dp[1];
+                    dp[0] %= mod;
                     break;
                 case 'h':
-                    dp[1] = (dp[1] + dp[2]) % mod;
+                    dp[1] = dp[1] + dp[2];
+                    dp[1] %= mod;
                     break;
+
                 case 'o':
-                    dp[2] = (dp[2] + dp[3]) % mod;
+                    dp[2] = dp[2] + dp[3];
+                    dp[2] %= mod;
                     break;
+
                 case 'k':
-                    dp[3] = (dp[3] + dp[4]) % mod;
+                    dp[3] = dp[3] + dp[4];
+                    dp[3] %= mod;
                     break;
+
                 case 'u':
-                    dp[4] = (dp[4] + dp[5]) % mod;
+                    dp[4] = dp[4] + dp[5];
+                    dp[4] %= mod;
                     break;
+
                 case 'd':
-                    dp[5] = (dp[5] + dp[6]) % mod;
+                    dp[5] = dp[5] + dp[6];
+                    dp[5] %= mod;
                     break;
+
                 case 'a':
-                    dp[6] = (dp[6] + dp[7]) % mod;
+                    dp[6] = dp[6] + dp[7];
+                    dp[6] %= mod;
                     break;
                 case 'i':
                     dp[7]++;
@@ -77,8 +86,8 @@ public class ABC211C {
                     break;
             }
         }
-
         System.out.println(dp[0]);
+
     }
 //}
 

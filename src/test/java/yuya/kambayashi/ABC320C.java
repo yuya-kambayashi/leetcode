@@ -42,27 +42,28 @@ public class ABC320C {
         Scanner sc = new Scanner(System.in);
 
         final int m = sc.nextInt();
-        String[] ss = new String[3];
-        ss[0] = sc.next();
-        ss[1] = sc.next();
-        ss[2] = sc.next();
-        int ans = Integer.MAX_VALUE;
+        String s1 = sc.next();
+        String s2 = sc.next();
+        String s3 = sc.next();
+
+        int min = Integer.MAX_VALUE;
         for (int i = 0; i < 3 * m; i++) {
             for (int j = 0; j < 3 * m; j++) {
                 for (int k = 0; k < 3 * m; k++) {
                     if (i == j || i == k || j == k) {
                         continue;
                     }
-                    if (ss[0].charAt(i % m) == ss[1].charAt(j % m) && ss[0].charAt(i % m) == ss[2].charAt(k % m)) {
-                        ans = Math.min(ans, Math.max(Math.max(i, j), k));
+                    if (s1.charAt(i % m) == s2.charAt(j % m) && s1.charAt(i % m) == s3.charAt(k % m)) {
+                        int t = Math.max(i, Math.max(j, k));
+                        min = Math.min(min, t);
                     }
                 }
             }
         }
-        if (ans == Integer.MAX_VALUE) {
-            ans = -1;
+        if (min == Integer.MAX_VALUE) {
+            min = -1;
         }
-        System.out.println(ans);
+        System.out.println(min);
     }
 //}
 

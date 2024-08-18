@@ -47,15 +47,14 @@ public class ABC271C {
             aa.add(sc.nextInt());
         }
         Set<Integer> set = new HashSet<>(aa);
-
-        int ans = 0, readed = 0;
-        int i = 1;
+        int ans = 0, readed = 0, i = 1;
         while (true) {
             if (set.contains(i)) {
-                readed += 1;
+                readed++;
             } else {
                 readed += 2;
             }
+
             if (readed > n) {
                 break;
             }

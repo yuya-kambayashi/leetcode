@@ -48,28 +48,29 @@ public class ABC213C {
         int[] bb = new int[n];
         TreeSet<Integer> rowSet = new TreeSet<Integer>();
         TreeSet<Integer> colSet = new TreeSet<Integer>();
-
         for (int i = 0; i < n; i++) {
             aa[i] = sc.nextInt();
             bb[i] = sc.nextInt();
             rowSet.add(aa[i]);
             colSet.add(bb[i]);
         }
-        HashMap<Integer, Integer> maph = new HashMap<>();
-        HashMap<Integer, Integer> mapw = new HashMap<>();
+        HashMap<Integer, Integer> mapH = new HashMap<>();
+        HashMap<Integer, Integer> mapW = new HashMap<>();
+
         int j = 1;
         for (int a : rowSet) {
-            maph.put(a, j);
+            mapH.put(a, j);
             j++;
         }
         j = 1;
-        for (int b : colSet) {
-            mapw.put(b, j);
+        for (int a : colSet) {
+            mapW.put(a, j);
             j++;
         }
         for (int i = 0; i < n; i++) {
-            System.out.println(maph.get(aa[i]) + " " + mapw.get(bb[i]));
+            System.out.println(mapH.get(aa[i]) + " " + mapW.get(bb[i]));
         }
+
     }
 //}
 
