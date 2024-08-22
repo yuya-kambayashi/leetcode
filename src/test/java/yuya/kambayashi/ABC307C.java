@@ -41,84 +41,78 @@ public class ABC307C {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final int ha = sc.nextInt();
-        final int wa = sc.nextInt();
-        char[][] gga = new char[ha][wa];
-        for (int i = 0; i < ha; i++) {
+        int h = sc.nextInt();
+        int w = sc.nextInt();
+        char[][] cc = new char[h][w];
+        for (int i = 0; i < h; i++) {
             String s = sc.next();
-            gga[i] = s.toCharArray();
+            cc[i] = s.toCharArray();
         }
-        Sheet sa = new Sheet(ha, wa, gga);
+        Sheet sa = new Sheet(h, w, cc);
 
-        final int hb = sc.nextInt();
-        final int wb = sc.nextInt();
-        char[][] ggb = new char[hb][wb];
-        for (int i = 0; i < hb; i++) {
+        h = sc.nextInt();
+        w = sc.nextInt();
+        cc = new char[h][w];
+        for (int i = 0; i < h; i++) {
             String s = sc.next();
-            ggb[i] = s.toCharArray();
+            cc[i] = s.toCharArray();
         }
-        Sheet sb = new Sheet(hb, wb, ggb);
+        Sheet sb = new Sheet(h, w, cc);
 
-        final int hx = sc.nextInt();
-        final int wx = sc.nextInt();
-        char[][] ggx = new char[hx][wx];
-        for (int i = 0; i < hx; i++) {
+        h = sc.nextInt();
+        w = sc.nextInt();
+        cc = new char[h][w];
+        for (int i = 0; i < h; i++) {
             String s = sc.next();
-            ggx[i] = s.toCharArray();
+            cc[i] = s.toCharArray();
         }
-        Sheet sx = new Sheet(hx, wx, ggx);
+        Sheet sx = new Sheet(h, w, cc);
 
-        for (int ai = -sa.h; ai < sa.h + sx.h; ai++) {
-            for (int aj = -sa.w; aj < sa.w + sx.w; aj++) {
-                for (int bi = -sb.h; bi < sb.h + sx.h; bi++) {
-                    for (int bj = -sb.w; bj < sb.w + sx.w; bj++) {
-                        char[][] yy = new char[sx.h][sx.w];
-                        for (int i = 0; i < sx.h; i++) {
-                            Arrays.fill(yy[i], '.');
+        for (int i = -sa.h; i < sa.h + sx.h; i++) {
+            for (int j = -sa.w; j < sa.w + sx.w; j++) {
+                for (int k = -sb.h; k < sb.h + sx.h; k++) {
+                    for (int l = -sb.w; l < sb.w + sb.w; l++) {
+                        char[][] dd = new char[sx.h][sx.w];
+                        for (int p = 0; p < sx.h; p++) {
+                            Arrays.fill(dd[p], '.');
                         }
-                        boolean flg = true;
-                        for (int i = 0; i < sa.h; i++) {
-                            for (int j = 0; j < sa.w; j++) {
-                                int ni = i + ai;
-                                int nj = j + aj;
+                        boolean useAll = true;
+                        for (int p = 0; p < sa.h; p++) {
+                            for (int q = 0; q < sa.w; q++) {
+                                int ai = i + p;
+                                int aj = j + q;
+                                if (sa.cc[p][q] == '#') {
+                                    if (0 <= ai && ai < sx.h && 0 <= aj && aj < sx.w) {
 
-                                if (sa.cc[i][j] == '#') {
-                                    if (ni >= 0 && ni < sx.h && nj >= 0 && nj < sx.w) {
-                                        yy[ni][nj] = '#';
+                                        dd[ai][aj] = '#';
                                     } else {
-                                        flg = false;
+                                        useAll = false;
                                         break;
                                     }
                                 }
                             }
                         }
-                        if (!flg) {
+                        if (!useAll) {
                             continue;
                         }
-
-                        for (int i = 0; i < sb.h; i++) {
-                            for (int j = 0; j < sb.w; j++) {
-                                int ni = i + bi;
-                                int nj = j + bj;
-
-                                if (sb.cc[i][j] == '#') {
-                                    if (ni >= 0 && ni < sx.h && nj >= 0 && nj < sx.w) {
-                                        yy[ni][nj] = '#';
+                        for (int p = 0; p < sb.h; p++) {
+                            for (int q = 0; q < sb.w; q++) {
+                                int ai = k + p;
+                                int aj = l + q;
+                                if (sb.cc[p][q] == '#') {
+                                    if (0 <= ai && ai < sx.h && 0 <= aj && aj < sx.w) {
+                                        dd[ai][aj] = '#';
                                     } else {
-                                        flg = false;
+                                        useAll = false;
                                         break;
                                     }
                                 }
                             }
                         }
-                        if (!flg) {
+                        if (!useAll) {
                             continue;
                         }
-                        if (!Arrays.deepEquals(sx.cc, yy)) {
-                            flg = false;
-                        }
-
-                        if (flg) {
+                        if (Arrays.deepEquals(dd, sx.cc)) {
                             System.out.println("Yes");
                             return;
                         }
@@ -134,12 +128,12 @@ public class ABC307C {
         int h, w;
         char[][] cc;
 
-        Sheet(int h, int w, char[][] cc) {
+        public Sheet(int h, int w, char[][] cc) {
             this.h = h;
             this.w = w;
             this.cc = cc;
-
         }
+
     }
 //}
 
@@ -193,8 +187,8 @@ public class ABC307C {
         ABC307C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
-
     // @Test
+
     public void Case3() {
 
         String input = """

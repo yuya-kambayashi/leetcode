@@ -37,6 +37,7 @@ public class ABC230C {
 //import java.util.*;
 //import java.util.stream.*;
 //public class Main {
+    //https://atcoder.jp/contests/abc230/submissions/52228840
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -49,23 +50,18 @@ public class ABC230C {
         final long r = sc.nextLong();
         final long s = sc.nextLong();
 
-        int row = (int) (q - p + 1);
-        int col = (int) (s - r + 1);
-
-        char[][] ans = new char[row][col];
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < col; j++) {
-                long x = p + i;
-                long y = r + j;
-                if (Math.abs(x - a) == Math.abs(y - b)) {
-                    ans[i][j] = '#';
-                } else {
-                    ans[i][j] = '.';
+        for (long i = p; i <= q; i++) {
+            for (long j = r; j <= s; j++) {
+                boolean flg = false;
+                if (i - a + b == j) {
+                    flg = true;
                 }
+                if (b - i + a == j) {
+                    flg = true;
+                }
+                System.out.print(flg ? "#" : ".");
             }
-        }
-        for (int i = 0; i < row; i++) {
-            System.out.println(String.valueOf(ans[i]));
+            System.out.println();
         }
     }
 //}

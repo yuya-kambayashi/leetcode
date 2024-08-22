@@ -52,17 +52,19 @@ public class ABC248C {
             for (int j = 1; j <= m; j++) {
                 for (int p = 1; p <= k; p++) {
                     if (p - j >= 0) {
-                        dp[i][p] += dp[i - 1][p - j] % mod;
+                        dp[i][p] += dp[i - 1][p - j];
+                        dp[i][p] %= mod;
                     }
                 }
             }
         }
-        long ans = 0;
+        long res = 0;
         for (int i = 0; i <= k; i++) {
-            ans += dp[n][i];
-            ans %= mod;
+            res += dp[n][i];
+            res %= mod;
         }
-        System.out.println(ans);
+        System.out.println(res);
+
     }
 //}
 

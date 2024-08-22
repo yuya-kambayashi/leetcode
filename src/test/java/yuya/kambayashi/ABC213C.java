@@ -46,29 +46,32 @@ public class ABC213C {
         final int n = sc.nextInt();;
         int[] aa = new int[n];
         int[] bb = new int[n];
-        TreeSet<Integer> rowSet = new TreeSet<Integer>();
-        TreeSet<Integer> colSet = new TreeSet<Integer>();
+        TreeSet<Integer> setA = new TreeSet<>();
+        TreeSet<Integer> setB = new TreeSet<>();
+
         for (int i = 0; i < n; i++) {
             aa[i] = sc.nextInt();
             bb[i] = sc.nextInt();
-            rowSet.add(aa[i]);
-            colSet.add(bb[i]);
+            setA.add(aa[i]);
+            setB.add(bb[i]);
         }
-        HashMap<Integer, Integer> mapH = new HashMap<>();
-        HashMap<Integer, Integer> mapW = new HashMap<>();
+
+        HashMap<Integer, Integer> mapA = new HashMap<>();
+        HashMap<Integer, Integer> mapB = new HashMap<>();
 
         int j = 1;
-        for (int a : rowSet) {
-            mapH.put(a, j);
+        for (var a : setA) {
+            mapA.put(a, j);
             j++;
         }
         j = 1;
-        for (int a : colSet) {
-            mapW.put(a, j);
+        for (var b : setB) {
+            mapB.put(b, j);
             j++;
         }
+
         for (int i = 0; i < n; i++) {
-            System.out.println(mapH.get(aa[i]) + " " + mapW.get(bb[i]));
+            System.out.println(mapA.get(aa[i]) + " " + mapB.get(bb[i]));
         }
 
     }
