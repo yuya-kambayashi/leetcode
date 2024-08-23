@@ -49,6 +49,7 @@ public class ABC334C {
         }
         int[] pre = new int[k + 1];
         int[] suf = new int[k + 1];
+
         for (int i = 1; i <= k; i++) {
             pre[i] = pre[i - 1];
             if (i % 2 == 0) {
@@ -84,8 +85,8 @@ public class ABC334C {
         ABC334C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
-
     //  @Test
+
     public void Case2() {
 
         String input = """

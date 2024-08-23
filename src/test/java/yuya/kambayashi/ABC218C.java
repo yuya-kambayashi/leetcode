@@ -44,94 +44,42 @@ public class ABC218C {
         final int n = sc.nextInt();
         char[][] sss = new char[n][n];
         char[][] ttt = new char[n][n];
-        int cntS = 0;
-
         for (int i = 0; i < n; i++) {
-            String t = sc.next();
-            sss[i] = t.toCharArray();
-            for (int j = 0; j < n; j++) {
-                if (t.charAt(j) == '#') {
-                    cntS++;
-                }
-            }
+            String s = sc.next();
+            sss[i] = s.toCharArray();
         }
-        int cntT = 0;
-
         for (int i = 0; i < n; i++) {
-            String t = sc.next();
-            ttt[i] = t.toCharArray();
-            for (int j = 0; j < n; j++) {
-                if (t.charAt(j) == '#') {
-                    cntT++;
-                }
-            }
+            String s = sc.next();
+            ttt[i] = s.toCharArray();
         }
 
-        for (int si = -n + 1; si < 2 * n; si++) {
-            for (int sj = -n + 1; sj < 2 * n; sj++) {
-                char[][] nnn = new char[n][n];
-                for (int i = 0; i < n; i++) {
-                    Arrays.fill(nnn[i], '.');
-                }
-
-                int cntN = 0;
-                for (int i = 0; i < n; i++) {
-                    for (int j = 0; j < n; j++) {
-                        int ni = i + si;
-                        int nj = j + sj;
-
-                        if (0 <= ni && ni < n && 0 <= nj && nj < n) {
-                            nnn[ni][nj] = sss[i][j];
-                            if (nnn[ni][nj] == '#') {
-                                cntN++;
-                            }
-                        }
-                    }
-                }
-                if (cntN != cntS || cntT != cntN) {
-                    continue;
-                }
-                if (deepEquals(nnn, ttt)) {
-                    System.out.println("Yes");
-                    return;
-                }
-                nnn = rotateMatrix90Degrees(nnn);
-                if (deepEquals(nnn, ttt)) {
-                    System.out.println("Yes");
-                    return;
-                }
-                nnn = rotateMatrix90Degrees(nnn);
-                if (deepEquals(nnn, ttt)) {
-                    System.out.println("Yes");
-                    return;
-                }
-                nnn = rotateMatrix90Degrees(nnn);
-                if (deepEquals(nnn, ttt)) {
-                    System.out.println("Yes");
-                    return;
-                }
+        for (int i = 0; i < 4; i++) {
+            if (deepEquals(sss, ttt)) {
+                System.out.println("Yes");
+                return;
             }
-        }
+            sss = rotate(sss);
 
+        }
         System.out.println("No");
     }
 
-    public static boolean deepEquals(char[][] aa, char[][] bb) {
+    public static boolean deepEquals(char[][] c, char[][] d) {
+        int n = c.length;
+        boolean res = true;
 
-        if (aa.length != bb.length) {
-            return false;
-        }
-        for (int i = 0; i < aa.length; i++) {
-            for (int j = 0; j < aa[i].length; j++) {
-                if (aa[i][j] != bb[i][j]) {
-                    return false;
-                }
+        c = normalize(c);
+        d = normalize(d);
+        for (int i = 0; i < n; i++) {
+            if (!Arrays.equals(c[i], d[i])) {
+                return false;
             }
         }
+
         return true;
     }
 
-    public static char[][] rotateMatrix90Degrees(char[][] matrix) {
+    static char[][] rotate(char[][] matrix) {
         int n = matrix.length;
         int m = matrix[0].length;
         char[][] rotatedMatrix = new char[m][n];
@@ -144,8 +92,36 @@ public class ABC218C {
 
         return rotatedMatrix;
     }
-//}
 
+    static char[][] normalize(char[][] aaa) {
+
+        int n = aaa.length;
+
+        int minr = n, minc = n;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (aaa[i][j] == '#') {
+                    minr = Math.min(minr, i);
+                    minc = Math.min(minc, j);
+                }
+            }
+        }
+        char[][] nnn = new char[n][n];
+        for (int i = 0; i < n; i++) {
+            Arrays.fill(nnn[i], '.');
+        }
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (aaa[i][j] == '#') {
+                    nnn[i - minr][j - minc] = '#';
+                }
+            }
+        }
+        return nnn;
+    }
+
+//}
     @Test
     public void Case0() {
 
@@ -154,8 +130,8 @@ public class ABC218C {
 .##
 ...
 ...
-...
-...
+#..
+#..
 ...
                     """;
 
@@ -239,8 +215,8 @@ public class ABC218C {
         ABC218C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
-
     // @Test
+
     public void Case4() {
 
         String input = """

@@ -41,26 +41,26 @@ public class ABC311C {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
-        int[] a = new int[n + 1];
+        int[] aa = new int[n + 1];
         for (int i = 1; i <= n; i++) {
-            a[i] = sc.nextInt();
+            aa[i] = sc.nextInt();
         }
-        int[] b = new int[n + 1];
+        int[] bb = new int[n + 1];
         int index = 1;
         int findLastNum = 1;
-        while (b[index] == 0) {
-            b[index] = findLastNum;
+        while (bb[index] == 0) {
+            bb[index] = findLastNum;
             findLastNum++;
-            index = a[index];
+            index = aa[index];
         }
-        int M = findLastNum - b[index];
-//		System.out.println(findLastNum);
-//		System.out.println(b[index]);
-        System.out.println(M);
-        for (int m = 0; m < M; m++) {
-            System.out.print(index + " ");
-            index = a[index];
+        int m = findLastNum - bb[index];
+        System.out.println(m);
+        for (int i = 0; i < m; i++) {
+            System.out.print(index);
+            System.out.print(" ");
+            index = aa[index];
         }
+        System.out.println();
 
     }
 //}
@@ -74,8 +74,8 @@ public class ABC311C {
                     """;
 
         String expected = """
-                          4
-7 5 3 2
+                          3
+1 6 4
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC311C.main(null);

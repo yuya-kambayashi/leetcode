@@ -36,13 +36,13 @@ public class ABC347C {
 
 //import java.util.*;
 //public class Main {
+    // https://atcoder.jp/contests/abc347/submissions/56482717
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
         final int a = sc.nextInt();
         final int b = sc.nextInt();
-
         int week = a + b;
         List<Integer> dd = new ArrayList<>();
         for (int i = 0; i < n; i++) {
@@ -52,11 +52,8 @@ public class ABC347C {
         for (int i = 0; i < n; i++) {
             dd.add(dd.get(i) + week);
         }
-
-        for (int i = 0; i < n; i++) {
-            int left = dd.get(i);
-            int right = dd.get(i + n - 1);
-            if (right - left + 1 <= a) {
+        for (int i = 0; i < dd.size() - 1; i++) {
+            if (dd.get(i + 1) - dd.get(i) >= b + 1) {
                 System.out.println("Yes");
                 return;
             }

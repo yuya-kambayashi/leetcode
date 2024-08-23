@@ -53,16 +53,17 @@ public class ABC230C {
         for (long i = p; i <= q; i++) {
             for (long j = r; j <= s; j++) {
                 boolean flg = false;
-                if (i - a + b == j) {
+                if ((i - a) + b == j) {
                     flg = true;
                 }
-                if (b - i + a == j) {
+                if (b - (i - a) == j) {
                     flg = true;
                 }
                 System.out.print(flg ? "#" : ".");
             }
             System.out.println();
         }
+
     }
 //}
 
