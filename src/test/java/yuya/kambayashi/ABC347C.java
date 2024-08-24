@@ -52,8 +52,9 @@ public class ABC347C {
         for (int i = 0; i < n; i++) {
             dd.add(dd.get(i) + week);
         }
-        for (int i = 0; i < dd.size() - 1; i++) {
-            if (dd.get(i + 1) - dd.get(i) >= b + 1) {
+
+        for (int i = 0; i < 2 * n - 1; i++) {
+            if (dd.get(i + 1) - dd.get(i) > b) {
                 System.out.println("Yes");
                 return;
             }

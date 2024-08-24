@@ -52,73 +52,66 @@ public class ABC218C {
             String s = sc.next();
             ttt[i] = s.toCharArray();
         }
-
         for (int i = 0; i < 4; i++) {
-            if (deepEquals(sss, ttt)) {
+
+            if (deepEqual(sss, ttt)) {
                 System.out.println("Yes");
                 return;
             }
             sss = rotate(sss);
-
         }
         System.out.println("No");
     }
 
-    public static boolean deepEquals(char[][] c, char[][] d) {
-        int n = c.length;
-        boolean res = true;
+    static boolean deepEqual(char[][] a, char[][] b) {
 
-        c = normalize(c);
-        d = normalize(d);
-        for (int i = 0; i < n; i++) {
-            if (!Arrays.equals(c[i], d[i])) {
-                return false;
+        char[][] c = normalize(a);
+        char[][] d = normalize(b);
+
+        for (int i = 0; i < a.length; i++) {
+            for (int j = 0; j < a[0].length; j++) {
+                if (c[i][j] != d[i][j]) {
+                    return false;
+                }
             }
         }
-
         return true;
     }
 
-    static char[][] rotate(char[][] matrix) {
-        int n = matrix.length;
-        int m = matrix[0].length;
-        char[][] rotatedMatrix = new char[m][n];
-
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                rotatedMatrix[j][n - 1 - i] = matrix[i][j];
-            }
-        }
-
-        return rotatedMatrix;
-    }
-
-    static char[][] normalize(char[][] aaa) {
-
-        int n = aaa.length;
-
-        int minr = n, minc = n;
-
+    static char[][] normalize(char[][] a) {
+        int n = a.length;
+        int minr = a.length, minc = a.length;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                if (aaa[i][j] == '#') {
+                if (a[i][j] == '#') {
                     minr = Math.min(minr, i);
                     minc = Math.min(minc, j);
                 }
             }
         }
-        char[][] nnn = new char[n][n];
+        char[][] b = new char[a.length][a[0].length];
         for (int i = 0; i < n; i++) {
-            Arrays.fill(nnn[i], '.');
+            Arrays.fill(b[i], '.');
         }
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                if (aaa[i][j] == '#') {
-                    nnn[i - minr][j - minc] = '#';
+                if (a[i][j] == '#') {
+                    b[i - minr][j - minc] = '#';
                 }
             }
         }
-        return nnn;
+        return b;
+    }
+
+    static char[][] rotate(char[][] a) {
+        int n = a.length;
+        char[][] b = new char[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                b[j][n - 1 - i] = a[i][j];
+            }
+        }
+        return b;
     }
 
 //}
