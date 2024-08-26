@@ -42,6 +42,20 @@ public class ABC368A {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
+        final int k = sc.nextInt();
+        int[] aa = new int[n];
+        for (int i = 0; i < n; i++) {
+            aa[i] = sc.nextInt();
+        }
+        for (int i = n - k; i < n; i++) {
+            System.out.print(aa[i]);
+            System.out.print(" ");
+        }
+        for (int i = 0; i < n - k; i++) {
+            System.out.print(aa[i]);
+            System.out.print(" ");
+
+        }
 
         System.out.println();
     }
@@ -51,26 +65,28 @@ public class ABC368A {
     public void Case1() {
 
         String input = """
-                       
+                       5 3
+                       1 2 3 4 5
                     """;
 
         String expected = """
-                          
+                          3 4 5 1 2
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC368A.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
-                       
+                       6 2
+                       1 2 1 2 1 2
                     """;
 
         String expected = """
-                          
+                          1 2 1 2 1 2
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC368A.main(null);

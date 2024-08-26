@@ -42,8 +42,25 @@ public class ABC368C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
-
-        System.out.println();
+        int[] hh = new int[n];
+        for (int i = 0; i < n; i++) {
+            hh[i] = sc.nextInt();
+        }
+        long t = 0;
+        for (int h : hh) {
+            int num = h / 5;
+            t += num * 3;
+            h -= num * 5;
+            while (h > 0) {
+                t += 1;
+                if (t % 3 == 0) {
+                    h -= 3;
+                } else {
+                    h -= 1;
+                }
+            }
+        }
+        System.out.println(t);
     }
 //}
 
@@ -51,41 +68,44 @@ public class ABC368C {
     public void Case1() {
 
         String input = """
-                       
+                       3
+                       6 2 2
                     """;
 
         String expected = """
-                          
+                          8
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC368C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
-                       
+                       9
+                       1 12 123 1234 12345 123456 1234567 12345678 123456789
                     """;
 
         String expected = """
-                          
+                          82304529
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC368C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """
-                       
+                       5
+                       1000000000 1000000000 1000000000 1000000000 1000000000
                     """;
 
         String expected = """
-                          
+                          3000000000
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC368C.main(null);

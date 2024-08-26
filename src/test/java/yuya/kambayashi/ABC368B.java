@@ -42,50 +42,66 @@ public class ABC368B {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
+        Integer[] aa = new Integer[n];
+        for (int i = 0; i < n; i++) {
+            aa[i] = sc.nextInt();
+        }
+        Arrays.sort(aa, Collections.reverseOrder());  // 降順にソート
+        int operations = 0;
 
-        System.out.println();
+        while (aa[1] > 0) {  // 2番目の要素が正の間繰り返す
+            aa[0]--;
+            aa[1]--;
+            operations++;
+
+            Arrays.sort(aa, Collections.reverseOrder());  // 再び降順にソート
+        }
+        System.out.println(operations);
     }
 //}
 
-    @Test
+    //@Test
     public void Case1() {
 
         String input = """
-                       
+                       4
+                       1 2 3 3
                     """;
 
         String expected = """
-                          
+                          4
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC368B.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
-                       
+                       3
+                       1 1 100
                     """;
 
         String expected = """
-                          
+                          2
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC368B.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """
-                       
+                       4
+                       3 3 3 3
                     """;
 
         String expected = """
-                          
+                          6
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC368B.main(null);
