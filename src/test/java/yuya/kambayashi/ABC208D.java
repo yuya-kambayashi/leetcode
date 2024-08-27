@@ -38,12 +38,43 @@ public class ABC208D {
 //import java.util.stream.*;
 //public class Main {
 
+    // https://atcoder.jp/contests/abc208/submissions/55611135
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
+        final int m = sc.nextInt();
+        long[][] d = new long[n][n];
+        final int INF = (int) 1e9;
+        for (int i = 0; i < n; i++) {
+            Arrays.fill(d[i], INF);
+        }
+        for (int i = 0; i < m; i++) {
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            int c = sc.nextInt();
+            a--;
+            b--;
+            d[a][b] = c;
+        }
+        for (int i = 0; i < n; i++) {
+            d[i][i] = 0;
+        }
+        long ans = 0;
+        for (int k = 0; k < n; k++) {
+            long[][] next = new long[n][n];
 
-        System.out.println();
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    next[i][j] = Math.min(d[i][j], d[i][k] + d[k][j]);
+                    if (next[i][j] < INF) {
+                        ans += next[i][j];
+                    }
+                }
+            }
+            d = next;
+        }
+        System.out.println(ans);
     }
 //}
 
@@ -113,7 +144,7 @@ public class ABC208D {
         ABC208D.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
-    
+
     // @Test
     public void Case4() {
 

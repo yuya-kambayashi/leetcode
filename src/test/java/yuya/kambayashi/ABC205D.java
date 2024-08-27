@@ -37,13 +37,48 @@ public class ABC205D {
 //import java.util.*;
 //import java.util.stream.*;
 //public class Main {
+    // https://atcoder.jp/contests/abc205/submissions/54710193
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
+        final int q = sc.nextInt();
+        long[] as = new long[n];
+        for (int i = 0; i < n; i++) {
+            as[i] = sc.nextLong();
+        }
+        long[] sums = new long[n];
+        sums[0] = as[0] - 1;
+        for (int i = 0; i < n - 1; i++) {
+            long a = as[i];
+            long next_a = as[i + 1];
+            sums[i + 1] = next_a - a - 1 + sums[i];
+        }
 
-        System.out.println();
+        for (int i = 0; i < q; i++) {
+            long k = sc.nextLong();
+            if (k > sums[n - 1]) {
+                System.out.println(as[n - 1] + k - sums[n - 1]);
+                continue;
+            } else if (k <= sums[0]) {
+                System.out.println(k);
+                continue;
+            }
+
+            int left = 0, right = n - 1, middle = 0;
+            while (right - left > 1) {
+                middle = (left + right) / 2;
+                if (k <= sums[middle]) {
+                    right = middle;
+                } else {
+                    left = middle;
+                }
+            }
+            long ans = as[left] + (k - sums[left]);
+            System.out.println(ans);
+            continue;
+        }
     }
 //}
 
@@ -68,7 +103,7 @@ public class ABC205D {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -87,7 +122,7 @@ public class ABC205D {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    //@Test
     public void Case3() {
 
         String input = """
@@ -101,7 +136,7 @@ public class ABC205D {
         ABC205D.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
-    
+
     // @Test
     public void Case4() {
 
