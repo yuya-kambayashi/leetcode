@@ -17,7 +17,7 @@ import org.junit.jupiter.api.TestInstance;
  * @author kamba
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ABC210D {
+public class ABC288D {
 
     private StandardInputSnatcher in = new StandardInputSnatcher();
     private StandardOutputSnatcher out = new StandardOutputSnatcher();
@@ -38,60 +38,12 @@ public class ABC210D {
 //import java.util.stream.*;
 //public class Main {
 
-    // https://atcoder.jp/contests/abc210/submissions/56339842
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final int h = sc.nextInt();
-        final int w = sc.nextInt();
-        final long c = sc.nextLong();
+        final int n = sc.nextInt();
 
-        long[][] aa = new long[h][w];
-        for (int i = 0; i < h; i++) {
-            for (int j = 0; j < w; j++) {
-                aa[i][j] = sc.nextLong();
-            }
-        }
-
-        long result = solve(h, w, c, aa);
-
-        System.out.println(result);
-    }
-
-    static long solve(int h, int w, long c, long[][] aa) {
-
-        long ans = Long.MAX_VALUE;
-        long[][] dp = new long[h][w];
-
-        for (int i = 0; i < h; i++) {
-            for (int j = 0; j < w; j++) {
-                dp[i][j] = aa[i][j];
-                if (i > 0) {
-                    ans = Math.min(ans, aa[i][j] + dp[i - 1][j] + c);
-                    dp[i][j] = Math.min(dp[i][j], dp[i - 1][j] + c);
-                }
-                if (j > 0) {
-                    ans = Math.min(ans, aa[i][j] + dp[i][j - 1] + c);
-                    dp[i][j] = Math.min(dp[i][j], dp[i][j - 1] + c);
-                }
-            }
-        }
-        dp = new long[h][w];
-        for (int i = 0; i < h; i++) {
-            for (int j = w - 1; j >= 0; j--) {
-                dp[i][j] = aa[i][j];
-                if (i > 0) {
-                    ans = Math.min(ans, aa[i][j] + dp[i - 1][j] + c);
-                    dp[i][j] = Math.min(dp[i][j], dp[i - 1][j] + c);
-                }
-                if (j < w - 1) {
-                    ans = Math.min(ans, aa[i][j] + dp[i][j + 1] + c);
-                    dp[i][j] = Math.min(dp[i][j], dp[i][j + 1] + c);
-                }
-            }
-        }
-
-        return ans;
+        System.out.println();
     }
 //}
 
@@ -99,17 +51,19 @@ public class ABC210D {
     public void Case1() {
 
         String input = """
-                       3 4 2
-1 7 7 9
-9 6 3 7
-7 8 6 4
+                       7 3
+3 -1 1 -2 2 0 5
+2
+1 6
+2 7
                     """;
 
         String expected = """
-                          10
+                          Yes
+No
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC210D.main(null);
+        ABC288D.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
@@ -117,17 +71,25 @@ public class ABC210D {
     public void Case2() {
 
         String input = """
-                       3 3 1000000000
-1000000 1000000 1
-1000000 1000000 1000000
-1 1000000 1000000
+                       20 4
+-19 -66 -99 16 18 33 32 28 26 11 12 0 -16 4 21 21 37 17 55 -19
+5
+13 16
+4 11
+3 12
+13 18
+4 10
                     """;
 
         String expected = """
-                          1001000001
+                          No
+Yes
+No
+Yes
+No
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC210D.main(null);
+        ABC288D.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
@@ -142,10 +104,10 @@ public class ABC210D {
                           
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC210D.main(null);
+        ABC288D.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
-
+    
     // @Test
     public void Case4() {
 
@@ -157,7 +119,7 @@ public class ABC210D {
                           
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC210D.main(null);
+        ABC288D.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 }
