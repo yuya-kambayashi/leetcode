@@ -38,12 +38,88 @@ public class ABC214D {
 //import java.util.stream.*;
 //public class Main {
 
+    // https://atcoder.jp/contests/abc214/submissions/49650808
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
+        long ans = 0;
 
-        System.out.println();
+        UnionFind uf = new UnionFind(n);
+        Line[] l = new Line[n - 1];
+        for (int i = 0; i < n - 1; i++) {
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            int c = sc.nextInt();
+            l[i] = new Line(a, b, c);
+        }
+        Arrays.sort(l);
+
+        for (int i = 0; i < n - 1; i++) {
+            long add = uf.unite(l[i].a, l[i].b);
+            ans += add * (long) l[i].val;
+        }
+        System.out.print(ans);
+    }
+
+    static class UnionFind {
+
+        private int[] root;
+        private int[] size;
+
+        public UnionFind(int n) {
+            this.root = new int[n + 1];
+            this.size = new int[n + 1];
+            for (int i = 1; i < n + 1; i++) {
+                root[i] = i;
+                size[i] = 1;
+            }
+        }
+
+        public long unite(int x, int y) {
+            x = getRoot(x);
+            y = getRoot(y);
+            long retNum = (long) size[x] * (long) size[y];
+            this.size[x] += this.size[y];
+            this.size[y] = 0;
+            this.root[y] = this.root[x];
+            return retNum;
+        }
+
+        public int getRoot(int x) {
+            if (x == this.root[x]) {
+                return x;
+            } else {
+                return this.root[x] = getRoot(this.root[x]);
+            }
+        }
+
+        public void rootPlus(int x, int y) {
+            this.root[x] = y;
+            this.size[y]++;
+        }
+
+        public boolean same(int x, int y) {
+            x = getRoot(x);
+            y = getRoot(y);
+            return x == y;
+        }
+    }
+
+    public static class Line implements Comparable<Line> {
+
+        int a, b, val;
+
+        public Line(int u, int v, int w) {
+            this.a = u;
+            this.b = v;
+            this.val = w;
+        }
+
+        @Override
+        public int compareTo(Line other) {
+            return Integer.compare(this.val, other.val);
+        }
     }
 //}
 
@@ -64,7 +140,7 @@ public class ABC214D {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -97,7 +173,7 @@ public class ABC214D {
         ABC214D.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
-    
+
     // @Test
     public void Case4() {
 

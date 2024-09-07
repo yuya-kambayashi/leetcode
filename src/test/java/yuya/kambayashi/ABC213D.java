@@ -38,12 +38,51 @@ public class ABC213D {
 //import java.util.stream.*;
 //public class Main {
 
+    static List<List<Integer>> ggg;
+    static boolean[] visited;
+    static int n;
+    static StringBuilder sb;
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final int n = sc.nextInt();
+        n = sc.nextInt();
 
-        System.out.println();
+        ggg = new ArrayList<>();
+        visited = new boolean[n];
+        sb = new StringBuilder();
+        for (int i = 0; i < n; i++) {
+            ggg.add(new ArrayList<>());
+        }
+        for (int i = 0; i < n - 1; i++) {
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            a--;
+            b--;
+            ggg.get(a).add(b);
+            ggg.get(b).add(a);
+        }
+        for (int i = 0; i < n; i++) {
+            Collections.sort(ggg.get(i));
+        }
+        dfs(0);
+
+        System.out.println(sb.toString());
+    }
+
+    static void dfs(int cur) {
+        sb.append(cur + 1);
+        sb.append(" ");
+
+        visited[cur] = true;
+
+        for (var next : ggg.get(cur)) {
+            if (!visited[next]) {
+                dfs(next);
+                sb.append(cur + 1);
+                sb.append(" ");
+            }
+        }
     }
 //}
 
@@ -65,7 +104,7 @@ public class ABC213D {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -98,7 +137,7 @@ public class ABC213D {
         ABC213D.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
-    
+
     // @Test
     public void Case4() {
 
