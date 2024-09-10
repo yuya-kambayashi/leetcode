@@ -41,9 +41,30 @@ public class ABC244D {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final int n = sc.nextInt();
+        final String s1 = sc.next();
+        final String s2 = sc.next();
+        final String s3 = sc.next();
+        final String t1 = sc.next();
+        final String t2 = sc.next();
+        final String t3 = sc.next();
 
-        System.out.println();
+        int diff = 0;
+        if (!s1.equals(t1)) {
+            diff++;
+        }
+        if (!s2.equals(t2)) {
+            diff++;
+        }
+        if (!s3.equals(t3)) {
+            diff++;
+        }
+
+        if (diff == 0 || diff == 3) {
+            System.out.println("Yes");
+
+        } else {
+            System.out.println("No");
+        }
     }
 //}
 
@@ -67,11 +88,12 @@ R G B
     public void Case2() {
 
         String input = """
-                       
+                       B G R
+                       B R G
                     """;
 
         String expected = """
-                          
+                          No
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC244D.main(null);
@@ -92,7 +114,7 @@ R G B
         ABC244D.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
-    
+
     // @Test
     public void Case4() {
 

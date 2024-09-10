@@ -41,9 +41,21 @@ public class ABC370A {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final int n = sc.nextInt();
+        final int L = sc.nextInt();
+        final int R = sc.nextInt();
 
-        System.out.println();
+        String ret = "";
+        if (L == 1 && R == 1) {
+            ret = "Invalid";
+        } else if (L == 0 && R == 0) {
+            ret = "Invalid";
+        } else if (L == 1 && R == 0) {
+            ret = "Yes";
+        } else if (L == 0 && R == 1) {
+            ret = "No";
+        }
+
+        System.out.println(ret);
     }
 //}
 
@@ -51,26 +63,26 @@ public class ABC370A {
     public void Case1() {
 
         String input = """
-                       
+                       1 0
                     """;
 
         String expected = """
-                          
+                          Yes
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC370A.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
-                       
+                       1 1
                     """;
 
         String expected = """
-                          
+                          Invalid
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC370A.main(null);

@@ -41,13 +41,39 @@ public class ABC239D {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final int n = sc.nextInt();
+        final int a = sc.nextInt();
+        final int b = sc.nextInt();
+        final int c = sc.nextInt();
+        final int d = sc.nextInt();
 
-        System.out.println();
+        List<Integer> ll = new ArrayList<>();
+        for (int i = a; i <= b; i++) {
+            boolean canPrime = false;
+            for (int j = c; j <= d; j++) {
+                if (isPrime(i + j)) {
+                    canPrime = true;
+                    break;
+                }
+            }
+            if (!canPrime) {
+                System.out.println("Takahashi");
+                return;
+            }
+        }
+        System.out.println("Aoki");
+    }
+
+    static boolean isPrime(int n) {
+        for (int i = 2; i * i <= n; i++) {
+            if (n % i == 0) {
+                return false;
+            }
+        }
+        return true;
     }
 //}
 
-    @Test
+    // @Test
     public void Case1() {
 
         String input = """
@@ -62,7 +88,7 @@ public class ABC239D {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -91,7 +117,7 @@ public class ABC239D {
         ABC239D.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
-    
+
     // @Test
     public void Case4() {
 
