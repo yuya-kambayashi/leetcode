@@ -38,12 +38,32 @@ public class ABC297D {
 //import java.util.stream.*;
 //public class Main {
 
+    // calc
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final int n = sc.nextInt();
+        long a = sc.nextLong();
+        long b = sc.nextLong();
 
-        System.out.println();
+        long cnt = 0;
+        while (a != b) {
+            if (a < b) {
+                long c = a;
+                a = b;
+                b = c;
+            }
+            long p = a / b;
+            long q = (a - 1) / b;
+            long r = a % b;
+            if (r == 0) {
+                a -= q * b;
+                cnt += q;
+            } else {
+                a -= p * b;
+                cnt += p;
+            }
+        }
+        System.out.println(cnt);
     }
 //}
 
@@ -62,7 +82,7 @@ public class ABC297D {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -77,7 +97,7 @@ public class ABC297D {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """
@@ -91,7 +111,7 @@ public class ABC297D {
         ABC297D.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
-    
+
     // @Test
     public void Case4() {
 

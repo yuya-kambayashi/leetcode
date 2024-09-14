@@ -42,8 +42,25 @@ public class ABC294D {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
-
-        System.out.println();
+        final int q = sc.nextInt();
+        Deque<Integer> que = new ArrayDeque<>();
+        for (int i = 1; i <= n; i++) {
+            que.add(i);
+        }
+        Set<Integer> called = new TreeSet<>();
+        for (int i = 0; i < q; i++) {
+            int t = sc.nextInt();
+            if (t == 1) {
+                int p = que.poll();
+                called.add(p);
+            } else if (t == 2) {
+                int x = sc.nextInt();
+                called.remove(x);
+            } else {
+                int p = called.iterator().next();
+                System.out.println(p);
+            }
+        }
     }
 //}
 
@@ -74,7 +91,7 @@ public class ABC294D {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    //@Test
     public void Case2() {
 
         String input = """
@@ -89,7 +106,7 @@ public class ABC294D {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    //@Test
     public void Case3() {
 
         String input = """
@@ -103,7 +120,7 @@ public class ABC294D {
         ABC294D.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
-    
+
     // @Test
     public void Case4() {
 

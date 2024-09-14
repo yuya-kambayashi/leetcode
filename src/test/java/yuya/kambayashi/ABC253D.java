@@ -41,9 +41,37 @@ public class ABC253D {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final int n = sc.nextInt();
+        final long n = sc.nextLong();
+        final long a = sc.nextLong();
+        final long b = sc.nextLong();
+        long gcd = gcd(a, b);
+        long i = 1;
+        long multiGCD = 0;
+        while (true) {
 
-        System.out.println();
+            long t = i * gcd;
+            if (t % a != 0 && t % b != 0) {
+                i++;
+                continue;
+            }
+            if (t > n) {
+                break;
+            }
+            multiGCD += t;
+            i++;
+        }
+        System.out.println(((n * (n + 1)) / 2) - multiGCD);
+
+    }
+
+    public static long gcd(long a, long b) {
+        // bが0になるまで繰り返す
+        while (b != 0) {
+            long temp = b;
+            b = a % b; // aをbで割った余りをbに代入
+            a = temp; // bの値をaに代入
+        }
+        return a; // aが最大公約数
     }
 //}
 
@@ -62,7 +90,7 @@ public class ABC253D {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -77,21 +105,21 @@ public class ABC253D {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """
-                       
+                       15 4 6
                     """;
 
         String expected = """
-                          
+                          90
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC253D.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
-    
+
     // @Test
     public void Case4() {
 

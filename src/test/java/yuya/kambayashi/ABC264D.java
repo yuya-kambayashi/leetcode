@@ -41,9 +41,28 @@ public class ABC264D {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final int n = sc.nextInt();
+        final String s = sc.next();
+        int n = s.length();
 
-        System.out.println();
+        String atcoder = "atcoder";
+
+        char[] ta = s.toCharArray();
+        int cnt = 0;
+        for (int i = 0; i < s.length(); i++) {
+            char target = atcoder.charAt(i);
+            // a
+            String t = String.valueOf(ta);
+            int index = t.indexOf(target);
+            if (index != i) {
+                for (int j = index; j > i; j--) {
+                    ta[j] = ta[j - 1];
+                }
+                cnt += index - i;
+                ta[i] = target;
+            }
+        }
+
+        System.out.println(cnt);
     }
 //}
 
@@ -62,7 +81,7 @@ public class ABC264D {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
@@ -77,7 +96,7 @@ public class ABC264D {
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """
@@ -91,7 +110,7 @@ public class ABC264D {
         ABC264D.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
-    
+
     // @Test
     public void Case4() {
 
