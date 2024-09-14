@@ -43,8 +43,25 @@ public class ABC371B {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
+        final int m = sc.nextInt();
+        boolean[] hasTaro = new boolean[n];
+        for (int i = 0; i < m; i++) {
+            int t = sc.nextInt();
+            String s = sc.next();
 
-        System.out.println();
+            t--;
+            if (s.equals("M")) {
+                if (hasTaro[t]) {
+                    System.out.println("No");
+                } else {
+                    System.out.println("Yes");
+                    hasTaro[t] = true;
+                }
+            } else {
+                System.out.println("No");
+
+            }
+        }
     }
 //}
 
@@ -52,26 +69,46 @@ public class ABC371B {
     public void Case1() {
 
         String input = """
-                       
+                       2 4
+                       1 M
+                       1 M
+                       2 F
+                       2 M
                     """;
 
         String expected = """
-                          
+                          Yes
+                          No
+                          No
+                          Yes
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC371B.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
-                       
+                       4 7
+                       2 M
+                       3 M
+                       1 F
+                       4 F
+                       4 F
+                       1 F
+                       2 M
                     """;
 
         String expected = """
-                          
+                          Yes
+                          Yes
+                          No
+                          No
+                          No
+                          No
+                          No
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC371B.main(null);
