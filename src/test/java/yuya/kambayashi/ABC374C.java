@@ -42,8 +42,31 @@ public class ABC374C {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
+        int[] kk = new int[n];
+        for (int i = 0; i < n; i++) {
+            kk[i] = sc.nextInt();
+        }
+        Arrays.sort(kk);
 
-        System.out.println();
+        long ans = Long.MAX_VALUE;
+
+        for (int bit = 0; bit < 1 << n; bit++) {
+
+            long sumA = 0, sumB = 0;
+
+            for (int i = 0; i < n; i++) {
+                if ((bit & (1 << i)) > 0) {
+                    sumA += kk[i];
+                } else {
+                    sumB += kk[i];
+                }
+            }
+            long t = Math.max(sumA, sumB);
+            ans = Math.min(ans, t);
+
+        }
+
+        System.out.println(ans);
     }
 //}
 
@@ -51,41 +74,44 @@ public class ABC374C {
     public void Case1() {
 
         String input = """
-                       
+                       5
+                       2 3 5 10 12
                     """;
 
         String expected = """
-                          
+                          17
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC374C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
-                       
+                       2
+                       1 1
                     """;
 
         String expected = """
-                          
+                          1
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC374C.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    // @Test
+    @Test
     public void Case3() {
 
         String input = """
-                       
+                       6
+                       22 25 26 45 22 31
                     """;
 
         String expected = """
-                          
+                          89
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC374C.main(null);

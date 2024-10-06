@@ -41,9 +41,19 @@ public class ABC374A {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final int n = sc.nextInt();
+        String s = sc.next();
 
-        System.out.println();
+        char[] ca = s.toCharArray();
+        int n = s.length();
+        if (n < 3) {
+            System.out.println("No");
+            return;
+        }
+        if (ca[n - 1] == 'n' && ca[n - 2] == 'a' && ca[n - 3] == 's') {
+            System.out.println("Yes");
+        } else {
+            System.out.println("No");
+        }
     }
 //}
 
@@ -51,26 +61,26 @@ public class ABC374A {
     public void Case1() {
 
         String input = """
-                       
+                       takahashisan
                     """;
 
         String expected = """
-                          
+                          Yes
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC374A.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
-    //  @Test
+    @Test
     public void Case2() {
 
         String input = """
-                       
+                       aokikun
                     """;
 
         String expected = """
-                          
+                          No
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
         ABC374A.main(null);
