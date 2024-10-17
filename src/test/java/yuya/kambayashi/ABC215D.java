@@ -37,16 +37,62 @@ public class ABC215D {
 //import java.util.*;
 //import java.util.stream.*;
 //public class Main {
+    // https://atcoder.jp/contests/abc215/submissions/51170309
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         final int n = sc.nextInt();
+        final int m = sc.nextInt();
+        int[] aa = new int[n];
+        for (int i = 0; i < n; i++) {
+            aa[i] = sc.nextInt();
+        }
 
-        System.out.println();
+        boolean[] cop = new boolean[m + 1];
+        Arrays.fill(cop, true);
+
+        for (int a : aa) {
+            List<Integer> div = pfact(a);
+            for (int vv : div) {
+                if (vv > m || !cop[vv]) {
+                    continue;
+                }
+                int tmp = vv;
+                while (tmp <= m) {
+                    cop[tmp] = false;
+                    tmp += vv;
+                }
+            }
+        }
+        List<Integer> ans = new ArrayList<>();
+        for (int i = 1; i <= m; i++) {
+            if (cop[i]) {
+                ans.add(i);
+            }
+        }
+        System.out.println(ans.size());
+        for (int a : ans) {
+            System.out.println(a);
+
+        }
     }
-//}
 
+    public static List<Integer> pfact(int n) {
+        List<Integer> ret = new ArrayList<>();
+        for (int i = 2; i * i <= n; i++) {
+            while (n % i == 0) {
+                n /= i;
+                ret.add(i);
+            }
+        }
+        if (n != 1) {
+            ret.add(n);
+        }
+        return ret;
+    }
+
+//}
     @Test
     public void Case1() {
 
@@ -95,7 +141,7 @@ public class ABC215D {
         ABC215D.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
-    
+
     // @Test
     public void Case4() {
 
