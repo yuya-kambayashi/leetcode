@@ -17,7 +17,7 @@ import org.junit.jupiter.api.TestInstance;
  * @author kamba
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ABC218D {
+public class ABC376D {
 
     private StandardInputSnatcher in = new StandardInputSnatcher();
     private StandardOutputSnatcher out = new StandardOutputSnatcher();
@@ -37,94 +37,74 @@ public class ABC218D {
 //import java.util.*;
 //import java.util.stream.*;
 //public class Main {
+    // https://atcoder.jp/contests/abc376/submissions/59023257
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-
-        final int n = sc.nextInt();
-
-        List<Coord> cc = new ArrayList<>();
-        Set<Coord> cc2 = new HashSet<>();
-        for (int i = 0; i < n; i++) {
-            cc.add(new Coord(sc.nextInt(), sc.nextInt()));
-            cc2.add(cc.get(i));
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+        ArrayList<Edge>[] graph = new ArrayList[n + 1];
+        for (int i = 1; i <= n; i++) {
+            graph[i] = new ArrayList<>();
         }
+        for (int i = 0; i < m; i++) {
+            int src = sc.nextInt();
+            int dest = sc.nextInt();
+            graph[src].add(new Edge(src, dest));
+        }
+        int ans = bfs(graph, 1);
+        System.out.println(ans);
+    }
 
-        int cnt = 0;
+    static int bfs(ArrayList<Edge>[] graph, int src) {
+        Queue<Integer> q = new LinkedList<>();
+        boolean[] visited = new boolean[graph.length];
+        int[] dist = new int[graph.length];
+        q.add(src);
+        visited[src] = true;
+        dist[src] = 0;
 
-        HashSet<HashSet<Coord>> used = new HashSet<>();
-
-        for (int i = 0; i < n; i++) {
-            var c1 = cc.get(i);
-
-            for (int j = i + 1; j < n; j++) {
-                var c2 = cc.get(j);
-
-                if (c1.x == c2.x || c1.y == c2.y) {
-                    continue;
-                }
-
-                var c3 = new Coord(c1.x, c2.y);
-                var c4 = new Coord(c2.x, c1.y);
-
-                if (cc2.contains(c3) && cc2.contains(c4)) {
-
-                    HashSet<Coord> uu = new HashSet<>();
-                    uu.add(c1);
-                    uu.add(c2);
-                    uu.add(c3);
-                    uu.add(c4);
-
-                    if (!used.contains(uu)) {
-                        cnt++;
-                        used.add(uu);
-                    }
+        while (!q.isEmpty()) {
+            int curr = q.poll();
+            for (Edge e : graph[curr]) {
+                if (!visited[e.dest]) {
+                    visited[e.dest] = true;
+                    dist[e.dest] = dist[curr] + 1;
+                    q.add(e.dest);
+                } else if (e.dest == src) {
+                    return dist[curr] + 1;
                 }
             }
         }
-        System.out.println(cnt);
-
+        return -1;
     }
 
-    static class Coord {
+    static class Edge {
 
-        int x, y;
+        int src, dest;
 
-        public Coord(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        public int hashCode() {
-            return 31 * x + y;
-        }
-
-        public boolean equals(Object obj) {
-            Coord other = (Coord) obj;
-
-            return this.x == other.x && this.y == other.y;
+        public Edge(int src, int dest) {
+            this.src = src;
+            this.dest = dest;
         }
     }
+
 //}
-
     @Test
     public void Case1() {
 
         String input = """
-                       6
-0 0
-0 1
-1 0
-1 1
-2 0
-2 1
+                       3 3
+                       1 2
+                       2 3
+                       3 1
                     """;
 
         String expected = """
                           3
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC218D.main(null);
+        ABC376D.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
@@ -132,18 +112,16 @@ public class ABC218D {
     public void Case2() {
 
         String input = """
-                       4
-0 1
-1 2
-2 3
-3 4
+                       3 2
+                       1 2
+                       2 3
                     """;
 
         String expected = """
-                          0
+                          -1
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC218D.main(null);
+        ABC376D.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
@@ -151,21 +129,23 @@ public class ABC218D {
     public void Case3() {
 
         String input = """
-                       7
-0 1
-1 0
-2 0
-2 1
-2 2
-3 0
-3 2
+                       6 9
+                       6 1
+                       1 5
+                       2 6
+                       2 1
+                       3 6
+                       4 2
+                       6 4
+                       3 5
+                       5 4
                     """;
 
         String expected = """
-                          1
+                          4
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC218D.main(null);
+        ABC376D.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
@@ -180,7 +160,7 @@ public class ABC218D {
                           
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC218D.main(null);
+        ABC376D.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 }
