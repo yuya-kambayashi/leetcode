@@ -17,7 +17,7 @@ import org.junit.jupiter.api.TestInstance;
  * @author kamba
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ABC218D {
+public class ABC375D {
 
     private StandardInputSnatcher in = new StandardInputSnatcher();
     private StandardOutputSnatcher out = new StandardOutputSnatcher();
@@ -41,69 +41,52 @@ public class ABC218D {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        final int n = sc.nextInt();
+        final String s = sc.next();
+        if (s.length() < 3) {
 
-        List<Coord> cc = new ArrayList<>();
-        Set<Coord> cc2 = new HashSet<>();
-        for (int i = 0; i < n; i++) {
-            cc.add(new Coord(sc.nextInt(), sc.nextInt()));
-            cc2.add(cc.get(i));
+            System.out.println(0);
+            return;
         }
 
-        int cnt = 0;
+        Map<Character, List<Integer>> map = new HashMap<>();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (map.containsKey(c)) {
+                var l = map.get(c);
+                l.add(i);
+                map.put(c, l);
+            } else {
+                var l = new ArrayList<Integer>();
+                l.add(i);
+                map.put(c, l);
+            }
+        }
+        long ans = 0;
+        for (var entry : map.entrySet()) {
+            var values = entry.getValue();
+            if (values.size() < 2) {
+                continue;
+            }
 
-        HashSet<HashSet<Coord>> used = new HashSet<>();
-
-        for (int i = 0; i < n; i++) {
-            var c1 = cc.get(i);
-
-            for (int j = i + 1; j < n; j++) {
-                var c2 = cc.get(j);
-
-                if (c1.x == c2.x || c1.y == c2.y) {
+            for (int i = 0; i < values.size(); i++) {
+                int v = values.get(i);
+                if (v >= s.length() - 2) {
                     continue;
                 }
 
-                var c3 = new Coord(c1.x, c2.y);
-                var c4 = new Coord(c2.x, c1.y);
-
-                if (cc2.contains(c3) && cc2.contains(c4)) {
-
-                    HashSet<Coord> uu = new HashSet<>();
-                    uu.add(c1);
-                    uu.add(c2);
-                    uu.add(c3);
-                    uu.add(c4);
-
-                    if (!used.contains(uu)) {
-                        cnt++;
-                        used.add(uu);
+                for (int j = i + 1; j < values.size(); j++) {
+                    if (v == values.get(j) && v == values.get(j + 1)) {
+                        ans++;
+                    } else {
+                        if (v != values.get(j) - 1) {
+                            ans += (values.get(j) - v - 1);
+                        }
                     }
                 }
             }
         }
-        System.out.println(cnt);
+        System.out.println(ans);
 
-    }
-
-    static class Coord {
-
-        int x, y;
-
-        public Coord(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        public int hashCode() {
-            return 31 * x + y;
-        }
-
-        public boolean equals(Object obj) {
-            Coord other = (Coord) obj;
-
-            return this.x == other.x && this.y == other.y;
-        }
     }
 //}
 
@@ -111,20 +94,14 @@ public class ABC218D {
     public void Case1() {
 
         String input = """
-                       6
-0 0
-0 1
-1 0
-1 1
-2 0
-2 1
+                       ABCACC
                     """;
 
         String expected = """
-                          3
+                          5
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC218D.main(null);
+        ABC375D.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
@@ -132,18 +109,14 @@ public class ABC218D {
     public void Case2() {
 
         String input = """
-                       4
-0 1
-1 2
-2 3
-3 4
+                       OOOOOOOO
                     """;
 
         String expected = """
-                          0
+                          56
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC218D.main(null);
+        ABC375D.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
@@ -151,21 +124,14 @@ public class ABC218D {
     public void Case3() {
 
         String input = """
-                       7
-0 1
-1 0
-2 0
-2 1
-2 2
-3 0
-3 2
+                       XYYXYYXYXXX
                     """;
 
         String expected = """
-                          1
+                          75
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC218D.main(null);
+        ABC375D.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 
@@ -180,7 +146,7 @@ public class ABC218D {
                           
                           """;
         Stream.of(input.split("\\n")).map(s -> s.trim()).forEach(s -> in.inputln(s));
-        ABC218D.main(null);
+        ABC375D.main(null);
         Stream.of(expected.split("\\n")).map(s -> s.trim()).forEach(s -> assertThat(out.readLine().trim()).isEqualTo(s));
     }
 }
