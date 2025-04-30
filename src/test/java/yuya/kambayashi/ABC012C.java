@@ -41,6 +41,7 @@ public class ABC012C {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
+        
         final int n = sc.nextInt();
 
         int diff = 2025 - n;
@@ -69,7 +70,7 @@ public class ABC012C {
     public void Case1() {
 
         String input = """
-                       2013
+                       2013っっっs
                     """;
 
         String expected = """
